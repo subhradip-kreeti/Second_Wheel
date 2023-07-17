@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-lg-3">
+    <%=render 'dashboard/sidebar'%>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <label class="mb-3 h6">List of already available Brands</label>
+        <div class="list-container" style="height: 300px; overflow-y: auto;">
+          <div class="list-content">
+            <ul class="list-group" id='brand-list'>
+              <% @brand.each do |brand| %>
+              <li class="list-group-item"><%= brand.name %>
+                <a href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash ms-2 delete-brand-btn" data-brand-id="<%= brand.id %>" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                  </svg>
+                </a>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-3 ms-5 ps-5">
+        <label class="mb-3 h6 ps-4">Add new Brand</label>
+        <div class="container">
+          <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="brand-input" placeholder="Enter Brand Name">
+            </div>
+            <button class="btn btn-primary" id="add-brand-btn">Add Brand</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.delete-brand-btn').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      var brandId = this.getAttribute('data-brand-id');
+      $.ajax({
+        url: '/delete_brand/' + brandId,
+        method: 'DELETE',
+        data: {
+          brand_id: brandId,
+          authenticity_token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+          event.target.closest('li').remove();
+          alert('Brand deleted successfully');
+        },
+        error: function(xhr, status, error) {
+          alert('Failed to delete Brand');
+        }
+      });
+    });
+  });
+
+  document.getElementById('add-brand-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    var brandSelect = document.getElementById('brand-input');
+    var selectedBrand = brandSelect.value;
+
+    if(selectedBrand == '')
+    {
+      alert("Enter some value in input");
+      return;
+    }
+
+    if (isBrandAlreadyPresent(selectedBrand)) {
+      alert("Brand already exists.");
+      document.getElementById('brand-input').value = '';
+      return;
+    }
+
+    $.ajax({
+      url: '/add_brand',
+      method: 'POST',
+      data: {
+        selected_brand: selectedBrand,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+        alert("Brand added successfully");
+        document.getElementById('brand-input').value = '';
+        var brandList = document.getElementById('brand-list');
+        var listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.innerText = selectedBrand;
+        brandList.appendChild(listItem);
+      },
+      error: function(xhr, status, error) {
+        alert("Failed to add Brand");
+      }
+    });
+  });
+
+  function isBrandAlreadyPresent(brand) {
+    var brandList = document.getElementById('brand-list');
+    var listItems = brandList.getElementsByTagName('li');
+    for (var i = 0; i < listItems.length; i++) {
+      var listItemText = listItems[i].innerText.toLowerCase();
+      if (listItemText.includes(brand.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+</script>

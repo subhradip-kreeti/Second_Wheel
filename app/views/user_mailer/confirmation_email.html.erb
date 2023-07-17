@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h1>Confirmation Email</h1>
+  <p>Welcome to the Second Wheel! Please confirm your email address by clicking the link below:</p>
+  <p> verify your email within 5 mins otherwise your verification link will expire </p>
+  <p><%= link_to 'Click me to Confirm Email', login_verify_url(token: @user.confirmation_token)%></p>
+  <p>If you did not sign up for an account, you can ignore this email.</p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<%@car.each do |car|%>
+      <%if session[:role]=='admin'%>
+        <%if car.price == nil %>
+          <div class="card me-3 ms-3 mb-4" style="width: 18rem;background-color: #eee;">
+            <%= image_tag car.image ,class:"card-img-top pt-2 img-fluid"%>
+            <div class="card-body">
+              <h5 class="card-title"> <%=car.brand.name%> <%= car.car_model.name%> </h5>
+              <p class="card-text"> <%= car.variant%>  <br> <%= car.kilometer_driven%> kms</p>
+              <p class="card-text"> Price : <%= car.price.present? ? car.price: "yet to update" %> </p>
+                <p class="card-text">  Condition: <%= car.condition.present? ? car.condition: "yet to update" %> </p>
+                <p> Available at : <br> <%= car.branch.name%> <br> <%= car.branch.city.name%> </p>
+              <div class="d-flex flex-row">
+                  <a type="button" class="btn btn-primary flex-fill me-1" target="blank" data-mdb-ripple-color="dark" href="/view_car/<%=car.id%>">
+                    Learn more
+                  </a>
+                  <%# <button type="button" class="btn btn-danger flex-fill ms-1">Buy now</button> %>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      <%else%>
+        <%if session[:role]=='buyer' && car.selling_appointment_status == 'Ready_for_Sell' && car.price != nil%>
+          <div class="card me-3 ms-3 mb-4" style="width: 18rem;background-color: #eee;">
+            <%= image_tag car.image ,class:"card-img-top pt-2 img-fluid"%>
+            <div class="card-body">
+              <h5 class="card-title"> <span id="brand-name"><%=car.brand.name%></span> <span id="model-name"><%= car.car_model.name%></span> </h5>
+              <p class="card-text"> <span id="variant"><%= car.variant%></span>  <br> <span id="km-driven"><%= car.kilometer_driven%> </span>Kms</p>
+              <p class="card-text"> Price : <span id="price"><%= car.price %></span></p>
+                <p class="card-text">  Condition: <span id="condition"><%= car.condition %></span>
+                <br> Registration Year : <span id="reg-year"><%= car.reg_year %></span> <br> Reistration State: <span id="reg-state"><%= car.reg_state %></span> <br>Available at : <span id="city-name"><%= car.branch.city.name%> </span>
+                </p>
+
+              <div class="d-flex flex-column justify-content-end">
+                  <a type="button" class="btn btn-primary flex-fill mb-2" target="blank" data-mdb-ripple-color="dark" href="/view_car/<%=car.id%>">
+                    view
+                  </a>
+                    <% if car.appointments.any? { |app| app.user_id == session[:user_id] } %>
+                      <button type="button" class="btn btn-danger flex-fill myModalBtn" data-car-id="<%= car.id %>" disabled>Appointment Booked</button>
+                    <% else %>
+                      <button type="button" class="btn btn-danger flex-fill myModalBtn" data-car-id="<%= car.id %>">Book appointment</button>
+                    <%end%>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+<%end%>

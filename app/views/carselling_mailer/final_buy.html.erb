@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+        color: #333333;
+      }
+
+      h6 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      .car-details {
+        margin-bottom: 20px;
+      }
+
+      .seller-details {
+        margin-bottom: 20px;
+      }
+
+      .branch-details {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h6>Congratulations! Your Car Has Been Bought Successfully</h6>
+    <p>Thank you for using Second Wheel to buy your dream car.</p>
+    <p>Wait for further communication from your chosen branch regarding delivery.</p>
+
+    <div class="car-details">
+      <strong>Car details:</strong>
+      <p><%= @car.brand.name %></p>
+      <p><%= @car.car_model.name %></p>
+      <p><%= @car.reg_no %></p>
+    </div>
+
+    <div class="seller-details">
+      <strong>Seller's details:</strong>
+      <p><%= @user.name %></p>
+      <p><%= @user.email %></p>
+      <p><%= @user.mobile_no %></p>
+    </div>
+
+    <div class="branch-details">
+      <h6>Branch details:</h6>
+      <p><%= @car.branch.name %></p>
+      <p><%= @car.branch.address %></p>
+      <p><%= @car.branch.map_link %></p>
+    </div>
+  </body>
+</html>

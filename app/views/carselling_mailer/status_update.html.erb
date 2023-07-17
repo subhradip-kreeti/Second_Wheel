@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+        color: #333333;
+      }
+
+      h6 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      .car-details {
+        margin-bottom: 20px;
+      }
+
+      .seller-details {
+        margin-bottom: 20px;
+      }
+
+      .branch-details {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h5>Status of Your appointment has been updated to : <strong> <%= @appointment.status %> </strong> </h5>
+
+    <div class="Appointment-details">
+      <strong>Appointment details:</strong>
+      <p> Appointment ID : <%= @appointment.appointment_id %></p>
+      <p> Appointment Booked for : <%= @appointment.car.reg_no %></p>
+      <p> Appointment Booked on : <%= @appointment.created_at %></p>
+      <p> Appointment asked on <%= @appointment.date %></p>
+      <p>Latest Status Updated on <%= @appointment.updated_at %></p>
+    </div>
+
+    <p>Thank you for using Second Wheel.</p>
+  </body>
+</html>

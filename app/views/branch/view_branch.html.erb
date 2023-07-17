@@ -1,0 +1,24 @@
+<% if session[:role] == 'buyer'%>
+  <%= link_to  "Back", buyer_feed_path ,class: "ms-2 mt-2"%>
+<%end%>
+<% if session[:role] == 'seller'%>
+  <%= link_to  "Back", seller_dashboard_path ,class: "ms-2 mt-2"%>
+<%end%>
+<%if session[:role] != 'admin'%>
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <%= render partial:"shared/branch"%>
+      </div>
+      <div class="col-md-5">
+        <label class="mb-3 h6">Enter your city and find nearest branch</label>
+        <%= form_with url: getlocation_path, method: :post do |form| %>
+          <%= form.text_field :place, value: params[:place], class: "form-control",style:"width:15vw;",required: true %>
+          <%= form.submit "submit" ,class: "btn btn-primary mt-2"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<%else%>
+  <%flash[:danger] = "You are not authorized to access this url"%>
+<%end%>

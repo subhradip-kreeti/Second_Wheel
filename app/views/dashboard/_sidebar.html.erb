@@ -1,0 +1,43 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light h-100" style="width: 280px;margin-top:-0.rem;">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <span class="fs-4">Admin Dashboard</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <%=link_to "Users",show_all_users_path , class:"nav-link link-dark #{"active" if (@active_window=="users")}" %>
+    </li>
+    <li>
+      <%=link_to "City",show_city_path , class:"nav-link link-dark #{"active" if (@active_window=="city")}" %>
+    </li>
+    <li>
+      <%=link_to "Brands",show_brand_path, class:"nav-link link-dark #{"active" if (@active_window=="brands")}"%>
+    </li>
+    <li>
+      <%=link_to "Model",show_car_model_path , class:"nav-link link-dark #{"active" if (@active_window=="model")}" %>
+    </li>
+    <li>
+      <%=link_to "Appointment",appointments_verification_path , class:"nav-link link-dark #{"active" if (@active_window=="appointment")}" %>
+    </li>
+    <li>
+      <%=link_to "Set Price",set_car_condition_path , class:"nav-link link-dark #{"active" if (@active_window=="car-condition")}" %>
+    </li>
+    <li>
+      <%=link_to "Branches",branches_path , class:"nav-link link-dark #{"active" if (@active_window=="branches")}"%>
+    </li>
+  </ul>
+  <hr>
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-2">
+      <strong><%=current_user.name%></strong>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser2">
+      <li><%=link_to "Profile",my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
+      <li><%=link_to "Update Info",edit_my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
+      <%# <li><a class="dropdown-item" href="#">Settings</a></li> %>
+      <li><hr class="dropdown-divider"></li>
+      <li><%= button_to "Logout", logout_path, class: "dropdown-item", method: :delete %></li>
+    </ul>
+  </div>
+</div>

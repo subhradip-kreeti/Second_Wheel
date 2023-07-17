@@ -1,0 +1,13 @@
+<label class="mb-3 h6">List of already available Branches</label>
+<div class="list-container" style="height: 300px; overflow-y: auto;">
+  <div class="list-content">
+    <ul class="list-group" id="model-list">
+      <% @branch.each do |branch| %>
+      <% city_name = City.find_by(id: branch.city_id) %>
+        <li class="list-group-item"><%= branch.name %> ( <%= city_name.name %> )
+          <a class="btn btn-info ms-2" href="branch_details/<%= branch.id %>" role="button">Details</a>
+      </li>
+      <% end %>
+    </ul>
+   </div>
+</div>

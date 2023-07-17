@@ -1,0 +1,131 @@
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <span class="text-danger font-weight-bold h4">S</span><span class="text-warning font-weight-bold h4">e</span><span class="text-success font-weight-bold h4">c</span><span class="text-primary font-weight-bold h4">o</span><span class="text-danger font-weight-bold h4">n</span><span class="text-warning font-weight-bold h4">d</span> <span class="text-danger font-weight-bold h4">W</span><span class="text-success font-weight-bold h4">h</span><span class="text-warning font-weight-bold h4">e</span><span class="text-primary font-weight-bold h4">e</span><span class="text-danger font-weight-bold h4">l</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%=link_to "Home",root_path,class:"nav-link active",aria_current:"page"%>
+          </li>
+          <% if logged_in? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                My account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%if session[:role] != 'admin'%>
+                  <li><a class="dropdown-item" href="/appointments">My appointment</a></li>
+                <%end%>
+                <li><a class="dropdown-item" href="#">Status</a></li>
+                <%# <li><a class="dropdown-item" href="#">Branches</a></li> %>
+                <li><hr class="dropdown-divider"></li>
+                <li><%=link_to "My profile",my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
+              </ul>
+            </li>
+          <% end %>
+            <%if logged_in? && session[:role] == 'buyer'%>
+              <li class="nav-item">
+                <%=link_to "My Dashboard",buyer_feed_path,class:"nav-link"%>
+              </li>
+              <%# <li class="nav-item">
+                <%=link_to "My Dashboard",buyer_dashboard_path,class:"nav-link "%>
+              <%# </li> %>
+              <li class="nav-item">
+                <%=link_to "Branch",view_branch_path,class:"nav-link "%>
+              </li>
+            <%elsif logged_in? && session[:role] == 'seller'%>
+              <li class="nav-item">
+              <%=link_to "My Dashboard",seller_dashboard_path,class:"nav-link"%>
+              </li>
+              <li class="nav-item">
+              <%=link_to "Sell car",add_new_car_path,class:"nav-link"%>
+              </li>
+              <li class="nav-item">
+                <%=link_to "Branch",view_branch_path,class:"nav-link "%>
+              </li>
+            <%elsif logged_in? && session[:role] == 'admin'%>
+              <li class="nav-item">
+                <%=link_to "My Dashboard",admin_dashboard_path,class:"nav-link"%>
+              </li>
+            <% end %>
+        </ul>
+        <% if !logged_in? %>
+          <div class="d-flex">
+            <%= link_to "Signup", signup_path, class: "btn btn-primary" %>
+            <%= link_to "Login", login_path, class: "btn btn-info ms-2" %>
+          </div>
+        <% else %>
+          <div class="notification me-3">
+              <div class="dropdown">
+                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-bell"></i>
+                  <% if logged_in? && current_user.notifications.where(status: false).count > 0 %>
+                    <span id="notification-count" class="badge rounded-pill badge-notification bg-warning" data-count="<%= current_user.notifications.where(status: false).count %>">
+                      <%= current_user.notifications.where(status: false).count %>
+                    </span>
+                  <% else %>
+                    <span id="notification-count" class="badge rounded-pill badge-notification bg-warning" data-count="0">0</span>
+                  <% end %>
+                </a>
+                <% if logged_in? && current_user.notifications.where(status: false).count>0%>
+                  <ul class="dropdown-menu" style="width:auto;height:auto;overflow:auto" id="notification-list" aria-labelledby="dropdownMenuButton1">
+                    <button class="btn btn-sm btn-primary mark-read" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
+                    <% current_user.notifications.where(status: false).each do |notification| %>
+                      <li class="notification-message"><%= notification.message %></li>
+                      <div class="dropdown-divider"></div>
+                    <% end %>
+                  </ul>
+                  <% elsif logged_in? && current_user.notifications.where(status: false).count == 0%>
+                    <ul class="dropdown-menu" style="width:auto;height:auto;overflow:auto" id="notification-list" aria-labelledby="dropdownMenuButton1">
+                    <button class="btn btn-sm btn-primary mark-read" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
+                    <li class="notification-message" id="no-notification">No Notification Yet</li>
+                    <div class="dropdown-divider"></div>
+                    </ul>
+                <% end %>
+            </div>
+          </div>
+          <div class="d-flex">
+            <p class="mt-2">Welcome, <%= current_user.name %> - <%= current_user.role %></p>
+            <%= button_to "Logout", logout_path, class: "btn btn-danger ms-2", method: :delete %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+<script>
+  document.getElementById('readbtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    var btnSelect = document.getElementById('readbtn');
+    var selectedBtn = btnSelect.value;
+
+    $.ajax({
+      url: '/markread',
+      method: 'POST',
+      data: {
+        selected_btn: selectedBtn,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+          // Update notification count to 0
+        var notificationCount = document.getElementById('notification-count');
+        if (notificationCount) {
+          notificationCount.innerText = '0';
+        }
+
+        // Hide the notification list
+        var notificationList = document.getElementById('notification-list');
+        if (notificationList) {
+          notificationList.style.display = 'none';
+        }
+      },
+      error: function(xhr, status, error) {
+        alert("Failed to mark as read");
+      }
+    });
+  });
+</script>

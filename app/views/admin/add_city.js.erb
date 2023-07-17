@@ -1,0 +1,10 @@
+<% if @city.persisted? %>
+  var cityList = document.getElementById('city-list');
+  var cityItem = document.createElement('li');
+  console.log(cityList)
+  cityItem.classList.add('list-group-item');
+  cityItem.innerHTML = '<%= @city.name %> (<%= @city.state %>)';
+  cityList.appendChild(cityItem);
+  document.getElementById('city-input').value = '';
+  document.getElementById('state-input').value = '';
+<% end %>

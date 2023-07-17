@@ -1,0 +1,23 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3"><%=@user_show.name%></h5>
+            <h6 class="my-3">role: <%=@user_show.role%></h6>
+            <p class="text-muted mb-1">Email : <%=@user_show.email%></p>
+            <p class="text-muted mb-4">Mobile : <%=@user_show.mobile_no%></p>
+            <div class="d-flex justify-content-center mb-2">
+              <%# <button type="button" class="btn btn-primary">Follow</button>
+              <button type="button" class="btn btn-outline-primary ms-1">Message</button> %>
+              <%=link_to "Update Profile",edit_my_profile_user_path(session[:user_id]),class:"btn btn-outline-primary ms-1"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

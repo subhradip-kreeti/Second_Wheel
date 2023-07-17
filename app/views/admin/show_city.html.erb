@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'dashboard/sidebar'%>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <label class="mb-3 h6">List of already available cities</label>
+        <div class="list-container" style="height: 300px; overflow-y: auto;">
+          <div class="list-content">
+            <ul class="list-group" id="city-list">
+              <% @city.each do |city| %>
+                <li class="list-group-item"><%= city.name %> ( <%= city.state %> )
+                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash ms-2 delete-city-btn" data-city-id="<%= city.id %>" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg></a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-3 ms-5 ps-5">
+        <label class="mb-3 h6 ps-4">Add new city</label>
+        <div class="container">
+          <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="city-input" placeholder="Enter city" required>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="state-input" placeholder="Enter state" required>
+            </div>
+            <button class="btn btn-primary" id="add-city-btn">Add City</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.delete-city-btn').forEach(function(button) {
+  button.addEventListener('click', function(event) {
+    event.preventDefault();
+    var cityId = this.getAttribute('data-city-id');
+    $.ajax({
+      url: '/delete_city/' + cityId,
+      method: 'DELETE',
+      data: {
+        city_id: cityId,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+        event.target.closest('li').remove();
+        alert('City deleted successfully');
+      },
+      error: function(xhr, status, error) {
+        alert('Failed to delete city');
+      }
+    });
+  });
+});
+
+</script>
+<script>
+  document.getElementById('add-city-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    var citySelect = document.getElementById('city-input');
+    var stateSelect = document.getElementById('state-input');
+    var selectedCity = citySelect.value;
+    var selectedState = stateSelect.value;
+    if(selectedCity == '' || selectedState == '')
+    {
+      alert("Enter values in Both fields");
+      return;
+    }
+    if (isCityAlreadyPresent(selectedCity)) {
+      alert("City already exists.");
+      document.getElementById('city-input').value = '';
+      document.getElementById('state-input').value = '';
+      return;
+    }
+
+    $.ajax({
+      url: '/add_city',
+      method: 'POST',
+      data: {
+        selected_city: selectedCity,
+        selected_state: selectedState,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+        alert("City added successfully");
+      },
+      error: function(xhr, status, error) {
+        alert("Failed to add city");
+      }
+    });
+  });
+
+  function isCityAlreadyPresent(city) {
+    var cityList = document.getElementById('city-list');
+    var listItems = cityList.getElementsByTagName('li');
+    for (var i = 0; i < listItems.length; i++) {
+      var listItemText = listItems[i].innerText.toLowerCase();
+      if (listItemText.includes(city.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+</script>

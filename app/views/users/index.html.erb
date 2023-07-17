@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-3">
+    <%=render 'dashboard/sidebar'%>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-md-6 mt-3">
+        <label for="user-select" class="h6">Select seller to make admin:</label>
+        <select class="form-select mt-2" id="user-select">
+          <% @user.each do |user| %>
+            <% if user.role != "admin" && user.is_verified == true %>
+              <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <button id="make-admin-btn" class="btn btn-primary mt-3">Make Admin</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('make-admin-btn').addEventListener('click', function() {
+    var userSelect = document.getElementById('user-select');
+    var selectedUser = userSelect.value;
+  $.ajax({
+  url: '/make_admin',
+  method: 'PATCH',
+  data: { selected_user_id: selectedUser, authenticity_token: $('meta[name="csrf-token"]').attr('content') },
+  success: function(response) {
+
+  },
+  error: function(xhr, status, error) {
+
+  }
+  });
+  });
+</script>

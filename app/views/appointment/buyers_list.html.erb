@@ -1,0 +1,92 @@
+<div class="container-fluid mt-4 me-2 ms-2">
+  <div class="row">
+    <div class="col-lg-3">
+      <p class="h6">Your appointment Details</p>
+      <div class="card bg-light pb-2 mt-4" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"> <%=@appointment.car.brand.name%> - <%=@appointment.car.car_model.name%></h5>
+          <h6 class="card-title"> <%=@appointment.car.reg_no%></h6>
+          <p class="card-text"> <%=%> </p>
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">appointment ID : <strong> <%=@appointment.appointment_id  %> </strong></li>
+          <li class="list-group-item">appointment Status : <strong> <%=@appointment.status  %> </strong></li>
+          <li class="list-group-item">appointment date : <strong> <%=@appointment.date%> </strong></li>
+          <li class="list-group-item">Created at: <strong><%= @appointment.created_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+          <li class="list-group-item">appointment Updated on: <br><strong><%= @appointment.updated_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <p class="h6 ms-3">Car Details</p>
+      <div class="card ms-3 mb-4 mt-4" style="width: 18rem;background-color: #eee;">
+        <div class="card-body">
+          <h5 class="card-title"> <%=@car.brand.name%> <%= @car.car_model.name%></h5>
+          <p class="card-text"> <%= @car.variant%>  <br> <%= @car.kilometer_driven%> kms</p>
+          <p class="card-text"> Price : <%= @car.price.present? ? @car.price: "yet to update" %> </p>
+          <p class="card-text">  Condition: <%= @car.condition.present? ? @car.condition: "yet to update" %> </p>
+          <p> Available at : <br> <%= @car.branch.name%> <br> <%= @car.branch.city.name%> </p>
+          <div class="d-flex flex-column">
+            <a type="button" class="btn btn-primary flex-fill mb-2" target="blank" data-mdb-ripple-color="dark" href="/view_car/<%=@car.id%>">
+              view
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <p class="h6 ms-5">Interested Buyer's List</p>
+      <div class="table-responsive ms-5 mt-4" style="width:30vw;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Buyer's Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @appointments.empty? || (@appointments.size == 1 && @appointments.first.user.role == 'seller') %>
+              <tr>
+                <td colspan="2">No Buyers yet. Check after a few days.</td>
+              </tr>
+            <% else %>
+              <% @appointments.each do |app| %>
+                <% if app.user.role == 'buyer' && app.status == 'Ready_to_Buy' %>
+                  <tr>
+                    <td><%= app.user.name %></td>
+                    <td class="d-flex flex-row">
+                      <%= button_to "Sell", "/appointment/buyers_list/final_sell/#{app.id}/#{@appointment.id}", method: :post, class: "btn btn-primary btn-sm me-2"%>
+                      <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#buyerProfileModal<%= app.user.id %>">Buyer's Profile</a>
+                    </td>
+                  </tr>
+                  <!-- Modal -->
+                  <div class="modal fade" id="buyerProfileModal<%= app.user.id %>" tabindex="-1" aria-labelledby="buyerProfileModalLabel<%= app.user.id %>" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="buyerProfileModalLabel<%= app.user.id %>">Buyer's Profile</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Add buyer's profile details here -->
+                          <p>Buyer's Name: <%= app.user.name %></p>
+                          <p>Buyer's Email: <%= app.user.email %></p>
+                          <p>Buyer's Mobile Number: <%= app.user.mobile_no %></p>
+                          <p>Buyer's verification completed on : <%= app.updated_at.localtime.strftime('%d %b, %Y, %l:%M %p')%></p>
+                          <!-- Add more details as needed -->
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

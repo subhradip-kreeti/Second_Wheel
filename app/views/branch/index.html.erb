@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'dashboard/sidebar'%>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-md-5 mt-3">
+           <%= render partial:"shared/branch"%>
+      </div>
+      <div class="col-md-4 mt-3 ms-5 ps-5">
+        <div class="container">
+          <form>
+            <div class="mb-3">
+              <label class="mb-3 h6">Add New Branch</label>
+              <br>
+              <label for="city-select" class="form-label">Select City:</label>
+              <select id="city-select" class="form-select">
+                <% @city.each do |city| %>
+                  <option class="city-name-input" value="<%= city.id %>"><%= city.name %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="branch-input" class="form-label">Enter Branch name:</label>
+              <input type="text" id="branch-input" class="form-control required" placeholder="branch name">
+            </div>
+            <div class="mb-3">
+              <label for="address-input" class="form-label">Enter Branch address:</label>
+              <input type="text" id="address-input" class="form-control required" placeholder="mention locality, road, landmark, pin">
+            </div>
+            <div class="mb-3">
+              <label for="maplink-input" class="form-label">Enter google map link:</label>
+              <input type="text" id="maplink-input" class="form-control required" placeholder="map link">
+            </div>
+            <div class="mb-3">
+              <label for="lat-input" class="form-label">Enter latitude of branch:</label>
+              <input type="text" id="lat-input" class="form-control required" placeholder="latitude of branch ex: 2.3522219">
+            </div>
+            <div class="mb-3">
+              <label for="long-input" class="form-label">Enter longitude of branch:</label>
+              <input type="text" id="long-input" class="form-control required" placeholder="longitude of branch ex: 48.856614">
+            </div>
+            <button class="btn btn-primary" id="add-branch-btn">Add Branch</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('add-branch-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    var citySelect = document.getElementById('city-select');
+    var selectedOption = citySelect.options[citySelect.selectedIndex];
+    var selectedCity = selectedOption.value;
+
+    var branchSelect = document.getElementById('branch-input');
+    var selectedBranch = branchSelect.value;
+
+    var addressSelect = document.getElementById('address-input');
+    var selectedAddress = addressSelect.value;
+
+    var mapSelect = document.getElementById('maplink-input');
+    var selectedMap = mapSelect.value;
+
+    var longSelect = document.getElementById('long-input');
+    var selectedLong = parseFloat(longSelect.value);
+
+    var latSelect = document.getElementById('lat-input');
+    var selectedLat = parseFloat(latSelect.value);
+
+    if(selectedCity && selectedBranch && selectedAddress && selectedMap && selectedLong && selectedLat && !isNaN(selectedLong) && !isNaN(selectedLat))
+    {
+      if (!((!isNaN(parseFloat(selectedLong))) && (!isNaN(parseFloat(selectedLat)))))
+      {
+        alert("Enter Latitude and Longitude in float ");
+        return;
+      }
+      $.ajax({
+        url: '/add_new_branch',
+        method: 'POST',
+        data: {
+          selected_city: selectedCity,
+          selected_branch: selectedBranch,
+          selected_address: selectedAddress,
+          selected_map: selectedMap,
+          selected_long: selectedLong,
+          selected_lat: selectedLat,
+          authenticity_token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+          var branchList = document.getElementById('model-list');
+          var newItem = document.createElement('li');
+          newItem.classList.add('list-group-item');
+          newItem.textContent = selectedBranch + ' ( ' + response.city_name + ' )';
+          branchList.appendChild(newItem);
+          alert("Branch added successfully");
+          citySelect.selectedIndex = 0;
+          branchSelect.value = '';
+          addressSelect.value = '';
+          mapSelect.value = '';
+          longSelect.value = '';
+          latSelect.value = '';
+        },
+        error: function(xhr, status, error) {
+          alert("Failed to add Branch");
+        }
+      });
+    }
+    else
+    {
+      alert("Some fields are missing or Latitude/Longitude is not a valid number");
+    }
+  });
+</script>

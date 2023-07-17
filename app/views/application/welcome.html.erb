@@ -1,0 +1,14 @@
+<%if session[:user_id]%>
+  <p> welcome <%=@email%></p>
+<%else%>
+  <p> welcome user </p>
+<%end%>
+
+
+
+<h1>Welcome !</h1>
+
+<p>Your email: <%= current_user.email %></p>
+<p>Your role: <%= current_user.role %></p>
+
+<p>You are now logged in.</p>

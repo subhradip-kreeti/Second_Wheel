@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-lg-3">
+    <%= render 'dashboard/sidebar'%>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <label class="mb-3 h6">List of already available Models</label>
+        <div class="list-container" style="height: 300px; overflow-y: auto;">
+          <div class="list-content">
+            <ul class="list-group" id="model-list">
+              <% @car.each do |car| %>
+                <%brand_name = Brand.find_by(id:car.brand_id)%>
+                <li class="list-group-item"><%= car.name %> ( <%= brand_name.name%> )
+                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash ms-2 delete-city-btn" data-city-id="<%= car.id %>" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg></a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+<div class="col-md-4 mt-3 ms-5 ps-5">
+  <div class="container">
+    <form id="add-model-form">
+      <div class="mb-3">
+        <label for="brand-select" class="form-label">Select Brand:</label>
+        <select id="brand-select" class="form-select">
+          <option selected disabled>Choose a brand</option>
+          <% @brand.each do |brand| %>
+            <option class="brand-name-input" value="<%= brand.id %>"><%= brand.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="model-input" class="form-label">Enter Car Model:</label>
+        <input type="text" id="model-input" class="form-control" placeholder="Enter Car Model">
+      </div>
+      <button class="btn btn-primary" id="add-model-btn">Add Car Model</button>
+    </form>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('add-model-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    var brandSelect = document.getElementById('brand-select');
+    var selectedBrand = brandSelect.value;
+    console.log(selectedBrand)
+    var modelSelect = document.getElementById('model-input');
+    var selectedModel = modelSelect.value;
+    if (selectedBrand === '' || selectedModel === '') {
+      alert('Some fields are blank');
+      return;
+    }
+
+    if (selectedBrand == 'Choose a brand') {
+      alert('Please select a brand');
+      return;
+    }
+
+    // Check if the same combination of brand and car model exists
+    var modelList = document.getElementById('model-list');
+    var existingModels = modelList.getElementsByTagName('li');
+    for (var i = 0; i < existingModels.length; i++) {
+      var modelName = existingModels[i].textContent.trim().split('(')[0].trim().toLowerCase();
+      if (modelName === selectedModel.toLowerCase()) {
+        alert('The car model is already available');
+        // Clear the form inputs
+        document.getElementById('brand-select').selectedIndex = 0;
+        document.getElementById('model-input').value = '';
+        return;
+      }
+    }
+
+    // Send an AJAX request to add the car model
+    $.ajax({
+      url: '/add_car_model',
+      method: 'POST',
+      data: {
+        selected_brand: selectedBrand,
+        selected_model: selectedModel,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+        var brandList = document.getElementById('model-list');
+        var newItem = document.createElement('li');
+        newItem.classList.add('list-group-item');
+        newItem.textContent = selectedModel + ' ( ' + response.brand_name + ' )';
+        brandList.appendChild(newItem);
+        alert('Car Model added successfully');
+
+        // Clear the form inputs
+        document.getElementById('add-model-form').reset();
+      },
+      error: function(xhr, status, error) {
+        alert('Failed to add Car Model');
+      }
+    });
+  });
+});
+
+</script>
