@@ -59,48 +59,48 @@ Branch.create!([
                  { name: 'Ambey Motors', address: 'Sukanta Pally,Jhawtala,Baguiati,700157', map_link: 'https://goo.gl/maps/HpTa37u9Qg113vfcA', longitude: '88.4356482', latitude: '22.6205977', city_id: 1 }
                ])
 
-car1 = Car.create(condition: 'Excellent', brand_id: 2, car_model_id: 6, user_id: 5, branch_id: 3, variant: 'Diesel',
-                  kilometer_driven: '10001-20000', reg_year: '2017', reg_state: 'jharkhand', price: '180000', selling_appointment_status: nil, reg_no: 'JH12A7845')
+car1 = Car.create!(condition: 'Excellent', brand_id: 2, car_model_id: 6, user_id: 5, branch_id: 3, variant: 'Diesel',
+                   kilometer_driven: '10001-20000', reg_year: '2017', reg_state: 'jharkhand', price: '180000', selling_appointment_status: nil, reg_no: 'JH12A7845')
 
 car1.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'baleno.jpeg')), filename: 'baleno.jpeg')
 
-car2 = Car.create(condition: 'Good', brand_id: 3, car_model_id: 7, user_id: 5, branch_id: 1, variant: 'Petrol',
-                  kilometer_driven: '10001-20000', reg_year: '2019', reg_state: 'uttar_pradesh', price: '130000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'UP14AX7896')
+car2 = Car.create!(condition: 'Good', brand_id: 3, car_model_id: 7, user_id: 5, branch_id: 1, variant: 'Petrol',
+                   kilometer_driven: '10001-20000', reg_year: '2019', reg_state: 'uttar_pradesh', price: '130000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'UP14AX7896')
 
 car2.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'xuv500.jpeg')), filename: 'xuv500.jpeg')
 
-car3 = Car.create(condition: 'Excellent', brand_id: 1, car_model_id: 3, user_id: 2, branch_id: 1, variant: 'Diesel',
-                  kilometer_driven: '20001-40000', reg_year: '2017', reg_state: 'gujarat', price: '180054', selling_appointment_status: 'Ready_for_Sell', reg_no: 'GJ12AT4517')
+car3 = Car.create!(condition: 'Excellent', brand_id: 1, car_model_id: 3, user_id: 2, branch_id: 1, variant: 'Diesel',
+                   kilometer_driven: '20001-40000', reg_year: '2017', reg_state: 'gujarat', price: '180054', selling_appointment_status: 'Ready_for_Sell', reg_no: 'GJ12AT4517')
 
 car3.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'safari.jpeg')), filename: 'safari.jpeg')
 
-car4 = Car.create(condition: 'Fair', brand_id: 3, car_model_id: 8, user_id: 5, branch_id: 3, variant: 'Petrol',
-                  kilometer_driven: '20001-40000', reg_year: '2015', reg_state: 'uttar_pradesh', price: '110000', selling_appointment_status: 'Sell_Pending', reg_no: 'UP14AX5241')
+car4 = Car.create!(condition: 'Fair', brand_id: 3, car_model_id: 8, user_id: 5, branch_id: 3, variant: 'Petrol',
+                   kilometer_driven: '20001-40000', reg_year: '2015', reg_state: 'uttar_pradesh', price: '110000', selling_appointment_status: 'Sell_Pending', reg_no: 'UP14AX5241')
 
 car4.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'thar.jpeg')), filename: 'thar.jpeg')
 
-car5 = Car.create(condition: nil, brand_id: 3, car_model_id: 8, user_id: 2, branch_id: 1, variant: 'Petrol',
-                  kilometer_driven: '1-10000', reg_year: '2022', reg_state: 'sikkim', price: nil, selling_appointment_status: nil, reg_no: 'SK14AX4523')
+car5 = Car.create!(condition: nil, brand_id: 3, car_model_id: 8, user_id: 2, branch_id: 1, variant: 'Petrol',
+                   kilometer_driven: '1-10000', reg_year: '2022', reg_state: 'sikkim', price: nil, selling_appointment_status: nil, reg_no: 'SK14AX4523')
 
 car5.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'thar2.jpeg')), filename: 'thar2.jpeg')
 
-car6 = Car.create(condition: 'Good', brand_id: 1, car_model_id: 1, user_id: 2, branch_id: 1, variant: 'Petrol',
-                  kilometer_driven: '1-10000', reg_year: '2018', reg_state: 'karnataka', price: '140000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'KN01AX7894')
+car6 = Car.create!(condition: 'Good', brand_id: 1, car_model_id: 1, user_id: 2, branch_id: 1, variant: 'Petrol',
+                   kilometer_driven: '1-10000', reg_year: '2018', reg_state: 'karnataka', price: '140000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'KN01AX7894')
 
 car6.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'tiago.jpg')), filename: 'tiago.jpg')
 
-car7 = Car.create(condition: 'Excellent', brand_id: 1, car_model_id: 4, user_id: 2, branch_id: 1, variant: 'CNG',
-                  kilometer_driven: 'above 60000', reg_year: '2005', reg_state: 'punjab', price: '180000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'PB17DZ7845')
+car7 = Car.create!(condition: 'Excellent', brand_id: 1, car_model_id: 4, user_id: 2, branch_id: 1, variant: 'CNG',
+                   kilometer_driven: 'above 60000', reg_year: '2005', reg_state: 'punjab', price: '180000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'PB17DZ7845')
 
 car7.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'Altroz.jpg')), filename: 'Altroz.jpg')
 
-car8 = Car.create(condition: 'Excellent', brand_id: 2, car_model_id: 5, user_id: 5, branch_id: 1, variant: 'Petrol',
-                  kilometer_driven: '1-10000', reg_year: '2022', reg_state: 'sikkim', price: '180000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'SK01QT1245')
+car8 = Car.create!(condition: 'Excellent', brand_id: 2, car_model_id: 5, user_id: 5, branch_id: 1, variant: 'Petrol',
+                   kilometer_driven: '1-10000', reg_year: '2022', reg_state: 'sikkim', price: '180000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'SK01QT1245')
 
 car8.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'dezire.jpeg')), filename: 'dezire.jpeg')
 
-car9 = Car.create(condition: 'Good', brand_id: 1, car_model_id: 2, user_id: 2, branch_id: 4, variant: 'Diesel',
-                  kilometer_driven: '40001-60000', reg_year: '2019', reg_state: 'west_bengal', price: '130000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'WB18AZ0245')
+car9 = Car.create!(condition: 'Good', brand_id: 1, car_model_id: 2, user_id: 2, branch_id: 4, variant: 'Diesel',
+                   kilometer_driven: '40001-60000', reg_year: '2019', reg_state: 'west_bengal', price: '130000', selling_appointment_status: 'Ready_for_Sell', reg_no: 'WB18AZ0245')
 
 car9.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nexon.jpeg')), filename: 'nexon.jpeg')
 

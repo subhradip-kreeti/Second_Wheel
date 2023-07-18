@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # car model
-# rubocop:disable Metrics/ClassLength, Layout/LineLength , Metrics/MethodLength, Style/IfUnlessModifier
+# rubocop:disable Metrics/ClassLength, Layout/LineLength , Metrics/MethodLength
 class Car < ApplicationRecord
   include CarHelper
   include Elasticsearch::Model
@@ -92,13 +92,10 @@ class Car < ApplicationRecord
   end
 
   def validate_image_format
-    if image.attached?
-      unless image.content_type.starts_with?('image/')
-        errors.add(:image, 'file must be an image')
-      end
-    else
-      errors.add(:image, 'must be present')
-    end
+    return unless image.attached?
+    return if image.content_type.starts_with?('image/')
+
+    errors.add(:image, 'file must be an image')
   end
 
   def self.index_data
@@ -161,4 +158,4 @@ class Car < ApplicationRecord
     response.records
   end
 end
-# rubocop:enable Metrics/ClassLength, Layout/LineLength , Metrics/MethodLength, Style/IfUnlessModifier
+# rubocop:enable Metrics/ClassLength, Layout/LineLength , Metrics/MethodLength

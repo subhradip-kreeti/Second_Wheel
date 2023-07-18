@@ -28,7 +28,7 @@ class TwilioClient
 
   def auth_token
     # Rails.application.credentials.twilio[:auth_token]
-    '3fc01ce159d74a8b783cbed80bb14453'
+    '10860e324d4ef42ce520c6532e28304b'
   end
 
   def phone_number
