@@ -50,8 +50,10 @@ Rails.application.configure do
     port: 587,
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: Rails.application.credentials.dig(:smtp, :username),
-    password: Rails.application.credentials.dig(:smtp, :password),
+    # user_name: Rails.application.credentials.dig(:smtp, :username),
+    user_name: 'secondwheelinfo@gmail.com',
+    # password: Rails.application.credentials.dig(:smtp, :password),
+    password: 'yertbtybxiizvfna',
     domain: 'smtp.gmail.com',
     openssl_verify_mode: 'none'
   }

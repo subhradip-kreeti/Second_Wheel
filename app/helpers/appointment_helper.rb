@@ -45,11 +45,8 @@ module AppointmentHelper
   end
 
   def handle_successfull_sell_appointment(app, seller_appointment, appointment)
-    # binding.pry
     @success_sell_appointment = Appointment.find_by(id: app.id)
-    # binding.pry
     @success_sell_appointment.update(status: 'Sold')
-    # binding.pry
     car_id = @success_sell_appointment.car_id
     car = Car.find_by(id: car_id)
     car.update(selling_appointment_status: 'Sold')

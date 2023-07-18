@@ -22,14 +22,17 @@ class TwilioClient
   private
 
   def account_sid
-    Rails.application.credentials.twilio[:account_sid]
+    # Rails.application.credentials.twilio[:account_sid]
+    'AC0475b1cad848be1ac8dee5520afdc710'
   end
 
   def auth_token
-    Rails.application.credentials.twilio[:auth_token]
+    # Rails.application.credentials.twilio[:auth_token]
+    '3fc01ce159d74a8b783cbed80bb14453'
   end
 
   def phone_number
-    Rails.application.credentials.twilio[:phone_number]
+    # Rails.application.credentials.twilio[:phone_number]
+    '+15419379403'
   end
 end
