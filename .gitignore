@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 error_fix.md
-
+passwords.txt
 # Ignore bundler config.
 /.bundle
 

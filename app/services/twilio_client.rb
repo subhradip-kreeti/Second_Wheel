@@ -23,16 +23,16 @@ class TwilioClient
 
   def account_sid
     # Rails.application.credentials.twilio[:account_sid]
-    'AC0475b1cad848be1ac8dee5520afdc710'
+    'account_sid' # replace sid from passwords.txt
   end
 
   def auth_token
     # Rails.application.credentials.twilio[:auth_token]
-    '10860e324d4ef42ce520c6532e28304b'
+    'auth_token' # replace auth_token from passwords.txt
   end
 
   def phone_number
     # Rails.application.credentials.twilio[:phone_number]
-    '+15419379403'
+    'phone_number' # replace phone_number from passwords.txt
   end
 end

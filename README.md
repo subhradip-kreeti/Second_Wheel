@@ -22,6 +22,8 @@ application up and running.
 
 ```rails webpacker:compile```
 
+**make sure to start elasticsearch server before seeding the database**
+
 ```rails db:create```
 
 ```rails db:migrate```
@@ -34,6 +36,18 @@ subhradip.barik@kreeti.com  (admin)
 
 bariksubhradip@gmail.com  (seller)
 
+bppit.11500219056@gmail.com (seller)
 
+subhradip.it219056@bppimt.ac.in (buyer)
 
+subhradipbarik2206@gmail.com (buyer)
 
+## Account Password
+
+subhradip123
+** same password for each account
+
+## Twilio Client setup ( for sms sending )
+
+follow passwords.txt for details
+look at : app/services/twilio_client.rb
