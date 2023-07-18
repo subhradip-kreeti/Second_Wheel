@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-3">
+      <%= form_tag(find_status_path, method: :post) do %>
+        <div class="form-group">
+          <%= label_tag :status_input, "Enter Appointment ID to know status",class: "mb-2" %>
+          <%= text_field_tag :status_input, nil, class: "form-control" %>
+        </div>
+        <%= submit_tag "Check Status", class: "btn btn-primary mt-4" %>
+      <% end %>
+    </div>
+  <% if @show_template%>
+    <div class="col-lg-3">
+      <table class="table">
+        <tr>
+          <th>Appointment Status:</th>
+        </tr>
+        <tr>
+          <td><strong><%= @appointment.status %></strong></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <div class="card bg-light pb-2 me-4 mb-3" style="width: 18rem;" data-status="<%= @appointment.status %>" data-car-brand="<%= @appointment.car.brand.name %>" data-car-model="<%= @appointment.car.car_model.name %>" data-created-date="<%= @appointment.created_at.strftime('%Y%m%d%H%M%S') %>" data-appointment-date="<%= @appointment.date.strftime('%Y%m%d%H%M%S') %>">
+        <div class="card-body">
+          <h5 class="card-title"> <%= @appointment.car.brand.name %> - <%= @appointment.car.car_model.name %></h5>
+          <h6 class="card-title"> <%= @appointment.car.reg_no %></h6>
+          <h6 class="card-text">Appointment ID: <%= @appointment.appointment_id %></h6>
+        </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Appointment Status: <strong><%= @appointment.status %></strong></li>
+        <li class="list-group-item">Appointment Date: <strong><%= @appointment.date.strftime('%d %b, %Y') %></strong></li>
+        <li class="list-group-item">Created At: <strong><%= @appointment.created_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+        <li class="list-group-item">Appointment Updated On: <br><strong><%= @appointment.updated_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+      </ul>
+      </div>
+    </div>
+  <%end%>
+  </div>
+</div>

@@ -71,7 +71,8 @@ Rails.application.routes.draw do
   get 'appointments/buyers_list/:id', to: 'appointment#buyers_list'
   post 'appointment/buyers_list/final_sell/:id/:sell_appointment', to: 'appointment#final_sell'
   post 'markread', to: 'appointment#markread'
-
+  get 'find_status', to: 'appointment#status_check'
+  post 'find_status', to: 'appointment#find_status'
   # resources :users
   resources :users, except: [:destroy] do
     get 'my_profile', to: 'users#show', on: :member

@@ -60,6 +60,34 @@ module AppointmentHelper
     send_notification(notification) if notification.save
   end
 
+  def valid_appointment_id(id)
+    Appointment.exists?(appointment_id: id)
+  end
+
+  def check_if_user_own_that_appointment(id)
+    appointment = Appointment.find_by(appointment_id: id)
+    appointment.user_id == session[:user_id]
+  end
+
+  def find_targeted_appointment(id)
+    @appointment = Appointment.find_by(appointment_id: id)
+  end
+
+  def handle_successfull_appointment_status_finding(id)
+    find_targeted_appointment(id)
+    flash[:success] = 'success'
+    @show_template = true
+  end
+
+  def handle_valid_appointments_status_checking(id)
+    if check_if_user_own_that_appointment(id)
+      handle_successfull_appointment_status_finding(id)
+    else
+      flash[:danger] = "You are not allowed to check someone else's appointment status"
+      redirect_to find_status_path
+    end
+  end
+
   def send_notification(notification)
     ActionCable.server.broadcast(
       "RoomChannel_#{notification.user_id}", {

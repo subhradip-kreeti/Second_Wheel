@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-4">
+      <%= form_tag(find_status_path, method: :post) do %>
+        <div class="form-group">
+          <%= label_tag :status_input, "Enter Appointment ID to know status",class: "mb-2" %>
+          <%= text_field_tag :status_input, nil, class: "form-control" %>
+        </div>
+        <%= submit_tag "Check Status", class: "btn btn-primary mt-4" %>
+      <% end %>
+    </div>
+  </div>
+</div>

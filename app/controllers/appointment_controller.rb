@@ -74,6 +74,19 @@ class AppointmentController < ApplicationController
     notifications.update(status: true)
   end
 
+  def status_check; end
+
+  def find_status
+    id = params[:status_input]
+    @show_template = false
+    if valid_appointment_id(id)
+      handle_valid_appointments_status_checking(id)
+    else
+      flash[:danger] = 'Invalid Appointment ID. Try again!'
+      redirect_to find_status_path
+    end
+  end
+
   private
 
   def generate_appointment_id(user_id, car_id)

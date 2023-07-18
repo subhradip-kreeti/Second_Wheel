@@ -19,9 +19,8 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <%if session[:role] != 'admin'%>
                   <li><a class="dropdown-item" href="/appointments">My appointment</a></li>
+                  <li><a class="dropdown-item" href="/find_status">Status</a></li>
                 <%end%>
-                <li><a class="dropdown-item" href="#">Status</a></li>
-                <%# <li><a class="dropdown-item" href="#">Branches</a></li> %>
                 <li><hr class="dropdown-divider"></li>
                 <li><%=link_to "My profile",my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
               </ul>
