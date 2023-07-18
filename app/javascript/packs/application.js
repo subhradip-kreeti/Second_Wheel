@@ -11,6 +11,7 @@ import "channels"
 // import "leaflet.awesome-markers"
 //= require leaflet
 //= require leaflet.awesome-markers
+// require("packs/show_brand")
 
 Rails.start()
 Turbolinks.start()

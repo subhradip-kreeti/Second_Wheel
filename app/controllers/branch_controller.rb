@@ -17,9 +17,9 @@ class BranchController < ApplicationController
   end
 
   def create
+    getting_values_from_params_for_branch
     @branch = Branch.create(city_id: @city, name: @name,
                             address: @address, map_link: @map_link, latitude: @latitude, longitude: @longitude)
-    getting_values_from_params_for_branch
     selected_city_name = City.find_by(id: params[:selected_city])&.name
     render json: { city_name: selected_city_name }
   end

@@ -8,11 +8,6 @@ class CarController < ApplicationController
   before_action :require_buyer, only: [:index]
   def new
     @car = Car.new
-    if @car.save
-      redirect_to car_path(@car)
-    else
-      render :new
-    end
   end
 
   def create

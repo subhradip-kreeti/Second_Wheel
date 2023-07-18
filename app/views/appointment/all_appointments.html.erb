@@ -47,7 +47,7 @@
   <div class="row ms-5 me-5 mt-4 mb-3">
     <%@appointments.each do |app|%>
       <% if app.user.id == session[:user_id] %>
-  <div class="card bg-light pb-2 me-4" style="width: 18rem;" data-status="<%= app.status %>" data-car-brand="<%= app.car.brand.name %>" data-car-model="<%= app.car.car_model.name %>" data-created-date="<%= app.created_at.strftime('%Y%m%d%H%M%S') %>" data-appointment-date="<%= app.date.strftime('%Y%m%d%H%M%S') %>">
+  <div class="card bg-light pb-2 me-4 mb-3" style="width: 18rem;" data-status="<%= app.status %>" data-car-brand="<%= app.car.brand.name %>" data-car-model="<%= app.car.car_model.name %>" data-created-date="<%= app.created_at.strftime('%Y%m%d%H%M%S') %>" data-appointment-date="<%= app.date.strftime('%Y%m%d%H%M%S') %>">
     <div class="card-body">
       <h5 class="card-title"> <%= app.car.brand.name %> - <%= app.car.car_model.name %></h5>
       <h6 class="card-title"> <%= app.car.reg_no %></h6>

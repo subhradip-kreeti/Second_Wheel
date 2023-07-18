@@ -51,7 +51,7 @@
       var regYear = document.getElementById('reg-year-select').value;
       var variant = document.getElementById('variant-select').value;
       var regState = document.getElementById('reg-state-select').value;
-      var kilometerDriven = document.getElementById('kilometer-driven-select').value;
+      var kilometerDriven = document.getElementById('kilometer-driven-select').value.trim();
 
       var cards = document.getElementsByClassName('card');
       for (var i = 0; i < cards.length; i++) {
@@ -78,7 +78,7 @@
         if (regState && card.querySelector('#reg-state').textContent !== regState) {
           shouldDisplay = false;
         }
-        if (kilometerDriven && card.querySelector('#km-driven').textContent !== kilometerDriven) {
+        if (kilometerDriven && card.querySelector('#km-driven').textContent.trim() !== kilometerDriven) {
           shouldDisplay = false;
         }
 
