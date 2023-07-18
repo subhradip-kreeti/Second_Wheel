@@ -16,6 +16,12 @@ application up and running.
 
 ## setup instruction:
 
+```rails webpacker:install```
+
+### then remove the babel.config.js
+
+```rails webpacker:compile```
+
 ```rails db:create```
 
 ```rails db:migrate```
