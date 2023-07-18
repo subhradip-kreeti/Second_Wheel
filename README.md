@@ -14,6 +14,8 @@ application up and running.
 
 * Yarn Version -> 1.22.19
 
+* database used -> postgresql
+
 ## setup instruction:
 
 ```rails webpacker:install```
