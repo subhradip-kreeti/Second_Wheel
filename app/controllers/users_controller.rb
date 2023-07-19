@@ -54,6 +54,16 @@ class UsersController < ApplicationController
     respond_to(&:js)
   end
 
+  def delete_user
+    selected_user_id = params[:selected_user_id]
+    user = User.find_by(id: selected_user_id)
+
+    return unless user.destroy
+
+    redirect_to show_all_users_path
+    flash[:warning] = "User #{user.email} deleted successfully"
+  end
+
   private
 
   def user_params

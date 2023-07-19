@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'confirm_email', to: 'users#confirm_email'
   get 'show_all_users', to: 'users#index'
   patch 'make_admin', to: 'users#make_admin'
+  delete 'delete_user', to: 'users#delete_user'
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'

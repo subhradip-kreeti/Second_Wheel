@@ -7,7 +7,7 @@ class CarsellingMailer < ApplicationMailer
     @car = car
     @buyer = buyer
 
-    mail(to: @user.email, subject: 'Congradulations ! Your Car Has Been Sold Successfully')
+    mail(to: @user.email, subject: 'Congratulations ! Your Car Has Been Sold Successfully')
   end
 
   def cancel_sell(user)
@@ -20,7 +20,7 @@ class CarsellingMailer < ApplicationMailer
     @car = car
     @buyer = buyer
 
-    mail(to: @buyer.email, subject: 'Congradulations ! Your Car Has Been Bought Successfully')
+    mail(to: @buyer.email, subject: 'Congratulations ! Your Car Has Been Bought Successfully')
   end
 
   def status_update(user, appoinment)

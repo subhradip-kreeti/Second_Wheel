@@ -1,12 +1,16 @@
 <div class="row">
+  <!-- Sidebar (left side) -->
   <div class="col-lg-3">
     <%=render 'dashboard/sidebar'%>
   </div>
+
+  <!-- Main content (right side) -->
   <div class="col-lg-9">
+    <!-- "Make Admin" section -->
     <div class="row">
-      <div class="col-md-6 mt-3">
-        <label for="user-select" class="h6">Select seller to make admin:</label>
-        <select class="form-select mt-2" id="user-select">
+      <div class="col-md-12 mt-3">
+        <label for="user-select" class="h6">Select User to make admin:</label>
+        <select class="form-select mt-2" id="user-select" style="width:40vw;">
           <% @user.each do |user| %>
             <% if user.role != "admin" && user.is_verified == true %>
               <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
@@ -15,24 +19,33 @@
         </select>
       </div>
     </div>
-    <button id="make-admin-btn" class="btn btn-primary mt-3">Make Admin</button>
+
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <button id="make-admin-btn" class="btn btn-primary">Make Admin</button>
+      </div>
+    </div>
+
+    <!-- "Delete User" section -->
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <label for="user-select" class="h6 text-danger">Select User to Delete permanently:</label>
+        <select class="form-select mt-2" id="user-select-for-delete" style="width:40vw;">
+          <% @user.each do |user| %>
+            <% if user.role != "admin" && user.is_verified == true %>
+              <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mt-3">
+        <button id="delete-user-btn" class="btn btn-danger">Delete User</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<script>
-  document.getElementById('make-admin-btn').addEventListener('click', function() {
-    var userSelect = document.getElementById('user-select');
-    var selectedUser = userSelect.value;
-  $.ajax({
-  url: '/make_admin',
-  method: 'PATCH',
-  data: { selected_user_id: selectedUser, authenticity_token: $('meta[name="csrf-token"]').attr('content') },
-  success: function(response) {
-
-  },
-  error: function(xhr, status, error) {
-
-  }
-  });
-  });
-</script>
+<%= javascript_pack_tag 'user_index', 'data-turbolinks-track': 'reload' %>

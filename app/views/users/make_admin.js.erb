@@ -8,5 +8,17 @@ selectedOptions.forEach(function(option) {
     option.remove();
   }
 });
+
+var userSelect = document.getElementById('user-select-for-delete');
+var selectedUserId = "<%= params[:selected_user_id] %>";
+var selectedOptions = userSelect.querySelectorAll("option");
+selectedOptions.forEach(function(option) {
+  console.log(option)
+  if (option.value === selectedUserId) {
+
+    option.remove();
+  }
+});
+
 console.log(selectedOptions);
-alert('Successfully made the user an admin js file.');
+alert('Successfully made the user an admin.');
