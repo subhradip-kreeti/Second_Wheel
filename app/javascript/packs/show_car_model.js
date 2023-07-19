@@ -1,4 +1,28 @@
 console.log("show-car-model js loaded")
+
+document.querySelectorAll('.delete-car-model-btn').forEach(function(button) {
+  button.addEventListener('click', function(event) {
+    console.log(" i am triggered")
+    event.preventDefault();
+    var carModelId = this.getAttribute('data-car-model-id');
+    $.ajax({
+      url: '/delete_car_model/' + carModelId,
+      method: 'DELETE',
+      data: {
+        carModelId: carModelId,
+        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(response) {
+        event.target.closest('li').remove();
+        alert('Brand deleted successfully');
+      },
+      error: function(xhr, status, error) {
+        alert('Failed to delete Brand');
+      }
+    });
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('add-model-btn').addEventListener('click', function(event) {
     event.preventDefault();
@@ -50,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Clear the form inputs
         document.getElementById('add-model-form').reset();
+        location.reload()
       },
       error: function(xhr, status, error) {
         alert('Failed to add Car Model');

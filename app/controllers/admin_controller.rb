@@ -56,5 +56,13 @@ class AdminController < ApplicationController
     render json: { brand_name: selected_brand_name }
   end
 
-  def destroy_car_model; end
+  def destroy_car_model
+    car_model = CarModel.find(params[:carModelId])
+    if car_model.destroy
+      flash[:danger] = 'Car Model  deleted successfully'
+    else
+      flash[:error] = 'Failed to delete Car Model'
+    end
+    redirect_to show_car_model_path
+  end
 end

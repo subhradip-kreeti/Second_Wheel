@@ -52,6 +52,7 @@ document.getElementById('add-branch-btn').addEventListener('click', function(eve
         mapSelect.value = '';
         longSelect.value = '';
         latSelect.value = '';
+        location.reload();
       },
       error: function(xhr, status, error) {
         alert("Failed to add Branch");

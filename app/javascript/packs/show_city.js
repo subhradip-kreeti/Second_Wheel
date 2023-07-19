@@ -23,7 +23,7 @@ document.querySelectorAll('.delete-city-btn').forEach(function(button) {
 });
 
 document.getElementById('add-city-btn').addEventListener('click', function(event) {
-  event.preventDefault();
+  // event.preventDefault();
   var citySelect = document.getElementById('city-input');
   var stateSelect = document.getElementById('state-input');
   var selectedCity = citySelect.value;

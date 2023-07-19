@@ -23,7 +23,7 @@ document.querySelectorAll('.delete-brand-btn').forEach(function(button) {
 });
 
 document.getElementById('add-brand-btn').addEventListener('click', function(event) {
-  event.preventDefault();
+  // event.preventDefault();
   var brandSelect = document.getElementById('brand-input');
   var selectedBrand = brandSelect.value;
 
