@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_user
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  rescue_from ActionController::RoutingError, with: :render_not_found
   def welcome
     @email = session[:email]
   end
@@ -47,14 +48,14 @@ class ApplicationController < ActionController::Base
     flash[:danger] = 'You are not authorized to access this url'
     redirect_to root_path
   end
-  
+
   def not_found
-    render status: :not_found
+
   end
 
   private
 
   def render_not_found
-    redirect_to '/404'
+    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
   end
 end
