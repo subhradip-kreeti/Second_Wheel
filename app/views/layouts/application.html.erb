@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
 
   <% unless controller_name == 'sessions' && action_name == 'confirm' %>
     <%= render partial:"shared/nav"%>
@@ -30,6 +30,11 @@
   <%=render partial:"shared/flash"%>
 
   <%= yield %>
+  <footer class="footer bg-light py-3 mt-auto">
+    <div class="container d-flex justify-content-center">
+      <span> &copy; Copyright reserved to: Second Wheel | Developed by: Subhradip Barik | 2023</span>
+    </div>
+  </footer>
   </body>
 
 </html>
