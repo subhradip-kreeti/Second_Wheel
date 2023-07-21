@@ -82,5 +82,8 @@ Rails.application.routes.draw do
   end
 
   # match '*unmatched_route', to: 'application#not_found', via: :all
+  match '*unmatched', to: 'application#not_found', layout: false, via: :all, constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage' # Exclude Active Storage routes
+  }
 end
 # rubocop:enable Metrics/BlockLength
