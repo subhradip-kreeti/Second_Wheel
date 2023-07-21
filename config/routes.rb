@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   root 'home#welcome'
-
+  get '/404', to: 'application#not_found'
   # users | authentication
   get 'dashboard/buyer_dashboard'
   get 'dashboard/seller_dashboard'
@@ -80,5 +80,8 @@ Rails.application.routes.draw do
     get 'edit_my_profile', to: 'users#edit', on: :member
     patch 'edit_my_profile', to: 'users#update', on: :member
   end
+
+  # This should be the last route and it will catch any other unknown routes
+  match '*path', to: 'application#not_found', via: :all
 end
 # rubocop:enable Metrics/BlockLength
