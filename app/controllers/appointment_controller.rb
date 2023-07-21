@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Appointment controller
+# rubocop:disable Metrics/AbcSize
 class AppointmentController < ApplicationController
   before_action :require_user
   before_action :require_admin, only: [:all_appointments_in_admin_dashboard]
@@ -120,3 +121,4 @@ class AppointmentController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/AbcSize

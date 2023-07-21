@@ -65,13 +65,12 @@
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                 <div class="d-flex flex-row align-items-center mb-1">
-                  <h4 class="mb-1 me-1"> Price : <%= @car.price.present? ? @car.price: "yet to update" %></h4>
+                  <h4 class="mb-1 me-1"> Price : &#8377; <%= @car.price.present? ? @car.price: "yet to update" %></h4>
                 </div>
                 <h6 class="text-success"> Condition : <%= @car.condition.present? ? @car.condition: "yet to update by admin" %> </h6>
                 <div class="d-flex flex-column mt-4">
-                  <a class="btn btn-outline-primary btn-sm mt-2" href="/branch_details/<%=@car.branch.id%>" target="blank" type="button"> Branch Info
-                  </a>
-                  <%# <span> condition is according second wheel's standard </span> %>
+                  <a class="btn btn-outline-primary btn-sm mt-2" href="/branch_details/<%=@car.branch.id%>" target="_blank" type="button">Branch Info</a>
+                  <span style="font-size:12px;" class="mt-2"> ~condition is according to second wheel's standard </span>
                 </div>
               </div>
             </div>
