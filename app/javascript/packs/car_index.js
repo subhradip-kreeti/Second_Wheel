@@ -21,6 +21,12 @@ $(document).ready(function() {
     var dateSelect = document.getElementById('appointment-date');
     var appointmentDate = dateSelect.value;
 
+    if(appointmentDate == '')
+    {
+      alert("Please select Your Preferred Appointment Date");
+      return;
+    }
+
     $.ajax({
       url: '/buyer_dashboard/inspection_request',
       method: 'POST',

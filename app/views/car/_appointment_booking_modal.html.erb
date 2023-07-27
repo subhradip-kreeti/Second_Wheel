@@ -1,0 +1,25 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Request appointment for verification</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="appointment-form">
+        <div class="form-group">
+          <label for="appointment-date"> Preffered Appointment Date</label>
+          <input type="date" class="form-control" id="appointment-date" name="appointment[date]" required>
+        </div>
+      </form>
+        <p class="text-muted">your selected date may be changed according to business demand</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="form-submit-btn" required>Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

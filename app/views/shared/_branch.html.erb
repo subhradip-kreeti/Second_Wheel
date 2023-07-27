@@ -6,7 +6,9 @@
       <% city_name = City.find_by(id: branch.city_id) %>
         <div class="d-flex row list-group-item">
           <div class="col-md-8"> <li class=""><%= branch.name %> ( <%= city_name.name %> )</div>
-          <div class="col-md-1"><a class="btn btn-info ms-2" href="branch_details/<%= branch.id %>" role="button">Details</a></div>
+          <div class="col-md-1">
+            <a class="btn btn-info ms-2" href="branch_details/<%= branch.id %>" role="button" target="_blank">Details</a>
+          </div>
         </div>
       </li>
       <% end %>
