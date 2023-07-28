@@ -30,7 +30,7 @@
               <input type="text" class="form-control" id="city-input" placeholder="Enter city" required>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control" id="state-input" placeholder="Enter state" required>
+              <%= select_tag :reg_state, options_for_select(Car.reg_states.map { |state| [state[1]] }), { prompt: "Select State", required: true, class: "form-select", id: 'state-input' } %>
             </div>
             <button class="btn btn-primary" id="add-city-btn">Add City</button>
           </form>

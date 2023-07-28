@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(selectedBrand)
     var modelSelect = document.getElementById('model-input');
     var selectedModel = modelSelect.value;
-    if (selectedBrand === '' || selectedModel === '') {
+    if (selectedBrand.trim() === '' || selectedModel.trim() === '') {
       alert('Some fields are blank');
       return;
     }

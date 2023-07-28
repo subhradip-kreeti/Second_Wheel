@@ -44,7 +44,7 @@
                       <i class="fas fa-users fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <%= form.label :Mobile, class: "form-label", for: "role" %>
-                        <%= form.text_field :mobile_no, id: "form3Example5c", class: "form-control",placeholder:"10 digit indian mobile number(without country code)"%>
+                        <%= form.text_field :mobile_no, id: "form3Example5c", class: "form-control",placeholder:"10 digit mobile number(with/without country code)"%>
                       </div>
                     </div>
           <%@user.errors.full_messages_for(:mobile_no).each do |message|%>

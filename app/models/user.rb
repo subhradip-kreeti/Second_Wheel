@@ -11,7 +11,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 5 }, allow_blank: true
-  validates :mobile_no, length: { minimum: 10 }, presence: true
+  validates :mobile_no, presence: true, length: { is: 10 }, format: { with: /\A[6-9]\d{9}\z/ }
+  validates :role, presence: true
   validates :role, presence: true
   validates :name, presence: true
 

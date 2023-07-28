@@ -27,7 +27,7 @@ document.getElementById('add-brand-btn').addEventListener('click', function(even
   var brandSelect = document.getElementById('brand-input');
   var selectedBrand = brandSelect.value;
 
-  if(selectedBrand == '')
+  if(selectedBrand.trim() == '')
   {
     alert("Enter some value in input");
     return;

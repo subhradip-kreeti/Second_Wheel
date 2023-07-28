@@ -28,7 +28,9 @@ document.getElementById('add-city-btn').addEventListener('click', function(event
   var stateSelect = document.getElementById('state-input');
   var selectedCity = citySelect.value;
   var selectedState = stateSelect.value;
-  if(selectedCity == '' || selectedState == '')
+  console.log(selectedCity)
+  console.log(selectedState)
+  if(selectedCity.trim() == '' || selectedState.trim() == '')
   {
     alert("Enter values in Both fields");
     return;

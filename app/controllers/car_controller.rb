@@ -15,7 +15,7 @@ class CarController < ApplicationController
     @car.update(user_id: session[:user_id])
     if @car.save
       flash[:success] = 'Car added successfully'
-      redirect_to add_new_car_path
+      redirect_to seller_dashboard_path
     else
       render :new
     end
