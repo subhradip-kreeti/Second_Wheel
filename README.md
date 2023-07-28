@@ -3,6 +3,7 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+## Strongly recommended to use google chrome
 
 * Ruby version -> 3.2.2
 
@@ -15,6 +16,8 @@ application up and running.
 * Yarn Version -> 1.22.19
 
 * database used -> postgresql
+
+* elastic search version -> 7.17.12
 
 ## setup instruction:
 
