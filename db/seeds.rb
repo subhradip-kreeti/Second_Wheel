@@ -4,19 +4,19 @@
 User.create!([
 
                { email: 'subhradip.barik@kreeti.com',
-                 password_digest: '$2a$12$pCRPhUpqG6rDPJHJMqsooeGHUSnV7Xqq1tUk4zyCHDoQTLu0J4HmW', role: 'admin', confirmation_token: '__ocDnIuk9lHYv0kmv7iWw', confirmed_at: '2023-06-14 11:28:31', is_verified: true, token_expire: '2023-06-14 12:36:44 +0530', name: 'Subhradip Barik', mobile_no: '0000000000', latitude: nil, longitude: nil },
+                 password_digest: '$2a$12$pCRPhUpqG6rDPJHJMqsooeGHUSnV7Xqq1tUk4zyCHDoQTLu0J4HmW', role: 'admin', confirmation_token: '__ocDnIuk9lHYv0kmv7iWw', confirmed_at: '2023-06-14 11:28:31', is_verified: true, token_expire: '2023-06-14 12:36:44 +0530', name: 'Subhradip Barik', mobile_no: '9000000000', latitude: nil, longitude: nil },
 
                { email: 'bariksubhradip@gmail.com', password_digest: '$2a$12$yvWvQ64Sd2Ec50urjZakLeWhqX47F.EO39glwEki.fk2C9WuQgWQe',
-                 role: 'seller', confirmation_token: 'Zwb-ltWpGb01lxlqzCCU-A', confirmed_at: '2023-06-16 10:10:19', is_verified: true, token_expire: '2023-06-16 10:10:59 UTC', name: 'Dinesh Barik', mobile_no: '0000000000', latitude: nil, longitude: nil },
+                 role: 'seller', confirmation_token: 'Zwb-ltWpGb01lxlqzCCU-A', confirmed_at: '2023-06-16 10:10:19', is_verified: true, token_expire: '2023-06-16 10:10:59 UTC', name: 'Dinesh Barik', mobile_no: '9339288098', latitude: nil, longitude: nil },
 
                { email: 'subhradipbarik2206@gmail.com',
-                 password_digest: '$2a$12$OSjZeuDg7gy4uQuRujDUFuhiteFRXnQAduhhQN1IfnmX.fJbG8Any', role: 'buyer', confirmation_token: 'rBBX4CV32XiMsAVtYOcYJQ', confirmed_at: '2023-06-14 11:28:31', is_verified: true, token_expire: '2023-06-14 16:59:12 +0530', name: 'Moyukh Sarkar', mobile_no: '0000000000', latitude: nil, longitude: nil },
+                 password_digest: '$2a$12$OSjZeuDg7gy4uQuRujDUFuhiteFRXnQAduhhQN1IfnmX.fJbG8Any', role: 'buyer', confirmation_token: 'rBBX4CV32XiMsAVtYOcYJQ', confirmed_at: '2023-06-14 11:28:31', is_verified: true, token_expire: '2023-06-14 16:59:12 +0530', name: 'Moyukh Sarkar', mobile_no: '9000000000', latitude: nil, longitude: nil },
 
                { email: 'subhradip.it219056@bppimt.ac.in',
-                 password_digest: '$2a$12$Z9BaZyNlwIKAxlhNH3IgpOTcSJrOfsEjlkHYrXKnRz.IOC3PVcyVa', role: 'buyer', confirmation_token: 'NxGaTdFUzlotprn1PuS4UQ', confirmed_at: '2023-06-15 11:44:40', is_verified: true, token_expire: '2023-06-15 17:14:58 +0530', name: 'Soyeb Akhtar', mobile_no: '0000000000', latitude: nil, longitude: nil },
+                 password_digest: '$2a$12$Z9BaZyNlwIKAxlhNH3IgpOTcSJrOfsEjlkHYrXKnRz.IOC3PVcyVa', role: 'buyer', confirmation_token: 'NxGaTdFUzlotprn1PuS4UQ', confirmed_at: '2023-06-15 11:44:40', is_verified: true, token_expire: '2023-06-15 17:14:58 +0530', name: 'Soyeb Akhtar', mobile_no: '9000000000', latitude: nil, longitude: nil },
 
                { email: 'bppit.11500219056@gmail.com',
-                 password_digest: '$2a$12$Llb0pGVcwJ5wr7IwjZyrOe5JY4q4lzdm6veW9d9Fdc891pKCfwAkq', role: 'seller', confirmation_token: 'JStvlbVXTV4DT1GIi2fGXg', confirmed_at: '2023-06-15 11:47:39', is_verified: true, token_expire: '2023-06-15 17:18:13 +0530', name: 'Arpita Pal', mobile_no: '0000000000', latitude: nil, longitude: nil }
+                 password_digest: '$2a$12$Llb0pGVcwJ5wr7IwjZyrOe5JY4q4lzdm6veW9d9Fdc891pKCfwAkq', role: 'seller', confirmation_token: 'JStvlbVXTV4DT1GIi2fGXg', confirmed_at: '2023-06-15 11:47:39', is_verified: true, token_expire: '2023-06-15 17:18:13 +0530', name: 'Arpita Pal', mobile_no: '9000000000', latitude: nil, longitude: nil }
              ])
 
 Brand.create!([

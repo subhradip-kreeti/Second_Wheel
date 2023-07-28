@@ -13,10 +13,10 @@ document.querySelectorAll('.delete-city-btn').forEach(function(button) {
       },
       success: function(response) {
         event.target.closest('li').remove();
-        alert('City deleted successfully');
+        // alert('City deleted successfully');
       },
       error: function(xhr, status, error) {
-        alert('Failed to delete city');
+        // alert('Failed to delete city');
       }
     });
   });
@@ -35,8 +35,8 @@ document.getElementById('add-city-btn').addEventListener('click', function(event
     alert("Enter values in Both fields");
     return;
   }
-  if (isCityAlreadyPresent(selectedCity)) {
-    alert("City already exists.");
+  if (isCityStatePairAlreadyPresent(selectedCity, selectedState)) {
+    alert("City and State Pair already exists.");
     document.getElementById('city-input').value = '';
     document.getElementById('state-input').value = '';
     return;
@@ -59,12 +59,15 @@ document.getElementById('add-city-btn').addEventListener('click', function(event
   });
 });
 
-function isCityAlreadyPresent(city) {
+function isCityStatePairAlreadyPresent(city, state) {
   var cityList = document.getElementById('city-list');
   var listItems = cityList.getElementsByTagName('li');
   for (var i = 0; i < listItems.length; i++) {
     var listItemText = listItems[i].innerText.toLowerCase();
-    if (listItemText.includes(city.toLowerCase())) {
+    var listItemCity = listItemText.split('(')[0].trim().toLowerCase();
+    var listItemState = listItemText.split('(')[1].replace(')', '').trim().toLowerCase();
+
+    if (listItemCity === city.toLowerCase() && listItemState === state.toLowerCase()) {
       return true;
     }
   }
