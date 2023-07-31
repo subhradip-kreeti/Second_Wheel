@@ -1,89 +1,38 @@
-  <%= form_for :filter_cars, url: search_cars_path, method: :get do |form| %>
-    <div class="container-fluid mt-4 row">
+<%= form_for :filter_cars, url: search_cars_path, method: :get do |form| %>
+  <div class="container-fluid mt-4 row">
+    <div class="col-lg-3 mb-2">
+      <%= form.collection_select :city, City.all, :name, :name, { prompt: "Select City" }, { class: "form-select", id: "city-select", onchange: "filterCars()" } %>
+     </div>
 
-      <div class="col-lg-2 mb-2">
-        <%= form.collection_select :city, City.all, :name, :name, { prompt: "Select City" }, { class: "form-select", id: "city-select", onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2 mb-2">
-        <%= form.collection_select :brand, Brand.all, :name, :name, { prompt: "Select Brand" }, { class: "form-select", id: "brand-select", onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2 mb-2">
-        <%= form.collection_select :model, CarModel.all, :name, :name, { prompt: "Select Model" }, { class: "form-select", id: "model-select", onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2 mb-2">
-        <%= form.select :reg_year, Car.reg_years.keys, { prompt: "Select Reg Year" }, { class: "form-select",id:"reg-year-select", onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2 mb-2">
-        <%= form.select :variant, Car.variants.keys, { prompt: "Select Variant" }, { class: "form-select", id:'variant-select', onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2 mb-2">
-        <%= form.select :reg_state, Car.reg_states.keys, { prompt: "Select Reg State" }, { class: "form-select", id:'reg-state-select', onchange: "filterCars()" } %>
-      </div>
-
-      <div class="col-lg-2">
-        <%= form.select :kilometer_driven, Car.kilometer_drivens.keys, { prompt: "Select Kilometer Driven" }, { class: "form-select", id: 'kilometer-driven-select', onchange: "filterCars()" } %>
-      </div>
-
-  <% end %>
-
-  <div class="col-lg-4 d-flex">
-    <div class="input-group rounded">
-      <%= form_for :search_cars, url: search_cars_path, method: :get do |form| %>
-        <%= form.text_field :query, value: params[:search_cars].presence && params[:search_cars][:query], class: "form-control rounded", placeholder: "Search", autocomplete: "off", required: true %>
-        <div class="input-group-append">
-          <%= form.submit 'Search', class: "btn btn-outline-primary", style: "position:absolute;top:3%;left:58%;" %>
-        </div>
-      <% end %>
+    <div class="col-lg-3 mb-2">
+      <%= form.collection_select :brand, Brand.all, :name, :name, { prompt: "Select Brand" }, { class: "form-select", id: "brand-select", onchange: "filterCars()" } %>
     </div>
+
+    <div class="col-lg-3 mb-2">
+      <%= form.collection_select :model, CarModel.all, :name, :name, { prompt: "Select Model" }, { class: "form-select", id: "model-select", onchange: "filterCars()" } %>
+    </div>
+
+    <div class="col-lg-3 mb-2">
+      <%= form.select :reg_year, Car.reg_years.keys, { prompt: "Select Reg Year" }, { class: "form-select",id:"reg-year-select", onchange: "filterCars()" } %>
+    </div>
+
+    <div class="col-lg-3 mb-2">
+      <%= form.select :variant, Car.variants.keys, { prompt: "Select Variant" }, { class: "form-select", id:'variant-select', onchange: "filterCars()" } %>
+    </div>
+
+    <div class="col-lg-3 mb-2">
+      <%= form.select :reg_state, Car.reg_states.keys, { prompt: "Select Reg State" }, { class: "form-select", id:'reg-state-select', onchange: "filterCars()" } %>
+    </div>
+
+    <div class="col-lg-3">
+      <%= form.select :kilometer_driven, Car.kilometer_drivens.keys, { prompt: "Select Kilometer Driven" }, { class: "form-select", id: 'kilometer-driven-select', onchange: "filterCars()" } %>
+    </div>
+<% end %>
+    <div class="col-lg-3 col-md-6">
+      <%= form_for :search_cars, url: search_cars_path, method: :get do |form| %>
+        <%= form.text_field :query, value: params[:search_cars].presence && params[:search_cars][:query], class: "form-control rounded outline-primary", placeholder: "Search", autocomplete: "off", required: true %>
+      <% end %>
     </div>
   </div>
 
-  <script>
-    function filterCars() {
-      var city = document.getElementById('city-select').value.trim();
-      var brand = document.getElementById('brand-select').value;
-      var model = document.getElementById('model-select').value;
-      var regYear = document.getElementById('reg-year-select').value;
-      var variant = document.getElementById('variant-select').value;
-      var regState = document.getElementById('reg-state-select').value;
-      var kilometerDriven = document.getElementById('kilometer-driven-select').value.trim();
-
-      var cards = document.getElementsByClassName('card');
-      for (var i = 0; i < cards.length; i++) {
-        var card = cards[i];
-        var shouldDisplay = true;
-
-        if (city && card.querySelector('#city-name').textContent.trim() !== city) {
-          console.log(city)
-          console.log(card.querySelector('#city-name').textContent)
-          shouldDisplay = false;
-        }
-        if (brand && card.querySelector('#brand-name').textContent !== brand) {
-          shouldDisplay = false;
-        }
-        if (model && card.querySelector('#model-name').textContent !== model) {
-          shouldDisplay = false;
-        }
-        if (regYear && card.querySelector('#reg-year').textContent !== regYear) {
-          shouldDisplay = false;
-        }
-        if (variant && card.querySelector('#variant').textContent !== variant) {
-          shouldDisplay = false;
-        }
-        if (regState && card.querySelector('#reg-state').textContent !== regState) {
-          shouldDisplay = false;
-        }
-        if (kilometerDriven && card.querySelector('#km-driven').textContent.trim() !== kilometerDriven) {
-          shouldDisplay = false;
-        }
-
-        card.style.display = shouldDisplay ? 'block' : 'none';
-      }
-    }
-  </script>
-
+<%= javascript_pack_tag 'car_filteration', 'data-turbolinks-track': 'reload' %>

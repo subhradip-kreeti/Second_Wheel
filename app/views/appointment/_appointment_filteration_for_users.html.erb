@@ -1,0 +1,33 @@
+<div class="col-lg-4">
+  <div class="form-inline">
+    <label for="statusFilter" class="ms-4 me-2">Filter by Status:</label>
+    <select class="form-select" id="statusFilter" onchange="applyFiltersForUsers()">
+      <option value="">All</option>
+      <option value="pending">Pending</option>
+      <option value="processing">Processing</option>
+      <option value="investigating">Investigating</option>
+      <option value="ready_for_sell"> <%= session[:role] == 'buyer'? "Ready to Buy" : "Ready for Sell" %> </option>
+      <option value="sold"><%= session[:role] == 'buyer'? "Bought" : "Sold" %></option>
+      <option value="reject"><%= session[:role] == 'buyer'? "Buy Request Cancelled" : "Reject"%>
+      </option>
+    </select>
+  </div>
+</div>
+<div class="col-lg-4">
+  <div class="form-inline">
+    <label for="sortOption" class="ms-4 me-2">Sort by:</label>
+    <select class="form-select" id="sortOption" onchange="changeSortOptionForUsers(this.value)">
+      <option value="default">Default</option>
+      <option value="status-asc">Status (Ascending)</option>
+      <option value="status-desc">Status (Descending)</option>
+      <option value="car-brand-asc">Car Brand (Ascending)</option>
+      <option value="car-brand-desc">Car Brand (Descending)</option>
+      <option value="car-model-asc">Car Model (Ascending)</option>
+      <option value="car-model-desc">Car Model (Descending)</option>
+      <option value="date-created-asc">Date Created (Newest First)</option>
+      <option value="date-created-desc">Date Created (Oldest First)</option>
+      <option value="appointment-date-asc">Appointment Date (Newest First)</option>
+      <option value="appointment-date-desc">Appointment Date (Oldest First)</option>
+    </select>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<% @appointments.each do |app| %>
+  <div class="card bg-light pb-4 me-4 mb-3" style="width: 18rem;"
+    data-status="<%= app.status %>"
+    data-role="<%= app.user.role %>"
+    data-car-brand="<%= app.car.brand.name %>"
+    data-car-model="<%= app.car.car_model.name %>"
+    data-created-date="<%= app.created_at.localtime.strftime('%Y%m%d%H%M%S') %>"
+    data-appointment-date="<%= app.date.strftime('%Y%m%d%H%M%S') %>">
+    <div class="card-body">
+      <h5 class="card-title"><%= app.car.brand.name %> - <%= app.car.car_model.name %></h5>
+      <p class="card-text">Reg No: <span id="reg-no-<%= app.id %>"><%= app.car.reg_no %></span></p>
+      <p class="card-text">Appointment Type: <%= app.user.role %></p>
+      <p class="card-text">Appointment ID: <%= app.appointment_id %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Appointment asked for:<br><strong><%= app.date.strftime('%d %b, %Y')%></strong></li>
+      <li class="list-group-item">Status: <strong id="appointment-status-<%= app.id %>"><%= app.status %></strong></li>
+      <li class="list-group-item">Taken By: <strong id="appointment-made-by-<%= app.user_id %>"><%= app.user.name %></strong></li>
+    </ul>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Appointment Created on:<br><strong><%= app.created_at.localtime.strftime('%d %b, %Y') %></strong></li>
+      <li class="list-group-item">Appointment Updated on:<br><strong><%= app.updated_at.localtime.strftime('%d %b, %Y') %></strong></li>
+    </ul>
+    <div class="card-body">
+      <select class="form-select" name="status" id="appointment-status-select-<%= app.id %>">
+        <% if app.user.role == 'buyer' %>
+        <% Appointment.buyer_statuses.each do |status, label| %>
+        <option value="<%= status %>" <%= 'selected' if app.status == status %>>
+          <%= label %>
+        </option>
+        <% end %>
+        <% else %>
+        <% Appointment.seller_statuses.each do |status, label| %>
+        <option value="<%= status %>" <%= 'selected' if app.status == status %>>
+          <%= label %>
+        </option>
+        <% end %>
+        <% end %>
+      </select>
+      <button class="btn btn-primary mt-4" onclick="updateAppointmentStatus(<%= app.id %>)" data-appointment-id="<%= app.id %>">Make Changes</button>
+    </div>
+  </div>
+<% end %>
