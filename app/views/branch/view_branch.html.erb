@@ -11,7 +11,7 @@
         <%= render partial:"shared/branch"%>
       </div>
       <div class="col-md-5 ms-5">
-        <label class="mb-3 h6">Enter your city and find nearest branch</label>
+        <label class="mb-3 h6">Enter your city/landmark/location/pin code and find nearest branch</label>
         <%= form_with url: getlocation_path, method: :post do |form| %>
           <%= form.text_field :place, value: params[:place], class: "form-control",style:"width:15vw;",required: true %>
           <%= form.submit "submit" ,class: "btn btn-primary mt-2"%>

@@ -30,72 +30,7 @@
 </div>
 
 <%# Modal %>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Request appointment for inspection</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="appointment-date">Appointment Date</label>
-          <input type="date" class="form-control" id="appointment-date" name="appointment[date]">
-        </div>
-      </form>
-      <p class="text-muted">your selected date may be changed according to business demand</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="form-submit-btn" required>Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'car/appointment_booking_modal'%>
 
-<script>
-  $(document).ready(function() {
-    $('.myModalBtn').on('click', function() {
-      $('#myModal').modal('show');
-    });
-
-    var modalBtns = document.querySelectorAll('.myModalBtn');
-    var verifyBtn = document.getElementById('form-submit-btn');
-    var carId;
-
-    modalBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        carId = btn.getAttribute('data-car-id');
-        document.getElementById('myModal').classList.add('show');
-        document.getElementById('myModal').style.display = 'block';
-
-        console.log('Car ID:', carId);
-      });
-    });
-
-    $('#form-submit-btn').on('click', function() {
-      var dateSelect = document.getElementById('appointment-date');
-      var appointmentDate = dateSelect.value;
-
-      $.ajax({
-        url: '/seller_dashboard/inspection_request',
-        method: 'POST',
-        data: {
-          appointmentDate: appointmentDate,
-          car_id: carId,
-          authenticity_token: $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-          // Handle success response
-           location.reload();
-        },
-        error: function(xhr, status, error) {
-          // Handle error response
-        }
-      });
-    });
-  });
-</script>
+<!-- JS -->
+<%= javascript_pack_tag 'seller_dashboard', 'data-turbolinks-track': 'reload' %>
