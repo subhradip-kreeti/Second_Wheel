@@ -11,6 +11,7 @@
       <div class="col-md-12 mt-3">
         <label for="user-select" class="h6">Select User to make admin:</label>
         <select class="form-select mt-2" id="user-select" style="width:40vw;">
+         <option value="" disabled selected>Select User</option>
           <% @user.each do |user| %>
             <% if user.role != "admin" && user.is_verified == true %>
               <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
@@ -31,6 +32,7 @@
       <div class="col-md-12 mt-3">
         <label for="user-select" class="h6 text-danger">Select User to Delete permanently:</label>
         <select class="form-select mt-2" id="user-select-for-delete" style="width:40vw;">
+          <option value="" disabled selected>Select User</option>
           <% @user.each do |user| %>
             <% if user.role != "admin" && user.is_verified == true %>
               <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
