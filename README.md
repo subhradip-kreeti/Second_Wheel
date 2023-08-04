@@ -46,6 +46,7 @@ subhradipbarik2206@gmail.com (buyer)
 ## Account Password
 
 subhradip123
+  
 ** same password for each account
 
 ## Twilio Client setup ( for sms sending )
