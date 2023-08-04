@@ -21,11 +21,7 @@ application up and running.
 
 ## setup instruction:
 
-```rails webpacker:install```
-
-### then remove the babel.config.js
-
-```rails webpacker:compile```
+```bundle && yarn```
 
 **make sure to start elasticsearch server before seeding the database**
 

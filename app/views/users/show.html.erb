@@ -11,8 +11,6 @@
             <p class="text-muted mb-1">Email : <%=@user_show.email%></p>
             <p class="text-muted mb-4">Mobile : <%=@user_show.mobile_no%></p>
             <div class="d-flex justify-content-center mb-2">
-              <%# <button type="button" class="btn btn-primary">Follow</button>
-              <button type="button" class="btn btn-outline-primary ms-1">Message</button> %>
               <%=link_to "Update Profile",edit_my_profile_user_path(session[:user_id]),class:"btn btn-outline-primary ms-1"%>
             </div>
           </div>

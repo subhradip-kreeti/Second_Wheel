@@ -68,12 +68,10 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <!-- Add buyer's profile details here -->
                           <p>Buyer's Name: <%= app.user.name %></p>
                           <p>Buyer's Email: <%= app.user.email %></p>
                           <p>Buyer's Mobile Number: <%= app.user.mobile_no %></p>
                           <p>Buyer's verification completed on : <%= app.updated_at.localtime.strftime('%d %b, %Y, %l:%M %p')%></p>
-                          <!-- Add more details as needed -->
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

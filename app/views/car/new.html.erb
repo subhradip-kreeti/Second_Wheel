@@ -36,7 +36,9 @@
                         <%= form.text_field :reg_no,class: "form-control", required: true,placeholder: "ex: WB42AZ0927" %>
                       </div>
                     </div>
-
+                    <% @car.errors.full_messages_for(:reg_no).each do |message| %>
+                      <p class="text-danger"> <%= message %> </p>
+                    <% end %>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
                         <%= form.label :variant, class: "form-label" %>

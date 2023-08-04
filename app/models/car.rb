@@ -13,7 +13,7 @@ class Car < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_one_attached :image
   validate :valid_price_condition
-  validates :reg_no, presence: true, uniqueness: true
+  validates :reg_no, presence: true, uniqueness: true, format: { with: /\A[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}\z/, message: 'is not in a valid format' }
   validates :brand_id, :car_model_id, :user_id, :branch_id, :variant, :kilometer_driven, :reg_year, :reg_state, :reg_no,
             presence: true
   validate :validate_image_format
