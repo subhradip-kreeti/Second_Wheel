@@ -40,9 +40,14 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_update_params)
-    flash[:success] = 'Info changed Successfully'
-    redirect_to my_profile_user_path(session[:user_id])
+    if @user.update(user_update_params)
+      flash[:success] = 'Info changed Successfully'
+      redirect_to my_profile_user_path(session[:user_id])
+    else
+      flash[:danger] = 'Failed to change info'
+      @render_template = true
+      render 'edit'
+    end
   end
 
   def make_admin

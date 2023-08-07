@@ -49,9 +49,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def not_found
-
-  end
+  def not_found; end
 
   private
 

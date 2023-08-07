@@ -3,6 +3,8 @@
 # Session controller
 class SessionsController < ApplicationController
   include SessionsHelper
+  before_action :require_user, only: [:destroy]
+  skip_before_action :verify_authenticity_token, only: [:destroy]
   def new; end
 
   def confirm; end
