@@ -70,8 +70,7 @@
                   <ul class="dropdown-menu" style="width:auto;height:auto;overflow:auto" id="notification-list" aria-labelledby="dropdownMenuButton1">
                     <button class="btn btn-sm btn-primary mark-read" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
                     <% current_user.notifications.where(status: false).each do |notification| %>
-                      <li class="notification-message ms-2 me-2"><%= notification.message %></li>
-                      <div class="dropdown-divider"></div>
+                      <li class="notification-message ms-2 me-2 mt-3"><%= notification.message %></li>
                     <% end %>
                   </ul>
                   <% elsif logged_in? && current_user.notifications.where(status: false).count == 0%>
