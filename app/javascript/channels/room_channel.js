@@ -3,16 +3,13 @@ import consumer from "./consumer";
 document.addEventListener("DOMContentLoaded", function() {
   consumer.subscriptions.create({ channel: "RoomChannel" }, {
     connected() {
-      // Called when the subscription is ready for use on the server
       console.log("Connected to the room!");
     },
 
     disconnected() {
-      // Called when the subscription has been terminated by the server
     },
 
     received(data) {
-      // Called when there's incoming data on the websocket for this channel
       console.log("Receiving:");
       console.log(data.notification);
 
@@ -29,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
       var noNotificationElement = document.getElementById("no-notification");
 
       if (noNotificationElement) {
-        // Hide the "No Notification Yet" message
         noNotificationElement.style.display = "none";
       }
 
@@ -46,13 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
       var newNotification = document.createElement("li");
       newNotification.className = "notification-message";
+      newNotification.className = "notification-message ms-2 me-2 mt-3";
       newNotification.textContent = data.message;
-
-      var divider = document.createElement("div");
-      divider.className = "dropdown-divider";
-
       notificationList.appendChild(newNotification);
-      notificationList.appendChild(divider);
     }
   });
 });

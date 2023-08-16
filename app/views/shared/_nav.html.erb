@@ -58,22 +58,22 @@
               <div class="dropdown">
                 <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-bell"></i>
-                  <% if logged_in? && current_user.notifications.where(status: false).count > 0 %>
-                    <span id="notification-count" class="badge rounded-pill badge-notification bg-warning" data-count="<%= current_user.notifications.where(status: false).count %>">
-                      <%= current_user.notifications.where(status: false).count %>
+                  <% if logged_in? && notification_count > 0 %>
+                    <span id="notification-count" class="badge rounded-pill badge-notification bg-warning" data-count="<%= notification_count %>">
+                      <%= notification_count %>
                     </span>
                   <% else %>
                     <span id="notification-count" class="badge rounded-pill badge-notification bg-warning" data-count="0">0</span>
                   <% end %>
                 </a>
-                <% if logged_in? && current_user.notifications.where(status: false).count>0%>
+                <% if logged_in? && notification_count>0%>
                   <ul class="dropdown-menu" style="width:auto;height:auto;overflow:auto" id="notification-list" aria-labelledby="dropdownMenuButton1">
-                    <button class="btn btn-sm btn-primary mark-read" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
-                    <% current_user.notifications.where(status: false).each do |notification| %>
+                    <button class="btn btn-sm btn-primary mark-read ms-1" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
+                    <% unread_notifications.each do |notification| %>
                       <li class="notification-message ms-2 me-2 mt-3"><%= notification.message %></li>
                     <% end %>
                   </ul>
-                  <% elsif logged_in? && current_user.notifications.where(status: false).count == 0%>
+                  <% elsif logged_in? && notification_count == 0%>
                     <ul class="dropdown-menu" style="width:auto;height:auto;overflow:auto" id="notification-list" aria-labelledby="dropdownMenuButton1">
                     <button class="btn btn-sm btn-primary mark-read" value="<%= current_user.id %>" id="readbtn">Mark all as read</button>
                     <li class="notification-message ps-2" id="no-notification">No Notification Yet</li>

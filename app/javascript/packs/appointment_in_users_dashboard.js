@@ -195,7 +195,8 @@ window.changeSortOptionForUsers = function(sortOption) {
   });
 
   appointmentsContainer.innerHTML = "";
-  appointments.forEach((appointment) =>
-    appointmentsContainer.appendChild(appointment)
+  appointments.forEach((appointment) =>{
+    console.log(appointment)
+    appointmentsContainer.appendChild(appointment)}
   );
 }
