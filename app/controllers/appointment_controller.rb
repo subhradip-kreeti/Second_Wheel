@@ -63,8 +63,8 @@ class AppointmentController < ApplicationController
 
   def final_sell
     fetch_params_for_final_sell
-    car = Car.find_by(id: @seller_appointment.car.id) # selected car
-    all_appoinments_with_same_car = Appointment.where(car_id: car.id) # all appointments
+    car = Car.find_by(id: @seller_appointment.car.id)
+    all_appoinments_with_same_car = Appointment.where(car_id: car.id)
     handle_all_appointments(all_appoinments_with_same_car, car, @seller_appointment, @appointment)
     redirect_to appointments_path
   end
@@ -105,8 +105,8 @@ class AppointmentController < ApplicationController
   end
 
   def fetch_params_for_final_sell
-    @appointment = Appointment.find_by(id: params[:id]) # clicked buyer appointment
-    @seller_appointment = Appointment.find_by(id: params[:sell_appointment]) # seller appointment
+    @appointment = Appointment.find_by(id: params[:id])
+    @seller_appointment = Appointment.find_by(id: params[:sell_appointment])
   end
 
   def handle_all_appointments(all_appoinments_with_same_car, car, seller_appointment, appointment)

@@ -5,22 +5,22 @@ module AppointmentHelper
   def update_selling_appointment_status(car_id)
     car = Car.find_by(id: car_id)
     car.update(selling_appointment_status: 'Sell_Pending')
-    flash[:success] = " appointment booked successfully. Appointment id : #{@appointment_id}"
+    flash[:success] = "Appointment booked successfully. Appointment id : #{@appointment_id}"
     redirect_to appointments_path
   end
 
   def update_selling_appointment_status_failure
-    flash[:danger] = 'error occured while booking appointment.You are suggested to pick future dates'
+    flash[:danger] = 'Error occured while booking appointment.You are suggested to pick future dates'
     redirect_to seller_dashboard_path
   end
 
   def success_for_request_from_buyer
-    flash[:success] = " appointment booked successfully.Appointment id : #{@appointment_id}"
+    flash[:success] = "Appointment booked successfully.Appointment id : #{@appointment_id}"
     redirect_to appointments_path
   end
 
   def failure_for_request_from_buyer
-    flash[:danger] = 'error occured while booking appointment.You are suggested to pick future dates'
+    flash[:danger] = 'Error occured while booking appointment.You are suggested to pick future dates'
     redirect_to buyer_feed_path
   end
 
@@ -38,7 +38,7 @@ module AppointmentHelper
     @success_appointment = Appointment.find_by(id: app.id)
     @success_appointment.update(status: 'Bought')
     CarsellingMailer.final_buy(seller_appointment.user, car, appointment.user).deliver_later
-    notification_content = "appoinment(#{app.appointment_id}) status has been updated to 'Bought'"
+    notification_content = "Appoinment(#{app.appointment_id}) status has been updated to 'Bought'"
     notification = Notification.new(user_id: @success_appointment.user.id, message: notification_content,
                                     status: false)
     send_notification(notification) if notification.save
@@ -51,7 +51,7 @@ module AppointmentHelper
     car = Car.find_by(id: car_id)
     car.update(selling_appointment_status: 'Sold')
     CarsellingMailer.final_sell(seller_appointment.user, car, appointment.user).deliver_later
-    notification_content = "appoinment(#{app.appointment_id}) status has been updated to 'Sold'"
+    notification_content = "Appoinment(#{app.appointment_id}) status has been updated to 'Sold'"
     notification = Notification.new(user_id: @success_sell_appointment.user.id, message: notification_content,
                                     status: false)
     send_notification(notification) if notification.save
@@ -72,7 +72,7 @@ module AppointmentHelper
 
   def handle_successfull_appointment_status_finding(id)
     find_targeted_appointment(id)
-    flash[:success] = 'success'
+    flash[:success] = 'Your appointment has been fetched Successfully'
     @show_template = true
   end
 
