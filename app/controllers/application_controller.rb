@@ -2,7 +2,7 @@
 
 # application controller
 class ApplicationController < ActionController::Base
-  helper_method :logged_in?, :current_user, :notification_count,:unread_notifications
+  helper_method :logged_in?, :current_user, :notification_count, :unread_notifications
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::RoutingError, with: :render_not_found
   def welcome
@@ -64,5 +64,4 @@ class ApplicationController < ActionController::Base
   def render_not_found
     render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
   end
-
 end

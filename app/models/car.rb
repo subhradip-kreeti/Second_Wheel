@@ -3,20 +3,22 @@
 # car model
 # rubocop:disable Metrics/ClassLength, Layout/LineLength , Metrics/MethodLength
 class Car < ApplicationRecord
-  include CarHelper
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+
   belongs_to :brand
   belongs_to :car_model
   belongs_to :user
   belongs_to :branch
   has_many :appointments, dependent: :destroy
   has_one_attached :image
+
   validate :valid_price_condition
   validates :reg_no, presence: true, uniqueness: true, format: { with: /\A[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}\z/, message: 'is not in a valid format' }
   validates :brand_id, :car_model_id, :user_id, :branch_id, :variant, :kilometer_driven, :reg_year, :reg_state, :reg_no,
             presence: true
   validate :validate_image_format
+
   enum condition: { Fair: 'Fair', Good: 'Good', Very_Good: 'Very Good', Excellent: 'Excellent' }
   enum variant: { Petrol: 'Petrol', Diesel: 'Diesel', CNG: 'CNG' }
   enum kilometer_driven: { '1-10000': 'range1', '10001-20000': 'range2', '20001-40000': 'range3', '40001-60000': 'range4',
@@ -26,7 +28,6 @@ class Car < ApplicationRecord
     '2011': '2011', '2012': '2012', '2013': '2013', '2014': '2014', '2015': '2015', '2016': '2016', '2017': '2017', '2018': '2018', '2019': '2019', '2020': '2020',
     '2021': '2021', '2022': '2022', '2023': '2023'
   }
-
   enum reg_state: {
     andaman_and_nicobar_islands: 'Andaman and Nicobar Islands',
     andhra_pradesh: 'Andhra Pradesh',
