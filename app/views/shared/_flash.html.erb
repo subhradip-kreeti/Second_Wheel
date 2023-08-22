@@ -1,7 +1,7 @@
-<div class="container flash">
+<div class="container-fluid flash">
   <% flash.each do |type, msg| %>
   <div class="alert alert-<%=type%> text-center" id="flash" role="alert">
-    <%= msg %>
+    <strong> <%= msg %> </strong>
   </div>
   <script>
     function remove_flash(){
