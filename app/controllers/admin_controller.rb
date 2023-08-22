@@ -32,14 +32,20 @@ class AdminController < ApplicationController
   def add_brand
     @brand = Brand.create(name: params[:selected_brand])
     respond_to(&:js)
+    redirect_to show_brand_path
+    if @brand.persisted?
+      flash[:success] = "Brand #{@brand.name} has been added successfully"
+    else
+      flash[:danger] = "Failed to add #{@brand.name} brand"
+    end
   end
 
   def destroy_brand
     brand = Brand.find(params[:brand_id])
     if brand.destroy
-      flash[:danger] = 'Brand deleted successfully'
+      flash[:danger] = "Brand #{brand.name} has been deleted successfully"
     else
-      flash[:error] = 'Failed to delete Brand'
+      flash[:error] = "Failed to delete #{brand.name} Brand"
     end
     redirect_to show_brand_path
   end

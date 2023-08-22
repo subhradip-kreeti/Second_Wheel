@@ -4,6 +4,8 @@ document.querySelectorAll('.delete-brand-btn').forEach(function(button) {
   button.addEventListener('click', function(event) {
     event.preventDefault();
     var brandId = this.getAttribute('data-brand-id');
+    var brandName = this.getAttribute('data-brand-name');
+    if (confirm(`Are you sure you want to delete ${brandName} brand?`))
     $.ajax({
       url: '/delete_brand/' + brandId,
       method: 'DELETE',
@@ -13,17 +15,17 @@ document.querySelectorAll('.delete-brand-btn').forEach(function(button) {
       },
       success: function(response) {
         event.target.closest('li').remove();
-        alert('Brand deleted successfully');
+
       },
       error: function(xhr, status, error) {
-        alert('Failed to delete Brand');
+
       }
     });
   });
 });
 
 document.getElementById('add-brand-btn').addEventListener('click', function(event) {
-  // event.preventDefault();
+  event.preventDefault();
   var brandSelect = document.getElementById('brand-input');
   var selectedBrand = brandSelect.value;
 
@@ -34,11 +36,10 @@ document.getElementById('add-brand-btn').addEventListener('click', function(even
   }
 
   if (isBrandAlreadyPresent(selectedBrand)) {
-    alert("Brand already exists.");
     document.getElementById('brand-input').value = '';
     return;
   }
-
+  if (confirm(`Are you sure you want to add ${selectedBrand} brand?`))
   $.ajax({
     url: '/add_brand',
     method: 'POST',
@@ -47,7 +48,6 @@ document.getElementById('add-brand-btn').addEventListener('click', function(even
       authenticity_token: $('meta[name="csrf-token"]').attr('content')
     },
     success: function(response) {
-      alert("Brand added successfully");
       document.getElementById('brand-input').value = '';
       var brandList = document.getElementById('brand-list');
       var listItem = document.createElement('li');
@@ -56,7 +56,6 @@ document.getElementById('add-brand-btn').addEventListener('click', function(even
       brandList.appendChild(listItem);
     },
     error: function(xhr, status, error) {
-      alert("Failed to add Brand");
     }
   });
 });
