@@ -4,6 +4,9 @@ document.querySelectorAll('.delete-city-btn').forEach(function(button) {
   button.addEventListener('click', function(event) {
     event.preventDefault();
     var cityId = this.getAttribute('data-city-id');
+    var cityName = this.getAttribute('data-city-name');
+    var stateName = this.getAttribute('data-state-name');
+    if (confirm(`Are you sure you want to delete ${cityName} (${stateName}) city?`))
     $.ajax({
       url: '/delete_city/' + cityId,
       method: 'DELETE',
@@ -19,6 +22,7 @@ document.querySelectorAll('.delete-city-btn').forEach(function(button) {
         // alert('Failed to delete city');
       }
     });
+
   });
 });
 
