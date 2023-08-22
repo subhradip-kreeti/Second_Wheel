@@ -14,7 +14,7 @@
          <option value="" disabled selected>Select User</option>
           <% @user.each do |user| %>
             <% if user.role != "admin" && user.is_verified == true %>
-              <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
+              <option value="<%= user.id %>" data-user-name="<%= user.name %>" data-user-email="<%= user.email %>">(<%= user.name %> - <%= user.email %>) <%= user.role %> </option>
             <% end %>
           <% end %>
         </select>
@@ -35,7 +35,7 @@
           <option value="" disabled selected>Select User</option>
           <% @user.each do |user| %>
             <% if user.role != "admin" && user.is_verified == true %>
-              <option value="<%= user.id %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
+              <option value="<%= user.id %>" data-user-name="<%= user.name %>" data-user-email="<%= user.email %>">(<%= user.name %> - <%= user.email %>) <%= user.role %></option>
             <% end %>
           <% end %>
         </select>

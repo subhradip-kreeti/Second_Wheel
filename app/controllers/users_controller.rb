@@ -55,7 +55,8 @@ class UsersController < ApplicationController
 
     user = User.find_by(id: selected_user_id)
     user.update(role: 'admin')
-
+    redirect_to show_all_users_path
+    flash[:success] = "User #{user.name} (#{user.email}) has been made an admin successfully"
     respond_to(&:js)
   end
 

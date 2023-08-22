@@ -2,7 +2,11 @@ document
   .getElementById("make-admin-btn")
   .addEventListener("click", function () {
     var userSelect = document.getElementById("user-select");
+    // var userName = this.getAttribute('data-user-name');
     var selectedUser = userSelect.value;
+    var selectedUserName = userSelect.options[userSelect.selectedIndex].dataset.userName;
+    var selectedUserEmail = userSelect.options[userSelect.selectedIndex].dataset.userEmail;
+    if (confirm(`Are you sure you want to make\n${selectedUserName} (${selectedUserEmail})\nan admin?`))
     $.ajax({
       url: "/make_admin",
       method: "PATCH",
@@ -20,6 +24,9 @@ document
   .addEventListener("click", function () {
     var userSelect = document.getElementById("user-select-for-delete");
     var selectedUser = userSelect.value;
+    var selectedUserName = userSelect.options[userSelect.selectedIndex].dataset.userName;
+    var selectedUserEmail = userSelect.options[userSelect.selectedIndex].dataset.userEmail;
+    if (confirm(`Are you sure you want to delete\n${selectedUserName} (${selectedUserEmail})\nfrom application as an user?`))
     $.ajax({
       url: "/delete_user",
       method: "DELETE",
