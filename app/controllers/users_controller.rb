@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     return unless @user.id != session[:user_id]
 
     @render_template = false
-    flash[:danger] = "You are not allowed to enter someone's private profile"
+    render file: Rails.public_path.join('401.html'), status: :unauthorized
     nil
   end
 

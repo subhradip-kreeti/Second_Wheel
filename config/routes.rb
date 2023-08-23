@@ -81,7 +81,6 @@ Rails.application.routes.draw do
     patch 'edit_my_profile', to: 'users#update', on: :member
   end
 
-  # match '*unmatched_route', to: 'application#not_found', via: :all
   match '*unmatched', to: 'application#not_found', layout: false, via: :all, constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage' # Exclude Active Storage routes
   }

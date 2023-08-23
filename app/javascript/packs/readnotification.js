@@ -3,6 +3,9 @@ $(document).ready(function () {
   if (notificationCount === 0) {
     $("#readbtn").hide();
   }
+  else{
+    $("#readbtn").show()
+  }
 });
 document.getElementById("readbtn").addEventListener("click", function (event) {
   event.preventDefault();
