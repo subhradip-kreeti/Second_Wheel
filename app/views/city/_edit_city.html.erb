@@ -1,0 +1,32 @@
+<!-- Add this modal HTML at the end of your current HTML file, preferably right before the closing </body> tag. -->
+<div class="modal fade" id="editCityModal" tabindex="-1" role="dialog" aria-labelledby="editCityModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Add your modal content here -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCityModalLabel">Edit City</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Add your form fields for editing here -->
+        <form>
+          <!-- Example: Input fields for editing city name and state -->
+          <div class="form-group">
+            <label for="editCityName" class="mb-1">City Name</label>
+            <input type="text" class="form-control mb-2" id="editCityName" placeholder="Enter city name">
+          </div>
+          <div class="form-group">
+            <label for="editCityState" class="mb-1">State</label>
+              <%= select_tag :reg_state, options_for_select(Car.reg_states.map { |state| [state[1]] }), { prompt: "Select State", required: true, class: "form-select", id: 'state-input2' } %>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveEditCity">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

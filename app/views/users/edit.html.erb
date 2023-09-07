@@ -12,6 +12,15 @@
                 <form class="mx-1 mx-md-4">
                   <div class="d-flex flex-row align-items-center mb-4">
                     <div class="form-outline flex-fill mb-0">
+                      <%= form.label :name, class: "form-label", for: "form3Example1c" %>
+                      <%= form.text_field :name, id: "form3Example1c", class: "form-control" %>
+                    </div>
+                  </div>
+                  <%@user.errors.full_messages_for(:name).each do |message|%>
+                    <p class="text-danger"> <%=message%> </p>
+                  <%end%>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <div class="form-outline flex-fill mb-0">
                       <%= form.label :email, class: "form-label", for: "form3Example3c" %>
                       <%= form.email_field :email, id: "form3Example3c", class: "form-control" %>
                     </div>

@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   get 'resend_verification_link', to: 'sessions#getting_resend_verification_link'
   post 'resend_verification_link', to: 'sessions#resend_verification_link'
 
-  # admin
-  get 'show_city', to: 'admin#show_city'
-  post 'add_city', to: 'admin#add_city'
-  delete 'delete_city/:id', to: 'admin#destroy_city', as: 'delete_city'
+  # city
+  get 'show_city', to: 'city#show_city'
+  post 'add_city', to: 'city#add_city'
+  post 'update_city/:id', to: 'city#update_city', as: 'update_city'
+  delete 'delete_city/:id', to: 'city#destroy_city', as: 'delete_city'
 
+  # admin
   get 'show_brand', to: 'admin#show_brand'
   post 'add_brand', to: 'admin#add_brand'
   delete 'delete_brand/:id', to: 'admin#destroy_brand', as: 'delete_brand'
@@ -80,6 +82,12 @@ Rails.application.routes.draw do
     get 'edit_my_profile', to: 'users#edit', on: :member
     patch 'edit_my_profile', to: 'users#update', on: :member
   end
+
+  # fogot_password
+  get 'password_forget', to: 'password#new'
+  post 'password_reset_link', to: 'password#reset_link'
+  get 'password_reset', to: 'password#password_reset'
+  post 'password_update', to: 'password#update'
 
   match '*unmatched', to: 'application#not_found', layout: false, via: :all, constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage' # Exclude Active Storage routes
