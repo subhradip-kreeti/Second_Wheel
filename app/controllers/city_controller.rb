@@ -2,7 +2,7 @@
 
 # city controller
 class CityController < ApplicationController
-  before_action :require_user
+  # before_action :require_user
   before_action :require_admin
   def show_city
     @active_window = 'city'
@@ -19,7 +19,7 @@ class CityController < ApplicationController
     end
   end
 
-  def destroy_city
+  def delete_city
     city = City.find(params[:city_id])
     flash[:danger] = if city_has_associated_branches?(city)
                        "Cannot delete #{city.name} (#{city.state}) city as it has associated branches"
@@ -28,7 +28,6 @@ class CityController < ApplicationController
                      else
                        "Failed to delete #{city.name} (#{city.state}) city"
                      end
-
     redirect_to show_city_path
   end
 
@@ -46,7 +45,7 @@ class CityController < ApplicationController
 
   def handle_successful_city_addition
     flash[:success] = "City #{@city.name} (#{@city.state}) has been added successfully"
-    respond_to(&:js)
+    # respond_to(&:js)
     redirect_to show_city_path
   end
 

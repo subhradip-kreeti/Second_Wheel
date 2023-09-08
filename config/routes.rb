@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get 'show_city', to: 'city#show_city'
   post 'add_city', to: 'city#add_city'
   post 'update_city/:id', to: 'city#update_city', as: 'update_city'
-  delete 'delete_city/:id', to: 'city#destroy_city', as: 'delete_city'
+  delete 'delete_city/:id', to: 'city#delete_city', as: 'delete_city'
 
   # admin
   get 'show_brand', to: 'admin#show_brand'

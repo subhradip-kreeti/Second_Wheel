@@ -16,6 +16,9 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.3'
+
+gem 'rails-controller-testing'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # sms sending

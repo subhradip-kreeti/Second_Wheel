@@ -3,7 +3,7 @@
 # user factory
 FactoryBot.define do
   factory :user do
-    name { Faker::Name }
+    name { Faker::Name.name }
     email { Faker::Internet.email }
     mobile_no { '9988774455' }
     password { 'password' }
