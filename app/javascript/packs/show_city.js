@@ -1,4 +1,11 @@
-$(document).ready(function () {
+jQuery(document).ready(function () {
+  // Event listener for close buttons
+  $(".close-button").on("click", function () {
+    // Close the modal using vanilla JavaScript
+    document.getElementById("editCityModal").classList.remove("show");
+    document.getElementById("editCityModal").style.display = "none";
+  });
+
   // Event delegation for delete buttons
   $("#city-list").on("click", ".delete-city-btn", function (event) {
     event.preventDefault();
@@ -44,7 +51,8 @@ $(document).ready(function () {
     var listItem = $(this).closest("li");
     listItem.addClass("editing");
 
-    $("#editCityModal").modal("show");
+    document.getElementById("editCityModal").classList.add("show");
+    document.getElementById("editCityModal").style.display = "block";
   });
 
   // Event listener for the "Save Edit City" button
@@ -59,7 +67,13 @@ $(document).ready(function () {
       return;
     }
 
-    if (isCityStatePairAlreadyPresentExclude(editCityName, editCityState, editCityId)) {
+    if (
+      isCityStatePairAlreadyPresentExclude(
+        editCityName,
+        editCityState,
+        editCityId
+      )
+    ) {
       alert("City and State Pair already exists.");
       return;
     }
@@ -89,9 +103,16 @@ $(document).ready(function () {
     for (var i = 0; i < cityList.length; i++) {
       var listItemText = $(cityList[i]).text().toLowerCase();
       var listItemCity = listItemText.split("(")[0].trim().toLowerCase();
-      var listItemState = listItemText.split("(")[1].replace(")", "").trim().toLowerCase();
+      var listItemState = listItemText
+        .split("(")[1]
+        .replace(")", "")
+        .trim()
+        .toLowerCase();
 
-      if (listItemCity === city.toLowerCase() && listItemState === state.toLowerCase()) {
+      if (
+        listItemCity === city.toLowerCase() &&
+        listItemState === state.toLowerCase()
+      ) {
         return true;
       }
     }
@@ -106,10 +127,20 @@ $(document).ready(function () {
     for (var i = 0; i < cityList.length; i++) {
       var listItemText = $(cityList[i]).text().toLowerCase();
       var listItemCity = listItemText.split("(")[0].trim().toLowerCase();
-      var listItemState = listItemText.split("(")[1].replace(")", "").trim().toLowerCase();
-      var listItemEditCityId = $(cityList[i]).find(".delete-city-btn").data("city-id");
+      var listItemState = listItemText
+        .split("(")[1]
+        .replace(")", "")
+        .trim()
+        .toLowerCase();
+      var listItemEditCityId = $(cityList[i])
+        .find(".delete-city-btn")
+        .data("city-id");
 
-      if (listItemCity === city.toLowerCase() && listItemState === state.toLowerCase() && listItemEditCityId !== editCityId) {
+      if (
+        listItemCity === city.toLowerCase() &&
+        listItemState === state.toLowerCase() &&
+        listItemEditCityId !== editCityId
+      ) {
         return true;
       }
     }

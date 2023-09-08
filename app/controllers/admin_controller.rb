@@ -2,7 +2,7 @@
 
 # admin controller
 class AdminController < ApplicationController
-  include BranchHelper
+  include AdminHelper
   def show_brand
     @active_window = 'brands'
     @brand = Brand.all
@@ -21,13 +21,14 @@ class AdminController < ApplicationController
 
   def destroy_brand
     brand = Brand.find(params[:brand_id])
-    if brand_has_associated_models?(brand)
-      flash[:error] = "Brand #{brand.name} cannot be deleted because it has associated models (cars)."
-    elsif brand.destroy
-      flash[:danger] = "Brand #{brand.name} has been deleted successfully."
-    else
-      flash[:error] = "Failed to delete #{brand.name} Brand."
-    end
+    flash[:danger] = if brand_has_associated_models?(brand)
+                       "Brand #{brand.name} cannot be deleted because it has associated
+                        datas.Delete those first"
+                     elsif brand.destroy
+                       "Brand #{brand.name} has been deleted successfully."
+                     else
+                       "Failed to delete #{brand.name} Brand."
+                     end
     redirect_to show_brand_path
   end
 
@@ -79,4 +80,11 @@ class AdminController < ApplicationController
     redirect_to show_car_model_path
   end
 
+  private
+
+  def collecting_val_edit_car_model
+    @car_model_id = params[:carModelId]
+    @edited_car_model_name = params[:editedCarModelName]
+    @edited_car_model_brand_id = params[:editedCarModelBrandId]
+  end
 end

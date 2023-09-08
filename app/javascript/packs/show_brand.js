@@ -1,5 +1,9 @@
 console.log("custom js file loaded for show brand")
-
+$(".close-button").on("click", function () {
+  // Close the modal using vanilla JavaScript
+  document.getElementById("editBrandModal").classList.remove("show");
+  document.getElementById("editBrandModal").style.display = "none";
+});
 document.querySelectorAll('.delete-brand-btn').forEach(function(button) {
   button.addEventListener('click', function(event) {
     event.preventDefault();
@@ -83,7 +87,8 @@ function handleEditBrandButtonClick(event) {
   edit_BrandId = this.getAttribute("data-brand-id");
   document.getElementById("editBrandName").value = brandName;
 
-  $("#editBrandModal").modal("show");
+  document.getElementById("editBrandModal").classList.add("show");
+  document.getElementById("editBrandModal").style.display = "block";
 }
 
 // Event listener for the "Save Edit Brand" button

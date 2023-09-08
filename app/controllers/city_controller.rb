@@ -21,11 +21,14 @@ class CityController < ApplicationController
 
   def destroy_city
     city = City.find(params[:city_id])
-    if city.destroy
-      flash[:danger] = "City #{city.name} (#{city.state}) has been deleted successfully"
-    else
-      flash[:error] = "Failed to delete #{city.name} (#{city.state}) city"
-    end
+    flash[:danger] = if city_has_associated_branches?(city)
+                       "Cannot delete #{city.name} (#{city.state}) city as it has associated branches"
+                     elsif city.destroy
+                       "City #{city.name} (#{city.state}) has been deleted successfully"
+                     else
+                       "Failed to delete #{city.name} (#{city.state}) city"
+                     end
+
     redirect_to show_city_path
   end
 
@@ -34,7 +37,7 @@ class CityController < ApplicationController
     if @city.update(name: params[:selected_city], state: params[:selected_state])
       flash[:success] = "City #{@city.name} (#{@city.state}) has been updated successfully"
     else
-      flash[:error] = 'Failed to update the city'
+      flash[:danger] = 'Failed to update the city'
     end
     redirect_to show_city_path
   end
@@ -50,5 +53,9 @@ class CityController < ApplicationController
   def handle_failed_city_addition
     flash[:danger] = "Failed to add #{@city.name} (#{@city.state}) city"
     redirect_to show_city_path
+  end
+
+  def city_has_associated_branches?(city)
+    !city.branch.empty?
   end
 end
