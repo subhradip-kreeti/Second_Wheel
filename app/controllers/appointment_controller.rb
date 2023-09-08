@@ -8,10 +8,9 @@ class AppointmentController < ApplicationController
   include AppointmentHelper
   def request_from_seller
     request_appointment_data
-    @appointment_id = generate_appointment_id(@user_id, @car_id)
+    # @appointment_id = generate_appointment_id(@user_id, @car_id)
     appointment = Appointment.new(date: @date, user_id: @user_id,
-                                  car_id: @car_id, status: 'Sell_Pending',
-                                  appointment_id: @appointment_id)
+                                  car_id: @car_id, status: 'Sell_Pending')
     if appointment.save
       update_selling_appointment_status(@car_id)
     else
@@ -45,9 +44,8 @@ class AppointmentController < ApplicationController
 
   def request_from_buyer
     request_appointment_data
-    @appointment_id = generate_appointment_id(@user_id, @car_id)
-    appointment = Appointment.new(date: @date, user_id: @user_id, car_id: @car_id, status: 'Buy_Pending',
-                                  appointment_id: @appointment_id)
+    # @appointment_id = generate_appointment_id(@user_id, @car_id)
+    appointment = Appointment.new(date: @date, user_id: @user_id, car_id: @car_id, status: 'Buy_Pending')
     if appointment.save
       success_for_request_from_buyer
     else
@@ -90,13 +88,13 @@ class AppointmentController < ApplicationController
 
   private
 
-  def generate_appointment_id(user_id, car_id)
-    user_id_part = user_id.to_s.rjust(2, '0')
-    car = Car.find_by(id: car_id)
-    car_reg_no = car.reg_no
-    car_id_part = car.id.to_s.rjust(2, '0')
-    "#{user_id_part}#{car_reg_no}#{car_id_part}"
-  end
+  # def generate_appointment_id(user_id, car_id)
+  #   user_id_part = user_id.to_s.rjust(2, '0')
+  #   car = Car.find_by(id: car_id)
+  #   car_reg_no = car.reg_no
+  #   car_id_part = car.id.to_s.rjust(2, '0')
+  #   "#{user_id_part}#{car_reg_no}#{car_id_part}"
+  # end
 
   def request_appointment_data
     @date = params[:appointmentDate]

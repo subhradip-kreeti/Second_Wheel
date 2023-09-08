@@ -5,6 +5,8 @@ class Appointment < ApplicationRecord
   belongs_to :user
   belongs_to :car
 
+  before_create :generate_appointment_id
+
   validates :date, :user_id, :car_id, presence: true
   validate :date_must_be_in_future
   validates :appointment_id, uniqueness: true
@@ -20,5 +22,14 @@ class Appointment < ApplicationRecord
     return if date.blank?
 
     errors.add(:date, 'must be a present or future date') if date < Date.today
+  end
+
+  private
+
+  def generate_appointment_id
+    user_id_part = user_id.to_s.rjust(2, '0')
+    car_reg_no = car.reg_no
+    car_id_part = car.id.to_s.rjust(2, '0')
+    self.appointment_id = "#{user_id_part}#{car_reg_no}#{car_id_part}"
   end
 end

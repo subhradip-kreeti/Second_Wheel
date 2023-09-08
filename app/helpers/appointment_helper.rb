@@ -5,7 +5,7 @@ module AppointmentHelper
   def update_selling_appointment_status(car_id)
     car = Car.find_by(id: car_id)
     car.update(selling_appointment_status: 'Sell_Pending')
-    flash[:success] = "Appointment booked successfully. Appointment id : #{@appointment_id}"
+    flash[:success] = 'Appointment booked successfully.'
     redirect_to appointments_path
   end
 
@@ -15,7 +15,7 @@ module AppointmentHelper
   end
 
   def success_for_request_from_buyer
-    flash[:success] = "Appointment booked successfully.Appointment id : #{@appointment_id}"
+    flash[:success] = 'Appointment booked successfully'
     redirect_to appointments_path
   end
 
