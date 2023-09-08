@@ -22,9 +22,10 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <div class="form-outline flex-fill mb-0">
                         <%= form.label :email, class: "form-label", for: "form3Example3c" %>
-                        <%= form.email_field :email, id: "form3Example3c", class: "form-control" %>
+                        <%= form.email_field :email, id: "form3Example3c", class: "form-control", required: true %>
                       </div>
                     </div>
+
                     <%@user.errors.full_messages_for(:email).each do |message|%>
                       <p class="text-danger"> <%=message%> </p>
                     <%end%>

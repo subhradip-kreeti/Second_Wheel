@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :password, length: { minimum: 5 }, allow_blank: true
   validates :mobile_no, presence: true, length: { is: 10 }, format: { with: /\A[6-9]\d{9}\z/ }
   validates :role, presence: true
