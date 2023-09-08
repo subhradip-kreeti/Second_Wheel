@@ -33,11 +33,13 @@ Rails.application.routes.draw do
   # admin
   get 'show_brand', to: 'admin#show_brand'
   post 'add_brand', to: 'admin#add_brand'
+  post 'update_brand/:id', to: 'admin#update_brand', as: 'update_brand'
   delete 'delete_brand/:id', to: 'admin#destroy_brand', as: 'delete_brand'
 
   get 'show_car_model', to: 'admin#show_car_model'
   post 'add_car_model', to: 'admin#add_car_model'
   delete 'delete_car_model/:id', to: 'admin#destroy_car_model', as: 'delete_car_model'
+  patch 'update_car_model/:id', to: 'admin#update_car_model', as: 'update_car_model'
 
   # dashboard
   get 'buyer_dashboard', to: 'dashboard#buyer_dashboard'

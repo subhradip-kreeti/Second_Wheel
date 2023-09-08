@@ -54,8 +54,12 @@ document.getElementById('add-brand-btn').addEventListener('click', function(even
       listItem.className = 'list-group-item';
       listItem.innerText = selectedBrand;
       brandList.appendChild(listItem);
+      setTimeout(function () {
+        location.reload();
+      }, 3000);
     },
     error: function(xhr, status, error) {
+      alert('Error occured');
     }
   });
 });
@@ -71,3 +75,58 @@ function isBrandAlreadyPresent(brand) {
   }
   return false;
 }
+
+// Function to handle the click event for editing a brand
+function handleEditBrandButtonClick(event) {
+  event.preventDefault();
+  var brandName = this.getAttribute("data-brand-name");
+  edit_BrandId = this.getAttribute("data-brand-id");
+  document.getElementById("editBrandName").value = brandName;
+
+  $("#editBrandModal").modal("show");
+}
+
+// Event listener for the "Save Edit Brand" button
+document.getElementById("saveEditBrand").addEventListener("click", function (event) {
+  event.preventDefault();
+  var editBrandName = document.getElementById("editBrandName").value;
+
+  if (editBrandName.trim() == "") {
+    alert("Enter a brand name");
+    return;
+  }
+
+  if (isBrandAlreadyPresent(editBrandName)) {
+    alert("Brand already exists.");
+    return;
+  }
+
+  if (
+    confirm(
+      `Are you sure you want to edit ${editBrandName} brand?`
+    )
+  ) {
+    $.ajax({
+      url: "/update_brand/" + edit_BrandId, // Update the URL with your edit brand endpoint
+      method: "POST", // Use the appropriate HTTP method
+      data: {
+        selected_brand_id: edit_BrandId,
+        selected_brand: editBrandName,
+        authenticity_token: $('meta[name="csrf-token"]').attr("content"),
+      },
+      success: function (response) {
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
+      },
+      error: function (xhr, status, error) {
+        alert('Error occured');
+      },
+    });
+  }
+});
+
+// Add event listeners to edit brand buttons
+document.querySelectorAll(".edit-brand-btn").forEach(function (button) {
+  button.addEventListener("click", handleEditBrandButtonClick);
+});

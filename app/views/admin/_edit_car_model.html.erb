@@ -1,0 +1,29 @@
+<!-- Edit Car Model Modal -->
+<div class="modal fade" id="editCarModelModal" tabindex="-1" role="dialog" aria-labelledby="editCarModelModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCarModelModalLabel">Edit Car Model</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="editCarModelName" class="mb-1">Car Model Name</label>
+            <input type="text" class="form-control mb-2" id="editCarModelName" placeholder="Enter car model name">
+          </div>
+          <div class="form-group">
+            <label for="editCarModelBrand" class="mb-1">Select Brand</label>
+            <%= select_tag 'car_model_brand', options_for_select(@brand.map { |b| [b.name, b.id] }, selected: nil), prompt: 'Select Brand', class: 'form-control', id: 'editCarModelBrand' %>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveEditCarModel">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,84 +1,151 @@
-console.log("show-car-model js loaded")
+console.log("show-car-model js loaded");
+var carModelIdforedit;
 
-document.querySelectorAll('.delete-car-model-btn').forEach(function(button) {
-  button.addEventListener('click', function(event) {
-    console.log(" i am triggered")
+document.querySelectorAll(".delete-car-model-btn").forEach(function (button) {
+  button.addEventListener("click", function (event) {
     event.preventDefault();
-    var carModelId = this.getAttribute('data-car-model-id');
+    var carModelId = this.getAttribute("data-car-model-id");
     $.ajax({
-      url: '/delete_car_model/' + carModelId,
-      method: 'DELETE',
+      url: "/delete_car_model/" + carModelId,
+      method: "DELETE",
       data: {
         carModelId: carModelId,
-        authenticity_token: $('meta[name="csrf-token"]').attr('content')
+        authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
-      success: function(response) {
-        event.target.closest('li').remove();
-        alert('Brand deleted successfully');
+      success: function (response) {
+        event.target.closest("li").remove();
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
-      error: function(xhr, status, error) {
-        alert('Failed to delete Brand');
-      }
+      error: function (xhr, status, error) {
+        alert('Error Occurred');
+      },
     });
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('add-model-btn').addEventListener('click', function(event) {
-    event.preventDefault();
-    var brandSelect = document.getElementById('brand-select');
-    var selectedBrand = brandSelect.value;
-    console.log(selectedBrand)
-    var modelSelect = document.getElementById('model-input');
-    var selectedModel = modelSelect.value;
-    if (selectedBrand.trim() === '' || selectedModel.trim() === '') {
-      alert('Some fields are blank');
-      return;
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("add-model-btn")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      var brandSelect = document.getElementById("brand-select");
+      var selectedBrand = brandSelect.value;
+      var modelSelect = document.getElementById("model-input");
+      var selectedModel = modelSelect.value;
 
-    if (selectedBrand == 'Choose a brand') {
-      alert('Please select a brand');
-      return;
-    }
-
-    // Check if the same combination of brand and car model exists
-    var modelList = document.getElementById('model-list');
-    var existingModels = modelList.getElementsByTagName('li');
-    for (var i = 0; i < existingModels.length; i++) {
-      var modelName = existingModels[i].textContent.trim().split('(')[0].trim().toLowerCase();
-      if (modelName === selectedModel.toLowerCase()) {
-        alert('The car model is already available');
-        // Clear the form inputs
-        document.getElementById('brand-select').selectedIndex = 0;
-        document.getElementById('model-input').value = '';
+      if (selectedBrand.trim() === "" || selectedModel.trim() === "") {
+        alert("Some fields are blank");
         return;
       }
-    }
 
-    // Send an AJAX request to add the car model
-    $.ajax({
-      url: '/add_car_model',
-      method: 'POST',
-      data: {
-        selected_brand: selectedBrand,
-        selected_model: selectedModel,
-        authenticity_token: $('meta[name="csrf-token"]').attr('content')
-      },
-      success: function(response) {
-        var brandList = document.getElementById('model-list');
-        var newItem = document.createElement('li');
-        newItem.classList.add('list-group-item');
-        newItem.textContent = selectedModel + ' ( ' + response.brand_name + ' )';
-        brandList.appendChild(newItem);
-        alert('Car Model added successfully');
-
-        // Clear the form inputs
-        document.getElementById('add-model-form').reset();
-        location.reload()
-      },
-      error: function(xhr, status, error) {
-        alert('Failed to add Car Model');
+      if (selectedBrand == "Choose a brand") {
+        alert("Please select a brand");
+        return;
       }
+
+      // Check if the same combination of brand and car model exists
+      var modelList = document.getElementById("model-list");
+      var existingModels = modelList.getElementsByTagName("li");
+      for (var i = 0; i < existingModels.length; i++) {
+        var modelName = existingModels[i].textContent
+          .trim()
+          .split("(")[0]
+          .trim()
+          .toLowerCase();
+        var existingBrandName = existingModels[i].textContent
+          .trim()
+          .split("(")[1]
+          .split(")")[0]
+          .trim()
+          .toLowerCase(); // Extract existing brand name
+
+        if (
+          modelName == selectedModel.toLowerCase() &&
+          existingBrandName == selectedBrand.trim().toLowerCase()
+        ) {
+          alert("The car model is already available for the selected brand");
+          brandSelect.selectedIndex = 0;
+          modelSelect.value = "";
+          return;
+        }
+      }
+
+      // Send an AJAX request to add the car model
+      $.ajax({
+        url: "/add_car_model",
+        method: "POST",
+        data: {
+          selected_brand: selectedBrand,
+          selected_model: selectedModel,
+          authenticity_token: $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (response) {
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        },
+        error: function (xhr, status, error) {
+          alert("Failed to add Car Model");
+        },
+      });
+    });
+
+  // Open the edit modal
+  document.querySelectorAll(".edit-car-model-btn").forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      carModelIdforedit = this.getAttribute("data-car-model-id");
+      var carModelName = this.getAttribute("data-car-model-name");
+      var carModelBrandName = this.getAttribute("data-car-model-brand-name");
+      var carModelBrandId = this.getAttribute("data-car-model-brand-id");
+      document.getElementById("editCarModelName").value = carModelName;
+      // Select the corresponding option in the brand select dropdown
+      var editCarModelBrandSelect = document.getElementById("editCarModelBrand");
+      for (var i = 0; i < editCarModelBrandSelect.options.length; i++) {
+        if (editCarModelBrandSelect.options[i].text === carModelBrandName) {
+          editCarModelBrandSelect.options[i].selected = true;
+          break;
+        }
+      }
+
+      // Open the modal
+      $("#editCarModelModal").modal("show");
     });
   });
+
+  // Save changes in the edit modal
+  document
+    .getElementById("saveEditCarModel")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+
+      var editedCarModelName =
+        document.getElementById("editCarModelName").value;
+      var editedCarModelBrandId =
+        document.getElementById("editCarModelBrand").value;
+
+      // Perform checks here if needed
+
+      // Send an AJAX request to update the car model
+      $.ajax({
+        url: "/update_car_model/" + carModelIdforedit,
+        method: "PATCH",
+        data: {
+          carModelId: carModelIdforedit,
+          editedCarModelName: editedCarModelName,
+          editedCarModelBrandId: editedCarModelBrandId,
+          authenticity_token: $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (response) {
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        },
+        error: function (xhr, status, error) {
+          alert('Error Occurred');
+        },
+      });
+    });
 });
