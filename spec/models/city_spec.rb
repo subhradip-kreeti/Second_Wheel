@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe City, type: :model do
   context 'validations' do
     it 'validates presence of name' do
-      city = City.new(name: nil, state: 'Sample State')
+      city = City.new(name: ' ', state: 'Sample State')
       expect(city.valid?).to eq(false)
       expect(city.errors[:name]).to include("can't be blank")
     end
@@ -14,7 +14,7 @@ RSpec.describe City, type: :model do
       create(:city, name: 'Existing City', state: 'Sample State')
       city = City.new(name: 'Existing City', state: 'Sample State')
       expect(city.valid?).to eq(false)
-      expect(city.errors[:name]).to include('has already been taken')
+      expect(city.errors[:name]).to include('and state combination must be unique')
     end
 
     it 'validates presence of state' do

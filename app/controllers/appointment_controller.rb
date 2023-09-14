@@ -6,6 +6,7 @@ class AppointmentController < ApplicationController
   before_action :require_user
   before_action :require_admin, only: [:all_appointments_in_admin_dashboard]
   include AppointmentHelper
+  include FilterationHelper
   def request_from_seller
     request_appointment_data
     # @appointment_id = generate_appointment_id(@user_id, @car_id)
@@ -25,6 +26,7 @@ class AppointmentController < ApplicationController
   def all_appointments_in_admin_dashboard
     @active_window = 'appointment'
     @appointments = Appointment.all
+    default_sort_order(define_custom_order)
   end
 
   def status_update
@@ -87,14 +89,6 @@ class AppointmentController < ApplicationController
   end
 
   private
-
-  # def generate_appointment_id(user_id, car_id)
-  #   user_id_part = user_id.to_s.rjust(2, '0')
-  #   car = Car.find_by(id: car_id)
-  #   car_reg_no = car.reg_no
-  #   car_id_part = car.id.to_s.rjust(2, '0')
-  #   "#{user_id_part}#{car_reg_no}#{car_id_part}"
-  # end
 
   def request_appointment_data
     @date = params[:appointmentDate]

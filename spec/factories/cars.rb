@@ -6,7 +6,7 @@ FactoryBot.define do
     association :car_model
     association :user
     association :branch
-    sequence(:reg_no) { |n| "ABC#{n}" }
+    sequence(:reg_no) { |n| "WB24D142#{n}" }
     variant { 'Petrol' }
     kilometer_driven { '1-10000' }
     reg_year { '2021' }

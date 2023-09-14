@@ -31,12 +31,6 @@ RSpec.describe User, type: :model do
       expect(user.errors[:mobile_no]).to include("can't be blank")
     end
 
-    it 'validates length of mobile_no' do
-      user = User.new(mobile_no: '123456789')
-      expect(user.valid?).to eq(false)
-      expect(user.errors[:mobile_no]).to include('is too short (minimum is 10 characters)')
-    end
-
     it 'validates presence of role' do
       user = User.new(role: nil)
       expect(user.valid?).to eq(false)

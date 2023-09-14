@@ -85,6 +85,9 @@ Rails.application.routes.draw do
     patch 'edit_my_profile', to: 'users#update', on: :member
   end
 
+  # filteration
+  get 'appointment_filter', to: 'filteration#appointment_filter'
+
   # fogot_password
   get 'password_forget', to: 'password#new'
   post 'password_reset_link', to: 'password#reset_link'
