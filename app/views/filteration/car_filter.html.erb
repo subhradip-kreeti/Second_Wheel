@@ -1,0 +1,12 @@
+<%= render 'car/car_filter_and_search'%>
+<%= link_to "back", buyer_feed_path%>
+<div class="container">
+  <div class="row mt-4">
+    <%= render 'car/car'%>
+  </div>
+</div>
+
+<%# Modal %>
+<%= render 'car/appointment_booking_modal'%>
+<%# js %>
+<%= javascript_pack_tag 'car_index', 'data-turbolinks-track': 'reload' %>

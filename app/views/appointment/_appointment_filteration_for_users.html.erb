@@ -1,33 +1,46 @@
-<div class="col-lg-4">
-  <div class="form-inline">
-    <label for="statusFilter" class="ms-4 me-2">Filter by Status:</label>
-    <select class="form-select" id="statusFilter" onchange="applyFiltersForUsers()">
-      <option value="">All</option>
-      <option value="pending">Pending</option>
-      <option value="processing">Processing</option>
-      <option value="investigating">Investigating</option>
-      <option value="ready_for_sell"> <%= session[:role] == 'buyer'? "Ready to Buy" : "Ready for Sell" %> </option>
-      <option value="sold"><%= session[:role] == 'buyer'? "Bought" : "Sold" %></option>
-      <option value="reject"><%= session[:role] == 'buyer'? "Buy Request Cancelled" : "Reject"%>
-      </option>
-    </select>
+<%= form_with  url: filter_and_sort_general_user_appointment_path, method: :get, remote: true, id: 'filter-sort-form' do |form|%>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-inline">
+      <%= form.label 'statusFilter', 'Filter by Status:', class: 'ms-4 me-2' %>
+      <%= form.select 'statusFilter', options_for_select(
+                                       {
+                                         'All' => '',
+                                         'Pending' => 'pending',
+                                         'Processing' => 'processing',
+                                         'Investigating' => 'investigating',
+                                         session[:role] == 'buyer' ? 'Ready to Buy' : 'Ready for Sell' => 'ready_for_sell',
+                                         session[:role] == 'buyer' ? 'Bought' : 'Sold' => 'sold',
+                                         session[:role] == 'buyer' ? 'Buy Request Cancelled' : 'Reject' => 'reject'
+                                       }), class:'form-select', id: 'statusFilter'%>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-inline">
+      <%= form.label 'sortOption', 'Sort by:', class: 'ms-4 me-2' %>
+      <%= form.select 'sortOption', options_for_select(
+                                    {
+                                      'Default' => 'default',
+                                      'Status (Ascending)' => 'status-asc',
+                                      'Status (Descending)' => 'status-desc',
+                                      'Car Brand (Ascending)' => 'car-brand-asc',
+                                      'Car Brand (Descending)' => 'car-brand-desc',
+                                      'Car Model (Ascending)' => 'car-model-asc',
+                                      'Car Model (Descending)' => 'car-model-desc',
+                                      'Date Created (Newest First)' => 'date-created-asc',
+                                      'Date Created (Oldest First)' => 'date-created-desc',
+                                      'Appointment Date (Newest First)' => 'appointment-date-asc',
+                                      'Appointment Date (Oldest First)' => 'appointment-date-desc'
+                                    }), class: 'form-select', id: 'sortOption' %>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <%= form.submit 'Apply filter and sort', class: 'btn btn-primary mt-4' %>
+    <% if @clear_filter %>
+      <%= link_to "Clear filter and Sort", appointments_path, class:"btn btn-danger"%>
+    <%end%>
   </div>
 </div>
-<div class="col-lg-4">
-  <div class="form-inline">
-    <label for="sortOption" class="ms-4 me-2">Sort by:</label>
-    <select class="form-select" id="sortOption" onchange="changeSortOptionForUsers(this.value)">
-      <option value="default">Default</option>
-      <option value="status-asc">Status (Ascending)</option>
-      <option value="status-desc">Status (Descending)</option>
-      <option value="car-brand-asc">Car Brand (Ascending)</option>
-      <option value="car-brand-desc">Car Brand (Descending)</option>
-      <option value="car-model-asc">Car Model (Ascending)</option>
-      <option value="car-model-desc">Car Model (Descending)</option>
-      <option value="date-created-asc">Date Created (Newest First)</option>
-      <option value="date-created-desc">Date Created (Oldest First)</option>
-      <option value="appointment-date-asc">Appointment Date (Newest First)</option>
-      <option value="appointment-date-desc">Appointment Date (Oldest First)</option>
-    </select>
-  </div>
-</div>
+<% end %>

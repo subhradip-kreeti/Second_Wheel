@@ -101,7 +101,7 @@ class Car < ApplicationRecord
 
   def self.index_data
     __elasticsearch__.create_index! force: true
-    __elasticsearch__.import
+    Car.import
   end
 
   settings do

@@ -20,6 +20,7 @@ class AppointmentController < ApplicationController
   end
 
   def all_appointments
+    @clear_filter = false
     @appointments = Appointment.where(user_id: session[:user_id])
   end
 

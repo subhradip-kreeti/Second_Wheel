@@ -87,7 +87,8 @@ Rails.application.routes.draw do
 
   # filteration
   get 'appointment_filter', to: 'filteration#appointment_filter'
-
+  get 'car_filter', to: 'filteration#car_filter'
+  get 'filter_and_sort_general_user_appointment', to: 'filteration#filter_and_sort_general_user_appointment'
   # fogot_password
   get 'password_forget', to: 'password#new'
   post 'password_reset_link', to: 'password#reset_link'

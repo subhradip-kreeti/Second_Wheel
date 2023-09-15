@@ -1,0 +1,46 @@
+<div class="ms-5 row">
+  <div class="col-md-12 mb-3 mt-3">
+    <% if session[:role] == 'buyer' && @clear_filter == false%>
+    <%= link_to  "Back", buyer_feed_path %>
+    <%end%>
+    <% if session[:role] == 'seller' && @clear_filter == false%>
+    <%= link_to  "Back", seller_dashboard_path %>
+    <%end%>
+    <div class="row">
+      <%= render 'appointment/appointment_filteration_for_users'%>
+    </div>
+  </div>
+</div>
+<div class="conatiner ps-2">
+  <div class="row ms-5 me-5 mt-4 mb-3">
+    <%@appointments.each do |app|%>
+    <% if app.user.id == session[:user_id] %>
+    <div class="card bg-light pb-2 me-4 mb-3" style="width: 18rem;" data-status="<%= app.status %>" data-car-brand="<%= app.car.brand.name %>" data-car-model="<%= app.car.car_model.name %>" data-created-date="<%= app.created_at.strftime('%Y%m%d%H%M%S') %>" data-appointment-date="<%= app.date.strftime('%Y%m%d%H%M%S') %>">
+      <div class="card-body">
+        <h5 class="card-title"> <%= app.car.brand.name %> - <%= app.car.car_model.name %></h5>
+        <h6 class="card-title"> <%= app.car.reg_no %></h6>
+        <h6 class="card-text">Appointment ID: <%= app.appointment_id %></h6>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Appointment Status: <strong><%= app.status %></strong></li>
+        <li class="list-group-item">Appointment Date: <strong><%= app.date.strftime('%d %b, %Y') %></strong></li>
+        <li class="list-group-item">Created At: <strong><%= app.created_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+        <li class="list-group-item">Appointment Updated On: <br><strong><%= app.updated_at.localtime.strftime('%d %b, %Y, %l:%M %p') %></strong></li>
+      </ul>
+      <% if session[:role] == 'seller' %>
+      <% if app.status == 'Ready_for_Sell' %>
+      <a href="/appointments/buyers_list/<%= app.id %>" class="btn btn-outline-primary btn-sm mx-4 mt-2">See Buyer's List</a>
+      <% else %>
+      <button href="#" class="btn btn-outline-primary btn-sm mx-4 mt-2" disabled>See Buyer's List</button>
+      <% end %>
+      <% end %>
+    </div>
+    <% end %>
+    <%end%>
+    <% if @appointments == []%>
+    <div class="alert alert-secondary h5 text-primary text-center" role="alert">
+      You have not booked any appointments yet . Visit your dashboard to book appointments
+    </div>
+    <%end%>
+  </div>
+</div>

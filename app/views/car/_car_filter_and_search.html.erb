@@ -1,38 +1,48 @@
-<%= form_for :filter_cars, url: search_cars_path, method: :get do |form| %>
-  <div class="container-fluid mt-4 row">
-    <div class="col-lg-3 mb-2">
-      <%= form.collection_select :city, City.all, :name, :name, { prompt: "Select City" }, { class: "form-select", id: "city-select", onchange: "filterCars()" } %>
-     </div>
+<%= form_with url: car_filter_path, id: 'new_form', method: :get, remote: true do |form|%>
+  <div class="container-fluid mt-4">
 
-    <div class="col-lg-3 mb-2">
-      <%= form.collection_select :brand, Brand.all, :name, :name, { prompt: "Select Brand" }, { class: "form-select", id: "brand-select", onchange: "filterCars()" } %>
-    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-2 mb-2">
+        <%= form.select :city, options_for_select(City.pluck(:name),params[:city]), { prompt: "Select City" }, { class: "form-select", id: "city-select"} %>
+      </div>
 
-    <div class="col-lg-3 mb-2">
-      <%= form.collection_select :model, CarModel.all, :name, :name, { prompt: "Select Model" }, { class: "form-select", id: "model-select", onchange: "filterCars()" } %>
-    </div>
+      <div class="col-md-2 mb-2">
+        <%= form.select :brand, options_for_select(Brand.pluck(:name),params[:brand]), { prompt: "Select Brand" }, { class: "form-select", id: "brand-select" } %>
+      </div>
 
-    <div class="col-lg-3 mb-2">
-      <%= form.select :reg_year, Car.reg_years.keys, { prompt: "Select Reg Year" }, { class: "form-select",id:"reg-year-select", onchange: "filterCars()" } %>
-    </div>
+      <div class="col-md-2 mb-2">
+        <%= form.select :model, options_for_select(CarModel.pluck(:name),params[:model]), { prompt: "Select Model" }, { class: "form-select", id: "model-select"} %>
+      </div>
 
-    <div class="col-lg-3 mb-2">
-      <%= form.select :variant, Car.variants.keys, { prompt: "Select Variant" }, { class: "form-select", id:'variant-select', onchange: "filterCars()" } %>
-    </div>
+      <div class="col-md-2 mb-2">
+        <%= form.select :reg_year, options_for_select(Car.reg_years.keys,params[:reg_year]), { prompt: "Select Reg Year" }, { class: "form-select", id: "reg-year-select"} %>
+      </div>
 
-    <div class="col-lg-3 mb-2">
-      <%= form.select :reg_state, Car.reg_states.keys, { prompt: "Select Reg State" }, { class: "form-select", id:'reg-state-select', onchange: "filterCars()" } %>
+      <div class="col-md-2 mb-2">
+        <%= form.select :variant, options_for_select(Car.variants.keys,params[:variant]), { prompt: "Select Variant" }, { class: "form-select", id: 'variant-select'} %>
+      </div>
     </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-2 mb-2">
+        <%= form.select :reg_state, options_for_select(Car.reg_states.keys, params[:reg_state]), { prompt: "Select Reg State" }, { class: "form-select", id: 'reg-state-select'} %>
+      </div>
 
-    <div class="col-lg-3">
-      <%= form.select :kilometer_driven, Car.kilometer_drivens.keys, { prompt: "Select Kilometer Driven" }, { class: "form-select", id: 'kilometer-driven-select', onchange: "filterCars()" } %>
-    </div>
-<% end %>
-    <div class="col-lg-3 col-md-6">
-      <%= form_for :search_cars, url: search_cars_path, method: :get do |form| %>
-        <%= form.text_field :query, value: params[:search_cars].presence && params[:search_cars][:query], class: "form-control rounded outline-primary", placeholder: "Search", autocomplete: "off", required: true %>
-      <% end %>
+      <div class="col-md-2 mb-2">
+        <%= form.select :kilometer_driven, options_for_select(Car.kilometer_drivens.keys,params[:kilometer_driven]), { prompt: "Select Kilometer Driven" }, { class: "form-select", id: 'kilometer-driven-select'} %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.submit "Apply filter" ,class: "btn btn-primary", id: "apply-filter-button" %>
+        <% if @filter %>
+          <%= link_to "Clear Filter", buyer_feed_path, class: "ms-2 btn btn-danger" %>
+        <% end %>
+      </div>
+  <% end %>
+      <div class="col-md-2">
+        <%= form_for :search_cars, url: search_cars_path, method: :get do |form| %>
+          <%= form.text_field :query, value: params[:search_cars].presence && params[:search_cars][:query], class: "form-control rounded outline-primary", placeholder: "Search", autocomplete: "off", required: true %>
+        <% end %>
+      </div>
     </div>
   </div>
-
-<%= javascript_pack_tag 'car_filteration', 'data-turbolinks-track': 'reload' %>
+  </div>
