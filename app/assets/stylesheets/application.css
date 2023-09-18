@@ -1,3 +1,12 @@
+
+
+#statusFilter,#sortOption{
+  padding-inline:1rem;
+  font-size: 1rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 10px;
+}
 @media screen and (max-width: 1400px) {
   .my-container {
     max-width: 100% !important;

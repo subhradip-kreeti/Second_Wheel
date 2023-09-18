@@ -1,7 +1,6 @@
 <%= form_with  url: filter_and_sort_general_user_appointment_path, method: :get, remote: true, id: 'filter-sort-form' do |form|%>
-<div class="row">
-  <div class="col-md-4">
-    <div class="form-inline">
+<div class="row g-2 d-flex justify-content-between">
+  <div class="col-sm-3">
       <%= form.label 'statusFilter', 'Filter by Status:', class: 'ms-4 me-2' %>
       <%= form.select 'statusFilter', options_for_select(
                                        {
@@ -9,15 +8,13 @@
                                          'Pending' => 'pending',
                                          'Processing' => 'processing',
                                          'Investigating' => 'investigating',
-                                         session[:role] == 'buyer' ? 'Ready to Buy' : 'Ready for Sell' => 'ready_for_sell',
+                                         session[:role] == 'buyer' ? 'Ready to Buy' : 'Ready for Sell' => 'ready',
                                          session[:role] == 'buyer' ? 'Bought' : 'Sold' => 'sold',
                                          session[:role] == 'buyer' ? 'Buy Request Cancelled' : 'Reject' => 'reject'
-                                       }), class:'form-select', id: 'statusFilter'%>
-    </div>
+                                       },params[:statusFilter]), {class: "form-select", id: 'statusFilter'}%>
   </div>
 
-  <div class="col-md-4">
-    <div class="form-inline">
+  <div class="col-sm-3">
       <%= form.label 'sortOption', 'Sort by:', class: 'ms-4 me-2' %>
       <%= form.select 'sortOption', options_for_select(
                                     {
@@ -32,14 +29,13 @@
                                       'Date Created (Oldest First)' => 'date-created-desc',
                                       'Appointment Date (Newest First)' => 'appointment-date-asc',
                                       'Appointment Date (Oldest First)' => 'appointment-date-desc'
-                                    }), class: 'form-select', id: 'sortOption' %>
-    </div>
+                                    },params[:sortOption]), class: 'form-select', id: 'sortOption' %>
   </div>
 
-  <div class="col-md-4">
-    <%= form.submit 'Apply filter and sort', class: 'btn btn-primary mt-4' %>
+  <div class="col-sm-6 d-flex justify-content-center">
+    <%= form.submit 'Apply filter and sort', class: 'btn btn-primary mt-4' ,id: 'apply-fiter-button-g'%>
     <% if @clear_filter %>
-      <%= link_to "Clear filter and Sort", appointments_path, class:"btn btn-danger"%>
+      <%= link_to "Clear filter and Sort", appointments_path, class:"btn btn-danger mt-4 ms-2"%>
     <%end%>
   </div>
 </div>

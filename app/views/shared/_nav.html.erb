@@ -84,7 +84,7 @@
       </div>
       <div class="d-flex">
         <p class="mt-2">Welcome, <%= current_user.name %> - <%= current_user.role %></p>
-        <%= button_to "Log Out", logout_path, class: "btn btn-danger ms-2",method: :delete, data: { confirm: "Are you sure you want to log out?" }%>
+        <%= button_to "Log Out", logout_path, class: "btn btn-danger ms-2 me-2",method: :delete, data: { confirm: "Are you sure you want to log out?" }%>
       </div>
       <% end %>
     </div>

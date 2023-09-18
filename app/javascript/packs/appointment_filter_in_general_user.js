@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function() {
-  const form = document.querySelector("#new_form");
-  const applyFilterButton = document.querySelector("#apply-filter-button");
+  const form = document.querySelector("#filter-sort-form");
+  const applyFilterButton = document.querySelector("#apply-filter-button-g");
   const selectBoxes = document.querySelectorAll(".form-select");
 
   function isAtLeastOneSelected() {

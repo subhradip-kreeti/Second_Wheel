@@ -37,10 +37,15 @@
     </div>
     <% end %>
     <%end%>
-    <% if @appointments == []%>
+    <% if @appointments == [] && @clear_filter == false%>
     <div class="alert alert-secondary h5 text-primary text-center" role="alert">
       You have not booked any appointments yet . Visit your dashboard to book appointments
     </div>
+    <%end%>
+    <% if @appointments == [] && @clear_filter == true%>
+      <div class="alert alert-secondary h5 text-primary text-center" role="alert">
+        No such record found . Try different filters and sorts
+      </div>
     <%end%>
   </div>
 </div>
