@@ -7,7 +7,6 @@ require 'rails-controller-testing'
 RSpec.describe UsersController, type: :controller do
   describe 'GET #index' do
     it 'returns a success response for admin user' do
-      # Simulate a logged-in admin user
       admin_user = create(:user, role: 'admin')
       session[:user_id] = admin_user.id
       session[:role] = 'admin'
@@ -17,7 +16,6 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'returns a 200 authorized response for admin user' do
-      # Simulate a logged-in user with a non-admin role
       non_admin_user = create(:user, role: 'buyer')
       session[:user_id] = non_admin_user.id
       session[:role] = 'buyer'
@@ -79,8 +77,6 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to have_http_status(200)
     end
   end
-
-  # Add more tests for other controller actions as needed
 end
 
 # rubocop:enable Metrics/BlockLength
