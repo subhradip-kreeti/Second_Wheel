@@ -60,10 +60,12 @@ class AdminController < ApplicationController
 
   def destroy_car_model
     car_model = CarModel.find(params[:carModelId])
-    flash[:danger] = if car_model.destroy
-                       'Car Model  deleted successfully'
+    flash[:danger] = if car_model_has_associated_cars?(car_model)
+                       'Car Model cannot be deleted because it has associated cars. Delete those first.'
+                     elsif car_model.destroy
+                       'Car Model deleted successfully.'
                      else
-                       'Failed to delete Car Model'
+                       'Failed to delete Car Model.'
                      end
     redirect_to show_car_model_path
   end

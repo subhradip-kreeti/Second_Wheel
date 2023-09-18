@@ -9,7 +9,7 @@ class City < ApplicationRecord
   validate :unique_name_state_combination
 
   private
-  
+
   def unique_name_state_combination
     return if name.blank? || state.blank?
 
@@ -18,5 +18,4 @@ class City < ApplicationRecord
 
     errors.add(:name, 'and state combination must be unique')
   end
-
 end
