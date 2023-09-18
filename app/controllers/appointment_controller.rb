@@ -9,7 +9,6 @@ class AppointmentController < ApplicationController
   include FilterationHelper
   def request_from_seller
     request_appointment_data
-    # @appointment_id = generate_appointment_id(@user_id, @car_id)
     appointment = Appointment.new(date: @date, user_id: @user_id,
                                   car_id: @car_id, status: 'Sell_Pending')
     if appointment.save
@@ -47,7 +46,6 @@ class AppointmentController < ApplicationController
 
   def request_from_buyer
     request_appointment_data
-    # @appointment_id = generate_appointment_id(@user_id, @car_id)
     appointment = Appointment.new(date: @date, user_id: @user_id, car_id: @car_id, status: 'Buy_Pending')
     if appointment.save
       success_for_request_from_buyer

@@ -2,7 +2,6 @@
 
 # city controller
 class CityController < ApplicationController
-  # before_action :require_user
   before_action :require_admin
   def show_city
     @active_window = 'city'
