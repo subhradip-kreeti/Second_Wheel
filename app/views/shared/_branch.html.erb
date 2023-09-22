@@ -5,9 +5,12 @@
       <% @branch.each do |branch| %>
       <% city_name = City.find_by(id: branch.city_id) %>
         <div class="d-flex row list-group-item">
-          <div class="col-md-8"> <li class=""><%= branch.name %> ( <%= city_name.name %> )</div>
-          <div class="col-md-1">
-            <a class="btn btn-info ms-2" href="branch_details/<%= branch.id %>" role="button" target="_blank">Details</a>
+          <div class="col-sm-8"> <li class=""><%= branch.name %> ( <%= city_name.name %> )</div>
+          <div class="col-sm-3 d-flex">
+            <a class="btn btn-primary" href="branch_details/<%= branch.id %>" role="button" target="_blank">Details</a>
+            <% if session[:role] == 'admin'%>
+              <a class="btn btn-info ms-2" href="edit_branch/<%= branch.id %>" role="button">Edit</a>
+            <%end%>
           </div>
         </div>
       </li>

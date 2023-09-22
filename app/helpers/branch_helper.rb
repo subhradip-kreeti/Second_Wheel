@@ -13,4 +13,8 @@ module BranchHelper
   def calculate_c(atan)
     2 * Math.atan2(Math.sqrt(atan), Math.sqrt(1 - atan))
   end
+
+  def branch_update_params
+    params.require(:branch).permit(:city_id, :name, :address, :map_link, :latitude, :longitude)
+  end
 end

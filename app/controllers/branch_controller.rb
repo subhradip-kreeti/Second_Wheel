@@ -4,7 +4,7 @@
 class BranchController < ApplicationController
   include BranchHelper
   before_action :require_user
-  before_action :require_admin, only: %i[index create]
+  before_action :require_admin, only: %i[index create edit update]
   def index
     @active_window = 'branches'
     @branch = Branch.all
@@ -22,6 +22,27 @@ class BranchController < ApplicationController
                             address: @address, map_link: @map_link, latitude: @latitude, longitude: @longitude)
     selected_city_name = City.find_by(id: params[:selected_city])&.name
     render json: { city_name: selected_city_name }
+  end
+
+  def edit
+    @branch = Branch.find(params[:id])
+    @cities = City.all
+  end
+
+  def update
+    @cities = City.all
+    @branch = Branch.find(params[:id])
+    if @branch.update(branch_update_params)
+      flash[:success] = 'Branch updated successfully'
+      redirect_to branch_details_path(@branch)
+    else
+      # flash.now[:success] = 'now - in same page'
+      # flash[:success] = 'diff page'
+
+      # binding.pry
+
+      render action: :edit
+    end
   end
 
   def view_branch

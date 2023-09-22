@@ -53,7 +53,7 @@ class AdminController < ApplicationController
     if @model.persisted?
       flash[:success] = 'Car Model added successfully'
     else
-      flash[:danger] = 'Failed to add Car Model'
+      flash[:danger] = "Failed to add Car Model.Error: #{@model.errors.full_messages_for(:name)}"
     end
     redirect_to show_car_model_path
   end

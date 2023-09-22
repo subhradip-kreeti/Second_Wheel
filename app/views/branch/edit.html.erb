@@ -1,0 +1,69 @@
+<%= form_with model: @branch, url: update_branch_path(@branch), method: :patch, class: 'your-form-class' do |form| %>
+<section class="vh-70 mt-4">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-2 mx-1 mx-md-4 mt-2">Edit Branch</p>
+                <form class="mx-1 mx-md-4">
+                  <div class="mb-3">
+                    <br>
+                    <label for="city-select" class="form-label">Select City:</label>
+                    <%= form.select :city_id,  options_for_select(@cities.map { |city| [city.name, city.id] }), { prompt: 'Select City' }, class: 'form-select' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:city_id).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <div class="mb-3">
+                    <%= form.label :name, class: 'form-label' %>
+                    <%= form.text_field :name, class: 'form-control required', placeholder: 'Branch name' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:name).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <div class="mb-3">
+                    <%= form.label :address, class: 'form-label' %>
+                    <%= form.text_field :address, class: 'form-control required', placeholder: 'Mention locality, road, landmark, pin' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:address).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <div class="mb-3">
+                    <%= form.label :map_link, class: 'form-label' %>
+                    <%= form.text_field :map_link, class: 'form-control required', placeholder: 'Map link' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:map_link).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <div class="mb-3">
+                    <%= form.label :latitude, class: 'form-label' %>
+                    <%= form.text_field :latitude, class: 'form-control required', placeholder: 'Latitude of branch, ex: 2.3522219' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:latitude).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <div class="mb-3">
+                    <%= form.label :longitude, class: 'form-label' %>
+                    <%= form.text_field :longitude, class: 'form-control required', placeholder: 'Longitude of branch, ex: 48.856614' %>
+                  </div>
+                                      <%@branch.errors.full_messages_for(:longitude).each do |message|%>
+                      <p class="text-danger"> <%=message%> </p>
+                    <%end%>
+                  <%= form.button 'Update Branch', class: 'btn btn-primary', id: 'add-branch-btn' %>
+                </form>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 flex-column">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>

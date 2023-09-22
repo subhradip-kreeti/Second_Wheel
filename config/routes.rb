@@ -4,6 +4,7 @@
 Rails.application.routes.draw do
   root 'home#welcome'
   get '/404', to: 'application#not_found'
+
   # users | authentication
   get 'dashboard/buyer_dashboard'
   get 'dashboard/seller_dashboard'
@@ -48,11 +49,13 @@ Rails.application.routes.draw do
 
   # branch
   get 'branches', to: 'branch#index'
-  get 'branch_details/:id', to: 'branch#show'
+  get 'branch_details/:id', to: 'branch#show', as: 'branch_details'
   post 'add_new_branch', to: 'branch#create'
   get 'view_branch', to: 'branch#view_branch'
   post 'getlocation', to: 'branch#getlocation'
   get 'getlocation', to: 'branch#view_branch'
+  get 'edit_branch/:id', to: 'branch#edit'
+  patch 'edit_branch/:id', to: 'branch#update', as: 'update_branch'
 
   # car
   get 'add_new_car', to: 'car#new'
@@ -78,6 +81,7 @@ Rails.application.routes.draw do
   post 'markread', to: 'appointment#markread'
   get 'find_status', to: 'appointment#status_check'
   post 'find_status', to: 'appointment#find_status'
+
   # resources :users
   resources :users, except: [:destroy] do
     get 'my_profile', to: 'users#show', on: :member
@@ -89,6 +93,7 @@ Rails.application.routes.draw do
   get 'appointment_filter', to: 'filteration#appointment_filter'
   get 'car_filter', to: 'filteration#car_filter'
   get 'filter_and_sort_general_user_appointment', to: 'filteration#filter_and_sort_general_user_appointment'
+
   # fogot_password
   get 'password_forget', to: 'password#new'
   post 'password_reset_link', to: 'password#reset_link'
