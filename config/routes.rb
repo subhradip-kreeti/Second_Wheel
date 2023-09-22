@@ -5,7 +5,23 @@ Rails.application.routes.draw do
   root 'home#welcome'
   get '/404', to: 'application#not_found'
 
+
+  #new resource routes :
+
+  
+
+
+
+
+
+
+
+
   # users | authentication
+
+
+
+
   get 'dashboard/buyer_dashboard'
   get 'dashboard/seller_dashboard'
   get 'signup', to: 'users#new'
