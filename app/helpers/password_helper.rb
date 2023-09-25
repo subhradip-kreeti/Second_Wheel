@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # password helper
-
 module PasswordHelper
   require 'securerandom'
   def check_existance_of_email(email)

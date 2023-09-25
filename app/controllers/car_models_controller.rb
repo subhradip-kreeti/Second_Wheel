@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CarModel controller
 class CarModelsController < ApplicationController
   include AdminHelper
   before_action :require_admin, only: %i[index create edit update]

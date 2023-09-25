@@ -23,11 +23,11 @@ class Car < ApplicationRecord
   scope :by_brand, ->(brand) { joins(:brand).where(brands: { name: brand }) if brand.present? }
   scope :by_model, ->(model) { joins(car_model: :brand).where(car_models: { name: model }) if model.present? }
   scope :by_reg_year, ->(year) { where(reg_year: year) if year.present? }
-  scope :by_variant, ->(variant) { where(variant: variant) if variant.present? }
+  scope :by_variant, ->(variant) { where(variant:) if variant.present? }
   scope :by_reg_state, ->(state) { where(reg_state: state) if state.present? }
-  scope :by_kilometer_driven, ->(kilometer_driven) { where(kilometer_driven: kilometer_driven) if kilometer_driven.present? }
+  scope :by_kilometer_driven, ->(kilometer_driven) { where(kilometer_driven:) if kilometer_driven.present? }
   scope :ordered_by_created_at, -> { order(:created_at) }
-  
+
   enum condition: { Fair: 'Fair', Good: 'Good', Very_Good: 'Very Good', Excellent: 'Excellent' }
   enum variant: { Petrol: 'Petrol', Diesel: 'Diesel', CNG: 'CNG' }
   enum kilometer_driven: { '1-10000': 'range1', '10001-20000': 'range2', '20001-40000': 'range3', '40001-60000': 'range4',
