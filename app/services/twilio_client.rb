@@ -12,7 +12,7 @@ class TwilioClient
     formatted_phone = "+91#{user_phone}"
     puts formatted_phone
     puts message
-    sms_response = @client.messages.create(
+    @client.messages.create(
       from: phone_number,
       to: formatted_phone,
       body: message
