@@ -24,14 +24,14 @@ class FilterationController < ApplicationController
   def car_filter
     @filter = true
     @car = Car.all
-    @car = @car.joins(branch: :city).where(cities: { name: params[:city] }) if params[:city].present?
-    @car = @car.joins(:brand).where(brands: { name: params[:brand] }) if params[:brand].present?
-    @car = @car.joins(car_model: :brand).where(car_models: { name: params[:model] }) if params[:model].present?
-    @car = @car.where(reg_year: params[:reg_year]) if params[:reg_year].present?
-    @car = @car.where(variant: params[:variant]) if params[:variant].present?
-    @car = @car.where(reg_state: params[:reg_state]) if params[:reg_state].present?
-    @car = @car.where(kilometer_driven: params[:kilometer_driven]) if params[:kilometer_driven].present?
-    @car = @car.order(:created_at)
+               .by_city(params[:city])
+               .by_brand(params[:brand])
+               .by_model(params[:model])
+               .by_reg_year(params[:reg_year])
+               .by_variant(params[:variant])
+               .by_reg_state(params[:reg_state])
+               .by_kilometer_driven(params[:kilometer_driven])
+               .ordered_by_created_at
   end
 
   def filter_and_sort_general_user_appointment
