@@ -17,13 +17,6 @@ class TwilioClient
       to: formatted_phone,
       body: message
     )
-
-    # binding.pry
-
-    puts @client
-    puts '******************************************************************'
-    puts sms_response
-    puts '******************************************************************'
   end
 
   private
