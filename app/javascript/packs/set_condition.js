@@ -1,4 +1,26 @@
 $(document).ready(function () {
+
+  // function showSendingSmsOverlay() {
+  //   const overlay = document.createElement("div");
+  //   overlay.classList.add("overlay");
+  //   overlay.innerHTML = `
+  //     <div class="overlay-content">
+  //       <div class="spinner-border text-primary" role="status">
+  //         <span class="visually-hidden">Sending SMS...</span>
+  //       </div>
+  //       <span>Sending SMS...</span>
+  //     </div>
+  //   `;
+  //   document.body.appendChild(overlay);
+  // }
+
+  // function hideSendingSmsOverlay() {
+  //   const overlay = document.querySelector(".overlay");
+  //   if (overlay) {
+  //     overlay.remove();
+  //   }
+  // }
+
   // $('#myModal').css('display', 'block');
   $(document).on("click", ".close-button", function () {
     $("#myModal").css("display", "none");
@@ -53,6 +75,10 @@ $(document).ready(function () {
     $.ajax({
       url: "/set_car_condition/verify",
       method: "POST",
+      beforeSend: ()=>{
+        // showSendingSmsOverlay();
+        console.log("from beforesend")
+      },
       data: {
         selected_price: selectedPrice,
         selected_condition: selectedCondition,
@@ -61,8 +87,11 @@ $(document).ready(function () {
       },
       success: function (response) {
         // location.reload();
+        // hideSendingSmsOverlay();
+        console.log("completed from ajax")
       },
       error: function (xhr, status, error) {
+        // hideSendingSmsOverlay();
       },
     });
   });

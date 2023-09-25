@@ -3,7 +3,7 @@
 # Users controller
 class UsersController < ApplicationController
   before_action :require_user, except: %i[new create]
-  before_action :require_admin, only: [:make_admin]
+  before_action :require_admin, only: %i[make_admin destroy]
   def index
     @active_window = 'users'
     @user = User.all
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.confirmation_email(@user).deliver_later
       flash[:success] = 'check your email to confirm your account'
-      redirect_to login_path
+      redirect_to new_session_path
     else
       render :new
     end
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_update_params)
       flash[:success] = 'Info changed Successfully'
-      redirect_to my_profile_user_path(session[:user_id])
+      redirect_to user_path(session[:user_id])
     else
       flash[:danger] = 'Failed to change info'
       @render_template = true
@@ -50,24 +50,24 @@ class UsersController < ApplicationController
     end
   end
 
-  def make_admin
-    selected_user_id = params[:selected_user_id]
-
-    user = User.find_by(id: selected_user_id)
-    user.update(role: 'admin')
-    redirect_to show_all_users_path
-    flash[:success] = "User #{user.name} (#{user.email}) has been made an admin successfully"
-    respond_to(&:js)
-  end
-
-  def delete_user
+  def destroy
     selected_user_id = params[:selected_user_id]
     user = User.find_by(id: selected_user_id)
 
     return unless user.destroy
 
-    redirect_to show_all_users_path
+    redirect_to users_path
     flash[:warning] = "User #{user.email} deleted successfully"
+  end
+
+  def make_admin
+    selected_user_id = params[:selected_user_id]
+
+    user = User.find_by(id: selected_user_id)
+    user.update(role: 'admin')
+    redirect_to users_path
+    flash[:success] = "User #{user.name} (#{user.email}) has been made an admin successfully"
+    respond_to(&:js)
   end
 
   private

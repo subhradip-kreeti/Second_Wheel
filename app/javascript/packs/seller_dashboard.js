@@ -22,7 +22,7 @@ $(document).ready(function () {
     var appointmentDate = dateSelect.value;
 
     $.ajax({
-      url: "/seller_dashboard/inspection_request",
+      url: "/cars/inspection_request",
       method: "POST",
       data: {
         appointmentDate: appointmentDate,

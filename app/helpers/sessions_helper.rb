@@ -28,9 +28,9 @@ module SessionsHelper
   def redirect_to_user_dashboard
     case session[:role]
     when 'buyer'
-      redirect_to buyer_feed_path
+      redirect_to cars_path
     when 'seller'
-      redirect_to seller_dashboard_path
+      redirect_to cars_path
     else
       redirect_to admin_dashboard_path
     end
@@ -78,11 +78,21 @@ module SessionsHelper
 
   def handle_already_verified_user
     flash[:warning] = 'User already verified. You can login.'
-    redirect_to login_path
+    redirect_to new_session_path
   end
 
   def handle_user_not_exist
     flash[:warning] = 'User does not exist. Sign up to create an account.'
-    redirect_to signup_path
+    redirect_to new_user_path
+  end
+
+  def redirect_user
+    if session[:role] == 'buyer'
+      redirect_to cars_path
+    elsif session[:role] == 'seller'
+      redirect_to cars_path
+    else
+      redirect_to admin_dashboard_path
+    end
   end
 end

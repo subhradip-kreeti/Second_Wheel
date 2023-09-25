@@ -5,16 +5,16 @@
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <%=link_to "Users",show_all_users_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="users")}" %>
+      <%=link_to "Users",users_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="users")}" %>
     </li>
     <li>
-      <%=link_to "City",show_city_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="city")}" %>
+      <%=link_to "City",cities_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="city")}" %>
     </li>
     <li>
-      <%=link_to "Brands",show_brand_path, class:"hover-effect nav-link link-dark #{"active" if (@active_window=="brands")}"%>
+      <%=link_to "Brands",brands_path, class:"hover-effect nav-link link-dark #{"active" if (@active_window=="brands")}"%>
     </li>
     <li>
-      <%=link_to "Model",show_car_model_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="model")}" %>
+      <%=link_to "Model",car_models_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="model")}" %>
     </li>
     <li>
       <%=link_to "Appointment",appointments_verification_path , class:"hover-effect nav-link link-dark #{"active" if (@active_window=="appointment")}" %>
@@ -33,10 +33,10 @@
       <strong><%=current_user.name%></strong>
     </a>
     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser2">
-      <li><%=link_to "Profile",my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
-      <li><%=link_to "Update Info",edit_my_profile_user_path(session[:user_id]),class:"dropdown-item"%></li>
+      <li><%=link_to "Profile",user_path(session[:user_id]),class:"dropdown-item"%></li>
+      <li><%=link_to "Update Info",edit_user_path(session[:user_id]),class:"dropdown-item"%></li>
       <li><hr class="dropdown-divider"></li>
-      <li><%= button_to "Logout", logout_path, class: "dropdown-item", method: :delete %></li>
+      <li><%= button_to "Logout", session_path(session[:user_id]), class: "dropdown-item", method: :delete %></li>
     </ul>
   </div>
 </div>

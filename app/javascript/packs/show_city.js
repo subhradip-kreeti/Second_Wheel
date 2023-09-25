@@ -1,12 +1,9 @@
 jQuery(document).ready(function () {
-  // Event listener for close buttons
   $(".close-button").on("click", function () {
-    // Close the modal using vanilla JavaScript
     document.getElementById("editCityModal").classList.remove("show");
     document.getElementById("editCityModal").style.display = "none";
   });
 
-  // Event delegation for delete buttons
   $("#city-list").on("click", ".delete-city-btn", function (event) {
     event.preventDefault();
     var cityId = $(this).data("city-id");
@@ -19,7 +16,7 @@ jQuery(document).ready(function () {
       )
     ) {
       $.ajax({
-        url: "/delete_city/" + cityId,
+        url: "/cities/" + cityId,
         method: "DELETE",
         data: {
           city_id: cityId,
@@ -36,7 +33,6 @@ jQuery(document).ready(function () {
     }
   });
 
-  // Event delegation for edit buttons
   $("#city-list").on("click", ".edit-city-btn", function (event) {
     event.preventDefault();
     var cityName = $(this).data("city-name");
@@ -55,7 +51,6 @@ jQuery(document).ready(function () {
     document.getElementById("editCityModal").style.display = "block";
   });
 
-  // Event listener for the "Save Edit City" button
   $("#saveEditCity").on("click", function (event) {
     event.preventDefault();
     var editCityName = $("#editCityName").val();
@@ -79,8 +74,8 @@ jQuery(document).ready(function () {
     }
 
     $.ajax({
-      url: "/update_city/" + editCityId,
-      method: "POST",
+      url: "/cities/" + editCityId,
+      method: "PATCH",
       data: {
         selected_city_id: editCityId,
         selected_city: editCityName,
@@ -96,7 +91,6 @@ jQuery(document).ready(function () {
     });
   });
 
-  // Function to check if a city-state pair already exists
   function isCityStatePairAlreadyPresent(city, state) {
     var cityList = $("#city-list li");
 
@@ -119,8 +113,6 @@ jQuery(document).ready(function () {
 
     return false;
   }
-
-  // Function to check if a city-state pair already exists, excluding the currently edited city
   function isCityStatePairAlreadyPresentExclude(city, state, editCityId) {
     var cityList = $("#city-list li");
 
@@ -148,7 +140,6 @@ jQuery(document).ready(function () {
     return false;
   }
 
-  // Event listener for the "Add City" button
   $("#add-city-btn").on("click", function (event) {
     event.preventDefault();
     var selectedCity = $("#city-input").val();
@@ -167,7 +158,7 @@ jQuery(document).ready(function () {
     }
 
     $.ajax({
-      url: "/add_city",
+      url: "/cities",
       method: "POST",
       data: {
         selected_city: selectedCity,

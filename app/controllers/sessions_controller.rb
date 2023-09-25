@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:destroy]
   def new; end
 
-  def confirm; end
+  # def confirm; end
 
   def create
     @user = User.find_by(email: params[:email])
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     if confirmed_and_verified_user?
       set_session_variables
       flash[:success] = 'Login successful'
-      redirect_to_user_dashboard
+      redirect_user
     else
       handle_unverified_user
     end
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     flash[:success] = 'Logged out successfully.'
-    redirect_to login_path
+    redirect_to new_session_path
   end
 
   def confirm_email
@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     if user_present_and_token_valid?
       update_user_confirmation_and_verification
       flash[:success] = 'Email was successfully confirmed. Now you can login.'
-      redirect_to login_path
+      redirect_to new_session_path
     else
       handle_expired_verification_link
     end
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
     if user_present_and_not_verified?
       send_verification_email_and_update_token_expire
       flash[:success] = 'Check your email to confirm your account. The verification link will expire within 15 minutes.'
-      redirect_to login_path
+      redirect_to new_session_path
     elsif user_present_and_verified?
       handle_already_verified_user
     else
@@ -62,6 +62,6 @@ class SessionsController < ApplicationController
 
   def handle_unverified_user
     flash[:warning] = 'User not verified. Please confirm your email before logging in.'
-    redirect_to login_path
+    redirect_to new_session_path
   end
 end

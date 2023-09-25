@@ -1,10 +1,10 @@
 <div class="ms-5 row">
   <div class="col-md-12 mb-3 mt-3">
     <% if session[:role] == 'buyer' && @clear_filter == false%>
-    <%= link_to  "Back", buyer_feed_path %>
+    <%= link_to  "Back", cars_path %>
     <%end%>
     <% if session[:role] == 'seller' && @clear_filter == false%>
-    <%= link_to  "Back", seller_dashboard_path %>
+    <%= link_to  "Back", cars_path %>
     <%end%>
     <div class="row">
       <%= render 'appointment/appointment_filteration_for_users'%>

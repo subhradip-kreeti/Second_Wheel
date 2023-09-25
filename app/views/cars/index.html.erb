@@ -1,0 +1,17 @@
+<% if session[:role] == 'buyer'%>
+  <%= render 'car_filter_and_search'%>
+
+  <div class="container">
+    <div class="row mt-4">
+      <%= render 'car'%>
+    </div>
+  </div>
+
+  <%# Modal %>
+  <%= render 'appointment_booking_modal'%>
+  <!-- JS -->
+  <%= javascript_pack_tag 'car_index', 'data-turbolinks-track': 'reload' %>
+<%end%>
+<% if session[:role] == 'seller'%>
+  <%= render 'seller_dashboard'%>
+<%end%>

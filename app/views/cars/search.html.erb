@@ -1,5 +1,5 @@
 <%= render 'car_filter_and_search'%>
-
+<%= link_to "back", cars_path%>
 <div class="container">
   <div class="row mt-4">
     <%= render 'car'%>
@@ -8,5 +8,5 @@
 
 <%# Modal %>
 <%= render 'appointment_booking_modal'%>
-<!-- JS -->
+<%# js %>
 <%= javascript_pack_tag 'car_index', 'data-turbolinks-track': 'reload' %>

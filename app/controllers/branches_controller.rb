@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Branch controller
-class BranchController < ApplicationController
+class BranchesController < ApplicationController
   include BranchHelper
   before_action :require_user
   before_action :require_admin, only: %i[index create edit update]
@@ -25,7 +25,7 @@ class BranchController < ApplicationController
   end
 
   def edit
-    @branch = Branch.find(params[:id])
+    find_branch_from_params
     @cities = City.all
   end
 
@@ -34,18 +34,24 @@ class BranchController < ApplicationController
     @branch = Branch.find(params[:id])
     if @branch.update(branch_update_params)
       flash[:success] = 'Branch updated successfully'
-      redirect_to branch_details_path(@branch)
+      redirect_to branches_path(@branch)
     else
-      # flash.now[:success] = 'now - in same page'
-      # flash[:success] = 'diff page'
-
-      # binding.pry
-
       render action: :edit
     end
   end
 
-  def view_branch
+  def destroy
+    find_branch_from_params
+    if associated_data_present?
+      flash[:warning] = 'Failed to delete this branch. This branch has associated cars, delete those first.'
+      redirect_to branches_path
+      nil
+    else
+      perform_branch_delete
+    end
+  end
+
+  def all_branches
     @branch = Branch.all
     @city = City.all
   end
@@ -64,6 +70,10 @@ class BranchController < ApplicationController
   end
 
   private
+
+  def find_branch_from_params
+    @branch = Branch.find(params[:id])
+  end
 
   def haversine_distance(user_lat, user_lng, branch_lat, branch_lng)
     earth_radius = 6371

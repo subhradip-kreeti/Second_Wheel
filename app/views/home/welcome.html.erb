@@ -4,20 +4,20 @@
         <% if logged_in? && session[:role] != "admin" %>
           <span class="h2 text-success"> Hello <%=current_user.name%>, you want to grab best car deals like we do? </span>
           <%if session[:role] == "buyer"%>
-            <a href="/buyer_feed" class="btn btn-primary mt-3 col-md-4">Go to Dashboard</a>
+            <a href="/cars" class="btn btn-primary mt-3 col-md-4">Go to Dashboard</a>
           <%else%>
-            <a href="/seller_dashboard" class="btn btn-primary mt-3 col-md-4">Go to Dashboard</a>
+            <a href="/cars" class="btn btn-primary mt-3 col-md-4">Go to Dashboard</a>
           <%end%>
         <%else%>
           <% if session[:role] != "admin"%>
             <span class="h2 text-success"> Hello visitor, you want to grab best car deals like we do? </span>
-            <a href="/login" class="btn btn-primary mt-3 col-md-4">Login to continue</a>
+            <a href="/sessions/new" class="btn btn-primary mt-3 col-md-4">Login to continue</a>
           <%else%>
             <span class="h2 text-success"> Hello <%=current_user.name%>, help the world to grab their best deals</span>
             <% if logged_in? %>
               <a href="/admin_dashboard" class="btn btn-primary mt-3 col-md-5">Go to Admin Dashboard</a>
             <% else %>
-              <a href="/login" class="btn btn-primary mt-3 col-md-4">Login to continue</a>
+              <a href="/sessions/new" class="btn btn-primary mt-3 col-md-4">Login to continue</a>
             <%end%>
           <%end%>
         <%end%>

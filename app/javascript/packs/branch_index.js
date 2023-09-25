@@ -28,7 +28,7 @@ document.getElementById('add-branch-btn').addEventListener('click', function(eve
       return;
     }
     $.ajax({
-      url: '/add_new_branch',
+      url: '/branches',
       method: 'POST',
       data: {
         selected_city: selectedCity,

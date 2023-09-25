@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 # Car controller
-class CarController < ApplicationController
-  before_action :require_user
+class CarsController < ApplicationController
+  before_action :require_user, only: [:index]
   before_action :require_admin, only: %i[set_condition verify]
   before_action :require_seller, only: %i[new create]
-  before_action :require_buyer, only: [:index]
   def new
     @car = Car.new
   end
@@ -15,7 +14,7 @@ class CarController < ApplicationController
     @car.update(user_id: session[:user_id])
     if @car.save
       flash[:success] = 'Car added successfully'
-      redirect_to seller_dashboard_path
+      redirect_to cars_path
     else
       render :new
     end
@@ -53,11 +52,9 @@ class CarController < ApplicationController
     puts @car
     return unless @car.empty?
 
-    redirect_to buyer_feed_path
+    redirect_to cars_path
     flash[:warning] = 'No matching records found.'
   end
-
-  def filter; end
 
   private
 
@@ -83,7 +80,7 @@ class CarController < ApplicationController
     twilio_client.send_text(@car.user.mobile_no, text)
   rescue StandardError => e
     Rails.logger.error "Failed to send SMS: #{e.message}"
-    flash[:warning] = 'Failed to send SMS, cause: not a valid mobile number'
+    flash[:warning] = 'Failed to send SMS, cause: not a valid mobile number or auth error'
   end
 
   def handle_success

@@ -8,8 +8,8 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get seller_dashboard' do
-    get dashboard_seller_dashboard_url
+  test 'should get cars' do
+    get dashboard_cars_url
     assert_response :success
   end
 end

@@ -7,7 +7,7 @@
       event.preventDefault();
       var carModelId = this.getAttribute("data-car-model-id");
       $.ajax({
-        url: "/delete_car_model/" + carModelId,
+        url: "/car_models/" + carModelId,
         method: "DELETE",
         data: {
           carModelId: carModelId,
@@ -66,7 +66,7 @@
           document.getElementById("editCarModelBrand").value;
 
         $.ajax({
-          url: "/update_car_model/" + carModelIdforedit,
+          url: "/car_models/" + carModelIdforedit,
           method: "PATCH",
           data: {
             carModelId: carModelIdforedit,
@@ -134,7 +134,7 @@
 
         // Send an AJAX request to add the car model
         $.ajax({
-          url: "/add_car_model",
+          url: "/car_models",
           method: "POST",
           data: {
             selected_brand: selectedBrand,

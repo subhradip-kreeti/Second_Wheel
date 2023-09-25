@@ -1,5 +1,5 @@
 <%if @render_template == true%>
-<%= form_with(model: @user, url: edit_my_profile_user_path) do |form| %>
+<%= form_with(model: @user, url: user_path(@user)) do |form| %>
 <section class="vh-70 mt-5">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">

@@ -28,7 +28,7 @@ document
     var selectedUserEmail = userSelect.options[userSelect.selectedIndex].dataset.userEmail;
     if (confirm(`Are you sure you want to delete\n${selectedUserName} (${selectedUserEmail})\nfrom application as an user?`))
     $.ajax({
-      url: "/delete_user",
+      url: `/users/${selectedUser}`,
       method: "DELETE",
       data: {
         selected_user_id: selectedUser,

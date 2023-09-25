@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+  $(document).on("click", ".close-button", function () {
+    $("#myModal").css("display", "none");
+  });
+  
   $('.myModalBtn').on('click', function() {
     $('#myModal').modal('show');
   });

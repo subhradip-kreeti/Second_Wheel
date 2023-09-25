@@ -12,7 +12,7 @@ document.addEventListener("turbolinks:load", function () {
       var brandName = this.getAttribute("data-brand-name");
       if (confirm(`Are you sure you want to delete ${brandName} brand?`))
         $.ajax({
-          url: "/delete_brand/" + brandId,
+          url: "/brands/" + brandId,
           method: "DELETE",
           data: {
             brand_id: brandId,
@@ -45,7 +45,7 @@ document.addEventListener("turbolinks:load", function () {
       }
       if (confirm(`Are you sure you want to add ${selectedBrand} brand?`))
         $.ajax({
-          url: "/add_brand",
+          url: "/brands",
           method: "POST",
           data: {
             selected_brand: selectedBrand,
@@ -110,8 +110,8 @@ document.addEventListener("turbolinks:load", function () {
 
       if (confirm(`Are you sure you want to edit ${editBrandName} brand?`)) {
         $.ajax({
-          url: "/update_brand/" + edit_BrandId, // Update the URL with your edit brand endpoint
-          method: "POST", // Use the appropriate HTTP method
+          url: "/brands/" + edit_BrandId,
+          method: "PATCH",
           data: {
             selected_brand_id: edit_BrandId,
             selected_brand: editBrandName,
@@ -128,8 +128,6 @@ document.addEventListener("turbolinks:load", function () {
         });
       }
     });
-
-  // Add event listeners to edit brand buttons
   document.querySelectorAll(".edit-brand-btn").forEach(function (button) {
     button.addEventListener("click", handleEditBrandButtonClick);
   });

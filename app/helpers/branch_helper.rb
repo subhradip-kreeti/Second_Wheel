@@ -2,6 +2,19 @@
 
 # Branch helper
 module BranchHelper
+  def associated_data_present?
+    @branch.cars.present?
+  end
+
+  def perform_branch_delete
+    flash[:danger] = if @branch.destroy
+                       'Branch has been deleted successfully'
+                     else
+                       'Error deleting this branch'
+                     end
+    redirect_to branches_path
+  end
+
   def to_rad(degrees)
     degrees * Math::PI / 180
   end

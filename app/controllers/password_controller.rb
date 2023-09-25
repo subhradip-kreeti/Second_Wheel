@@ -12,7 +12,7 @@ class PasswordController < ApplicationController
     if check_existance_of_email(email)
       send_reset_link
       flash[:success] = 'Password reset link has been sent to your email.Link will expire within 5 minutes.'
-      redirect_to login_path
+      redirect_to new_session_path
     else
       flash[:danger] = 'Email id not registered'
       redirect_to password_forget_path
@@ -33,6 +33,6 @@ class PasswordController < ApplicationController
     @user.update(password: params[:password])
     flash[:success] = 'Password updated successfully'
     session[:reset_token] = nil
-    redirect_to login_path
+    redirect_to new_session_path
   end
 end

@@ -72,7 +72,7 @@
                   <% if session[:role] == 'admin' %>
                     <button type="button" class="btn btn-success flex-fill myModalBtn" data-car-id="<%= @car.id %>">Verify</button>
                   <%end%>
-                  <a class="btn btn-outline-primary btn-sm mt-2" href="/branch_details/<%=@car.branch.id%>" target="_blank" type="button">Branch Info</a>
+                  <a class="btn btn-outline-primary btn-sm mt-2" href="/branches/<%=@car.branch.id%>" target="_blank" type="button">Branch Info</a>
                   <span style="font-size:12px;" class="mt-2"> ~condition is according to second wheel's standard </span>
                 </div>
               </div>

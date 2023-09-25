@@ -30,7 +30,7 @@
                 </p>
 
               <div class="d-flex flex-column justify-content-end">
-                  <a type="button" class="btn btn-primary flex-fill mb-2" target="blank" data-mdb-ripple-color="dark" href="/view_car/<%=car.id%>">
+                  <a type="button" class="btn btn-primary flex-fill mb-2" target="blank" data-mdb-ripple-color="dark" href="/cars/<%=car.id%>">
                     view
                   </a>
                     <% if car.appointments.any? { |app| app.user_id == session[:user_id] } %>

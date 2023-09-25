@@ -11,7 +11,7 @@ module AppointmentHelper
 
   def update_selling_appointment_status_failure
     flash[:danger] = 'Error occured while booking appointment.You are suggested to pick future dates'
-    redirect_to seller_dashboard_path
+    redirect_to cars_path
   end
 
   def success_for_request_from_buyer
@@ -21,7 +21,7 @@ module AppointmentHelper
 
   def failure_for_request_from_buyer
     flash[:danger] = 'Error occured while booking appointment.You are suggested to pick future dates'
-    redirect_to buyer_feed_path
+    redirect_to cars_path
   end
 
   def handle_cancelled_appointments(app)

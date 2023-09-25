@@ -1,7 +1,7 @@
 <% if session[:role] == 'seller'%>
-  <%= link_to  "Back", seller_dashboard_path ,class: "ms-2 mt-2"%>
+  <%= link_to  "Back", cars_path ,class: "ms-2 mt-2"%>
 <%end%>
-<%= form_with(model: @car, url: add_new_car_path, local: true) do |form| %>
+<%= form_with(model: @car, url: cars_path, local: true) do |form| %>
   <section class="vh-70">
     <div class="container-fluid h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
