@@ -10,7 +10,7 @@
                 <p class="card-text">  Condition: <%= car.condition.present? ? car.condition: "yet to update" %> </p>
                 <p> Available at : <br> <%= car.branch.name%> <br> <%= car.branch.city.name%> </p>
               <div class="d-flex flex-row">
-                  <a type="button" class="btn btn-primary flex-fill me-1" target="blank" data-mdb-ripple-color="dark" href="/view_car/<%=car.id%>">
+                  <a type="button" class="btn btn-primary flex-fill me-1" target="blank" data-mdb-ripple-color="dark" href="/cars/<%=car.id%>">
                     Learn more
                   </a>
               </div>
