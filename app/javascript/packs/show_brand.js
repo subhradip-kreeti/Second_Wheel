@@ -19,7 +19,9 @@ document.addEventListener("turbolinks:load", function () {
             authenticity_token: $('meta[name="csrf-token"]').attr("content"),
           },
           success: function (response) {
-            event.target.closest("li").remove();
+            // setTimeout(function () {
+            // }, 3000);
+            location.reload();
           },
           error: function (xhr, status, error) {},
         });
@@ -52,15 +54,9 @@ document.addEventListener("turbolinks:load", function () {
             authenticity_token: $('meta[name="csrf-token"]').attr("content"),
           },
           success: function (response) {
-            document.getElementById("brand-input").value = "";
-            var brandList = document.getElementById("brand-list");
-            var listItem = document.createElement("li");
-            listItem.className = "list-group-item";
-            listItem.innerText = selectedBrand;
-            brandList.appendChild(listItem);
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            // setTimeout(function () {
+            // }, 3000);
+            location.reload();
           },
           error: function (xhr, status, error) {
             alert("Error occured");
@@ -118,9 +114,9 @@ document.addEventListener("turbolinks:load", function () {
             authenticity_token: $('meta[name="csrf-token"]').attr("content"),
           },
           success: function (response) {
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            // setTimeout(function () {
+            // }, 3000);
+            location.reload();
           },
           error: function (xhr, status, error) {
             alert("Error occured");

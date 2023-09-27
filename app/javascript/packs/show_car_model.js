@@ -5,6 +5,7 @@ document.querySelectorAll(".delete-car-model-btn").forEach(function (button) {
   button.addEventListener("click", function (event) {
     event.preventDefault();
     var carModelId = this.getAttribute("data-car-model-id");
+    if (confirm("Are you sure you want to delete this car model?"))
     $.ajax({
       url: "/car_models/" + carModelId,
       method: "DELETE",
@@ -13,10 +14,7 @@ document.querySelectorAll(".delete-car-model-btn").forEach(function (button) {
         authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
       success: function (response) {
-        event.target.closest("li").remove();
-        setTimeout(function () {
-          location.reload();
-        }, 3000);
+        location.reload();
       },
       error: function (xhr, status, error) {
         alert("Error Occurred");
@@ -45,7 +43,6 @@ document.querySelectorAll(".edit-car-model-btn").forEach(function (button) {
         break;
       }
     }
-
     // Open the modal
     $("#editCarModelModal").modal("show");
   });
@@ -61,24 +58,22 @@ document
     var editedCarModelBrandId =
       document.getElementById("editCarModelBrand").value;
     if (confirm("Are you sure you want to update this car model?"))
-    $.ajax({
-      url: "/car_models/" + carModelIdforedit,
-      method: "PATCH",
-      data: {
-        carModelId: carModelIdforedit,
-        editedCarModelName: editedCarModelName,
-        editedCarModelBrandId: editedCarModelBrandId,
-        authenticity_token: $('meta[name="csrf-token"]').attr("content"),
-      },
-      success: function (response) {
-        setTimeout(function () {
+      $.ajax({
+        url: "/car_models/" + carModelIdforedit,
+        method: "PATCH",
+        data: {
+          carModelId: carModelIdforedit,
+          editedCarModelName: editedCarModelName,
+          editedCarModelBrandId: editedCarModelBrandId,
+          authenticity_token: $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (response) {
           location.reload();
-        }, 3000);
-      },
-      error: function (xhr, status, error) {
-        alert("Error Occurred");
-      },
-    });
+        },
+        error: function (xhr, status, error) {
+          alert("Error Occurred");
+        },
+      });
   });
 
 // Add an event listener to the add model button
@@ -103,6 +98,7 @@ document
 
     // Check if the same combination of brand and car model exists
     var modelList = document.getElementById("model-list");
+    console.log(modelList);
     var existingModels = modelList.getElementsByTagName("li");
     for (var i = 0; i < existingModels.length; i++) {
       var modelName = existingModels[i].textContent
@@ -138,9 +134,7 @@ document
         authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
       success: function (response) {
-        setTimeout(function () {
-          location.reload();
-        }, 3000);
+        location.reload();
       },
       error: function (xhr, status, error) {
         alert("Failed to add Car Model");

@@ -23,10 +23,7 @@ jQuery(document).ready(function () {
           authenticity_token: $('meta[name="csrf-token"]').attr("content"),
         },
         success: function (response) {
-          $(event.target).closest("li").remove();
-          setTimeout(function () {
-            location.reload();
-          }, 3000);
+          location.reload();
         },
         error: function (xhr, status, error) {},
       });
@@ -83,10 +80,8 @@ jQuery(document).ready(function () {
         authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
       success: function (response) {
-        setTimeout(function () {
           location.reload();
-        }, 3000);
-      },
+        },
       error: function (xhr, status, error) {},
     });
   });
@@ -166,9 +161,7 @@ jQuery(document).ready(function () {
         authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
       success: function (response) {
-        setTimeout(function () {
-          location.reload();
-        }, 3000);
+        location.reload();
       },
       error: function (xhr, status, error) {},
     });

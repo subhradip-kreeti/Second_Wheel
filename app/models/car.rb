@@ -17,7 +17,7 @@ class Car < ApplicationRecord
   validates :reg_no, presence: true, uniqueness: true, format: { with: /\A[A-Z]{2}\d{2}[A-Z]{1,2}\d{4}\z/, message: 'is not in a valid format' }
   validates :brand_id, :car_model_id, :user_id, :branch_id, :variant, :kilometer_driven, :reg_year, :reg_state, :reg_no,
             presence: true
-  validate :validate_image_format 
+  validate :validate_image_format
 
   default_scope { order(created_at: :desc, reg_year: :asc) }
   scope :by_city, ->(city) { joins(branch: :city).where(cities: { name: city }) if city.present? }
