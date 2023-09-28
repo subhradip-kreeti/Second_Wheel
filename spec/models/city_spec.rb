@@ -26,7 +26,7 @@ RSpec.describe City, type: :model do
 
   context 'associations' do
     it 'has many branches' do
-      association = described_class.reflect_on_association(:branch)
+      association = described_class.reflect_on_association(:branches)
       expect(association.macro).to eq(:has_many)
       expect(association.options[:dependent]).to eq(:destroy)
     end

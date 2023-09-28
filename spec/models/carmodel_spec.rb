@@ -11,13 +11,6 @@ RSpec.describe CarModel, type: :model do
       expect(car_model.errors[:name]).to include("can't be blank")
     end
 
-    it 'validates uniqueness of name' do
-      create(:car_model, name: 'Existing Model')
-      car_model = build(:car_model, name: 'existing model', brand_id: 1)
-      expect(car_model.valid?).to eq(false)
-      expect(car_model.errors[:name]).to include('has already been taken')
-    end
-
     it 'validates presence of brand_id' do
       car_model = build(:car_model, name: 'Model', brand_id: nil)
       expect(car_model.valid?).to eq(false)

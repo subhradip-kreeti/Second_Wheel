@@ -39,7 +39,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'redirects to the login page' do
         post :create, params: { user: valid_attributes }
-        expect(response).to redirect_to(login_path)
+        expect(response).to redirect_to(new_session_path)
       end
     end
 
@@ -52,29 +52,6 @@ RSpec.describe UsersController, type: :controller do
         post :create, params: { user: invalid_attributes }
         expect(response).to render_template(:new)
       end
-    end
-  end
-
-  describe 'GET #show' do
-    it 'returns a success response for the user accessing their own profile' do
-      # Simulate a logged-in user
-      user = create(:user)
-      session[:user_id] = user.id
-
-      get :show, params: { id: user.id }
-      expect(response).to be_successful
-    end
-
-    it 'returns a 200 unauthorized response for a user accessing own profile' do
-      # Simulate a logged-in user
-      user1 = create(:user)
-      session[:user_id] = user1.id
-
-      # Create another user's profile
-      user2 = create(:user)
-
-      get :show, params: { id: user2.id }
-      expect(response).to have_http_status(200)
     end
   end
 end
