@@ -9,9 +9,9 @@ class CitiesController < ApplicationController
   end
 
   def create
-    @city = City.create(name: params[:selected_city], state: params[:selected_state])
+    @city = City.new(name: params[:name], state: params[:state])
 
-    if @city.persisted?
+    if @city.save
       handle_successful_city_addition
     else
       handle_failed_city_addition
@@ -41,6 +41,10 @@ class CitiesController < ApplicationController
   end
 
   private
+
+  # def cities_param
+  #   params.require(:cities).permit(:name, :state)
+  # end
 
   def handle_successful_city_addition
     flash[:success] = "City #{@city.name} (#{@city.state}) has been added successfully"

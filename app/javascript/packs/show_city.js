@@ -156,8 +156,8 @@ jQuery(document).ready(function () {
       url: "/cities",
       method: "POST",
       data: {
-        selected_city: selectedCity,
-        selected_state: selectedState,
+        name: selectedCity,
+        state: selectedState,
         authenticity_token: $('meta[name="csrf-token"]').attr("content"),
       },
       success: function (response) {

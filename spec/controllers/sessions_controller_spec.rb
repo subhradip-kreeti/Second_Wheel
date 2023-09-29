@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable all
 
 require 'rails_helper'
 
@@ -39,3 +39,4 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 end
+# rubocop:enable all
