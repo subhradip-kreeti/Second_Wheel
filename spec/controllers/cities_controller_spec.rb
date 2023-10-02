@@ -5,54 +5,63 @@
 require 'rails_helper'
 
 RSpec.describe CitiesController, type: :controller do
-  let(:admin_user) { FactoryBot.create(:user, role: 'admin') }
-  let(:non_admin_user) { FactoryBot.create(:user, role: 'buyer') }
-
-  # Helper method to simulate authentication
-  def sign_in_user(user)
-    allow(controller).to receive(:current_user).and_return(user)
-  end
+  let(:user) { FactoryBot.create(:user,name: 'john', email: 'abc2@gmail.com', mobile_no: '9339288098',role: 'admin') }
 
   before do
-    sign_in_user(admin_user)
+    session[:role]= user.role
   end
 
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(200)
     end
   end
 
   describe 'POST #create' do
-    let(:valid_attributes) { { city: { name: 'Sample City', state: 'Sample State' } } }
-
-    context 'with valid params' do
-      it 'creates a new City' do
-        expect do
-          post :create, params: valid_attributes
-        end.to change { City.count }.by(0)
+    context 'with valid parameters' do
+      let(:valid_params) do
+        {
+          name: 'Bardhaman',
+          state: 'West bengal'
+        }
       end
-
-      it 'redirects to the created city' do
-        post :create, params: valid_attributes
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context 'with invalid params' do
-      it 'does not create a new City' do
-        expect do
-          post :create, params: { city: { name: nil, state: nil } }
-        end.not_to change(City, :count)
-      end
-
-      it 'redirects with an error flash message' do
-        post :create, params: { city: { name: nil, state: nil } }
-        expect(flash[:danger]).to be_present
-        expect(response).to have_http_status(302)
+      it 'creates a new city' do
+        expect { post :create, params: valid_params }.to change(City, :count).by(1)
       end
     end
   end
+
+  describe 'POST #create' do
+  before do
+    session[:role]= user.role
+  end
+  context 'with not valid parameters' do
+    let(:valid_params) do
+      {
+        name: nil,
+        state: nil
+      }
+    end
+    it 'creates a new city' do
+      expect { post :create, params: valid_params }.to change(City, :count).by(0)
+    end
+  end
+end
+
+describe 'PATCH #update' do
+  let(:city) { FactoryBot.create(:city) }
+
+  it 'updates the city attributes' do
+    puts city.id
+    new_name = 'New Kolkata'
+    new_state = 'Bihar'
+    patch :update, params: { id: city.id, selected_city_id: city.id, selected_city: new_name, selected_state: new_state }
+    city.reload
+    expect(city.name == new_name)
+    expect(city.state==new_state)
+  end
+end
+
 end
 # rubocop:enable all

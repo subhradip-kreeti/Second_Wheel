@@ -42,10 +42,6 @@ class CitiesController < ApplicationController
 
   private
 
-  # def cities_param
-  #   params.require(:cities).permit(:name, :state)
-  # end
-
   def handle_successful_city_addition
     flash[:success] = "City #{@city.name} (#{@city.state}) has been added successfully"
     redirect_to cities_path
