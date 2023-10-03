@@ -150,17 +150,6 @@ class Car < ApplicationRecord
                                   query: wildcards_query,
                                   fields: %i[brand_name car_model_name reg_no variant condition reg_year reg_state]
                                 }
-                              },
-                              {
-                                bool: {
-                                  must_not: [
-                                    {
-                                      exists: {
-                                        field: 'price'
-                                      }
-                                    }
-                                  ]
-                                }
                               }
                             ]
                           }
